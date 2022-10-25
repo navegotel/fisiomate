@@ -37,7 +37,21 @@ class Patient(models.Model):
     ss_expiry_date = models.DateField(_("Social security expiry date"))
     
 class Anamnesis(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    anamnesis = models.TextField(_("Anamnesis"), help_text=_("Any health related information given by the patient."))
+    
+
+class PatientReport(models.Model):
+    """Report for handing out to patient."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    report = models.TextField(_("Patient report"))
+    
     
 
 class TreatmentPlanTemplate(models.Model):
