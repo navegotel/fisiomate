@@ -12,7 +12,6 @@ class UserProfile(models.Model):
     province = models.CharField(_("Province"), max_length=50, blank=True, null=True)
     post_code = models.CharField(_("Postal code"), max_length=10, blank=True, null=True)
     street = models.CharField(_("Street"), max_length=50)
-    email = models.EmailField(_("Email"), blank=True, null=True)
     phone = models.CharField(_("Phone"), max_length=20, blank=True, null=True)
     tax_number = models.CharField(_("Tax number"), max_length=50, blank=True, null=True)
     logo = models.ImageField(_("Logo"), upload_to="logos/", blank=True, null=True)
@@ -35,6 +34,9 @@ class Patient(models.Model):
     ss_country = models.CharField(_("Social security country"), max_length=2)
     ss_issue_date = models.DateField(_("Social security date of issue"))
     ss_expiry_date = models.DateField(_("Social security expiry date"))
+    
+    def __str__(self):
+        return "{0}, {1}".format(self.second_name, self.first_name)
     
 class Anamnesis(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -86,11 +88,17 @@ class Session(models.Model):
     start = models.TimeField()
     end = models.TimeField()
     session_number = models.PositiveSmallIntegerField(default=1)
-    treatment_plan = models.ForeignKey('TreatmentPlan', on_delete=models.CASCADE)
+    treatment_plan = models.ForeignKey('TreatmentPlan', on_delete=models.CASCADE, blank=True, null=True)
     completed = models.BooleanField()
-    remarks = models.TextField(help_text=_("Anything remarkable such as patient's progress"))
+    remarks = models.TextField(help_text=_("Anything remarkable such as patient's progress"), blank=True, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
-    invoice = models.OneToOneField('Invoice', on_delete=models.CASCADE)
+    invoice = models.OneToOneField('Invoice', on_delete=models.CASCADE, blank=True, null=True)
+    
+    def __str__(self):
+        return "{0}, {1} - {2}: {3}".format(self.date, self.start, self.end, self.patient)
+        
+    class Meta:
+        ordering = ["date", "start"]
     
     
 class Payment(models.Model):
@@ -130,8 +138,17 @@ class Receipt(models.Model):
 
 
 class InformedConsentDocument(models.Model):
-    pass
+    """Document that needs to be signed by patient and uploaded"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    
     
     
 class InformedConsent(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    signed_consent = models.ImageField(_("Informed consent"), upload_to="signed_consent/")
+    
