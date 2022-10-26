@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-26 10:47+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: fisiocore/models.py:8
+msgid "The login user"
+msgstr "El usuario para el login"
+
+#: fisiocore/models.py:9 fisiocore/models.py:22 fisiocore/models.py:43
+#: fisiocore/models.py:59 fisiocore/models.py:68 fisiocore/models.py:78
+#: fisiocore/models.py:89 fisiocore/models.py:160 fisiocore/models.py:169
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+#: fisiocore/models.py:10 fisiocore/models.py:23 fisiocore/models.py:44
+#: fisiocore/models.py:60 fisiocore/models.py:69 fisiocore/models.py:79
+#: fisiocore/models.py:90 fisiocore/models.py:161 fisiocore/models.py:170
+msgid "Last update"
+msgstr "Última actualización"
+
+#: fisiocore/models.py:11 fisiocore/models.py:27 fisiocore/models.py:129
+#: fisiocore/models.py:150
+msgid "City"
+msgstr "Localidad"
+
+#: fisiocore/models.py:12
+msgid "Province"
+msgstr "Provincia"
+
+#: fisiocore/models.py:13
+msgid "Postal code"
+msgstr "Código postal"
+
+#: fisiocore/models.py:14 fisiocore/models.py:29 fisiocore/models.py:131
+#: fisiocore/models.py:152
+msgid "Street"
+msgstr "Calle"
+
+#: fisiocore/models.py:15 fisiocore/models.py:31
+msgid "Phone"
+msgstr "Teléfono"
+
+#: fisiocore/models.py:16
+msgid "Tax number"
+msgstr "CIF"
+
+#: fisiocore/models.py:17
+msgid "Logo"
+msgstr "Logotipo"
+
+#: fisiocore/models.py:24 fisiocore/models.py:127 fisiocore/models.py:148
+msgid "First name"
+msgstr "Nombre"
+
+#: fisiocore/models.py:25 fisiocore/models.py:128 fisiocore/models.py:149
+msgid "Last name"
+msgstr "Apellidos"
+
+#: fisiocore/models.py:26
+msgid "Date of birth"
+msgstr "Fecha de nacimiento"
+
+#: fisiocore/models.py:28 fisiocore/models.py:130 fisiocore/models.py:151
+msgid "Post code"
+msgstr "Código postal"
+
+#: fisiocore/models.py:30
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: fisiocore/models.py:32
+msgid "Id card"
+msgstr "DNI"
+
+#: fisiocore/models.py:33
+msgid "Social security number"
+msgstr "Número de Seguridad social"
+
+#: fisiocore/models.py:34
+msgid "Social security country"
+msgstr "País del Seguro"
+
+#: fisiocore/models.py:35
+msgid "Social security date of issue"
+msgstr "Fecha de emisión de la tarejeta"
+
+#: fisiocore/models.py:36
+msgid "Social security expiry date"
+msgstr "Caducidad de la tarjeta"
+
+#: fisiocore/models.py:46
+msgid "Anamnesis"
+msgstr "Anamnesia"
+
+#: fisiocore/models.py:46
+msgid "Any health related information given by the patient."
+msgstr "Cualquier información relativa a la salud del paciente."
+
+#: fisiocore/models.py:51
+msgid "Photography"
+msgstr "Fotografía"
+
+#: fisiocore/models.py:52
+msgid "X-Ray"
+msgstr "Radiografía"
+
+#: fisiocore/models.py:53
+msgid "Ultrasound"
+msgstr "Ecografía"
+
+#: fisiocore/models.py:54
+msgid "CT scan"
+msgstr "TAC"
+
+#: fisiocore/models.py:55
+msgid "Nuclear magnetic resonance"
+msgstr "Resonancia magnética nuclear"
+
+#: fisiocore/models.py:56
+msgid "Unknown/other"
+msgstr "Sin especificar"
+
+#: fisiocore/models.py:61
+msgid "Image type"
+msgstr "Tipo de imagen"
+
+#: fisiocore/models.py:71
+msgid "Patient report"
+msgstr "Informe para el paciente"
+
+#: fisiocore/models.py:81 fisiocore/models.py:92
+msgid "Name"
+msgstr "Nombre"
+
+#: fisiocore/models.py:81 fisiocore/models.py:92
+msgid "Descriptive name for the treatment plan."
+msgstr "Nombre descriptivo para el plan de tratamiento."
+
+#: fisiocore/models.py:82
+msgid "Overall price of the whole treatment plan."
+msgstr "Precio global del plan de tratamiento"
+
+#: fisiocore/models.py:93
+msgid "Detailed description of the treatment plan. Supports Markdown"
+msgstr "Descripción detallada del plan de tratamiento. Se puede usar Markdown"
+
+#: fisiocore/models.py:95
+#, fuzzy
+#| msgid "Overall price of the whole treatment plan."
+msgid "Overal price of the whole treatment plan."
+msgstr "Precio global del plan de tratamiento"
+
+#: fisiocore/models.py:97
+msgid "Active"
+msgstr "Activado"
+
+#: fisiocore/models.py:109
+msgid "Anything remarkable such as patient's progress"
+msgstr "Cualquier cosa mencionable como el progreso del paciente"
+
+#: fisiocore/models.py:172
+msgid "Informed consent"
+msgstr "Consentimiento informado"

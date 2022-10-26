@@ -45,7 +45,23 @@ class Anamnesis(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     anamnesis = models.TextField(_("Anamnesis"), help_text=_("Any health related information given by the patient."))
     
-
+    
+class MedicalImage(models.Model):
+    IMAGE_TYPE_CHOICES=[
+        ('FOTO', _('Photography')),
+        ('XRAY', _('X-Ray')),
+        ('ECHO', _('Ultrasound')),
+        ('TAC', _('CT scan')),
+        ('RMN', _('Nuclear magnetic resonance')),
+        ('UNKN', _('Unknown/other'))
+    ]
+    anamnesis = models.ForeignKey('Anamnesis', on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
+    description = models.CharField(max_length=200, blank=True, null=True)
+    
+    
 class PatientReport(models.Model):
     """Report for handing out to patient."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -63,7 +79,7 @@ class TreatmentPlanTemplate(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     name = models.CharField(_("Name"), max_length=50, help_text=_("Descriptive name for the treatment plan."))
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overal price of the whole treatment plan."))    
+    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overall price of the whole treatment plan."))    
     session_count = models.PositiveSmallIntegerField(default=1)
 
 
@@ -128,6 +144,7 @@ class Invoice(models.Model):
     
 
 class Receipt(models.Model):
+    """Payment receipt."""
     first_name = models.CharField(_("First name"), max_length=50)
     second_name = models.CharField(_("Last name"), max_length=50)
     city = models.CharField(_("City"), max_length=50)
@@ -146,9 +163,11 @@ class InformedConsentDocument(models.Model):
     
     
 class InformedConsent(models.Model):
+    """Upload of signed pdf. This can be a paper scan or an 
+    electronically signed pdf"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    signed_consent = models.ImageField(_("Informed consent"), upload_to="signed_consent/")
+    signed_consent = models.FileField(_("Informed consent"), upload_to="signed_consent/")
     
