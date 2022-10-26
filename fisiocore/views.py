@@ -2,11 +2,13 @@ from django.shortcuts import render
 
 
 def login(request):
-    pass
+    context = {}
+    return render(request, 'fisiocore/login.html', context)
 
 
 def patients(request):
-    pass
+    context = {}
+    return render(request, 'fisiocore/patients.html', context)
     
 
 def patient(request):
