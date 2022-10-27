@@ -6,6 +6,7 @@ MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
     (_("Calendar"), "fisiocore:calendar", "fa-calendar"),
     (_("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
+    (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
 ]
 
 
@@ -51,4 +52,7 @@ def consents(request):
     pass
     
 def calendar(request):
+    pass
+    
+def invoices(request):
     pass
