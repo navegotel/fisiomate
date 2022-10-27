@@ -1,3 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% load markdownify %}
+{% block main %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% translate "Last name" %}</th>
+            <th>{% translate "First name" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

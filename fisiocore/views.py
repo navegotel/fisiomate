@@ -1,4 +1,11 @@
 from django.shortcuts import render
+from django.utils.translation import gettext as _
+
+MAIN_MENU_ITEMS = [
+    (_("Patients"), "fisiocore:patients", "fa-home"),
+    (_("Calendar"), "fisiocore:calendar", "fa-calendar"),
+    (_("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
+]
 
 
 def login(request):
@@ -7,7 +14,9 @@ def login(request):
 
 
 def patients(request):
-    context = {}
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS
+    }
     return render(request, 'fisiocore/patients.html', context)
     
 
@@ -32,4 +41,10 @@ def add_consent(request):
 
 
 def add_anamnesis(request):
+    pass
+
+def consents(request):
+    pass
+    
+def calendar(request):
     pass
