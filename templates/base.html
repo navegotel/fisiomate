@@ -5,7 +5,13 @@
             <meta charset="utf-8">
             <meta content="width=device-width, initial-scale=1" name="viewport">
             <title>
-                {% block title %}Fisiomate{% endblock %}
+                {% block title %}
+                    {% if title %}
+                        {{title}}
+                    {% else %}
+                        Fisiomate
+                    {% endif %}
+                {% endblock %}
             </title>
             <link href="{% static 'fisiocore/css/fontawesome/css/all.css' %}" rel="stylesheet">
             <link href="{% static 'fisiocore/css/bulma/css/bulma.min.css' %}" rel="stylesheet">
@@ -37,7 +43,9 @@
             {% endif %}
         {% endblock %}
         {% block main %}
-        
+            <section class="section">
+                <h1 class="title">{{title}}</h1>
+            </section>
         {% endblock %}
     <script>   
     document.addEventListener('DOMContentLoaded', () => {

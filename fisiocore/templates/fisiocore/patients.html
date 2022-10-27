@@ -3,18 +3,47 @@
 {% load i18n %}
 {% load markdownify %}
 {% block main %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>{% translate "Last name" %}</th>
-            <th>{% translate "First name" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<section class="section">
+    <h1 class="title">{{title}}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% translate "First name" %}</th>
+                <th>{% translate "Last name" %}</th>
+                <th class="is-hidden-mobile">{% translate "Date of birth" %}</th>
+                <th class="is-hidden-mobile">{% translate "Id card" %}</th>
+                <th class="is-hidden-mobile">{% translate "Post code" %}</th>
+                <th>{% translate "City" %}</th>
+                <th class="is-hidden-mobile">{% translate "Street" %}</th>
+                <th>{% translate "Phone" %}</th>
+                <th class="is-hidden-mobile">{% translate "Email" %}</th>
+                <th>{% translate "Active" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>{{patient.first_name}}</td>
+                <td>{{patient.last_name}}</td>
+                <td class="is-hidden-mobile" >{{patient.date_of_birth}}</td>
+                <td class="is-hidden-mobile">{{patient.id_card_number}}</td>
+                <td class="is-hidden-mobile">{{patient.post_code}}</td>
+                <td>{{patient.city}}</td>
+                <td class="is-hidden-mobile">{{patient.street}}</td>
+                <td>{{patient.phone}}</td>
+                <td class="is-hidden-mobile">{{patient.email}}</td>
+                <td class="has-text-centered">
+                    <span class="icon">
+                        {% if patient.in_treatment %}
+                            <i class="fas fa-check-square"></i>
+                        {% else %}
+                            <i class="fas fa-square"></i>
+                        {% endif %}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 {% endblock %}

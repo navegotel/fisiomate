@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.utils.translation import gettext as _
+from .models import Patient
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -14,8 +15,11 @@ def login(request):
 
 
 def patients(request):
+    patients = Patient.objects.all()
     context = {
-        'main_menu_items': MAIN_MENU_ITEMS
+        'title': _("Patients"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patients': patients
     }
     return render(request, 'fisiocore/patients.html', context)
     
