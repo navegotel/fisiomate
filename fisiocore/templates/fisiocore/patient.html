@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+{% block main %}
+<section class="section">
+    <h1 class="title">{{title}}</h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button" href="{% url 'fisiocore:edit_patient' patient.id %}">
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span>
+                        {% translate "Edit patient" %}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="tabs">
+        <ul>
+            <li class="is-active is-medium"><a>{% translate 'Patient data' %}</a></li>
+            <li><a>{% translate 'Anamnesis' %}</a></li>
+            <li><a>{% translate 'Treatment plans' %}</a></li>
+            <li><a>{% translate 'Sessions' %}</a></li>
+            <li><a>{% translate 'Invoicing' %}</a></li>
+        </ul>
+    </div>
+    <table class="table">
+        <tr>
+            <td><b>{% translate 'Patient Id' %}:</b></td>
+            <td>{{patient.id}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Creation date' %}:</b></td>
+            <td>{{patient.creation_date}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Last update' %}:</b></td>
+            <td>{{patient.last_update}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Name' %}:</b></td>
+            <td>{{patient.first_name}} {{patient.last_name}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Date of birth' %}:</b></td>
+            <td>{{patient.date_of_birth}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Id card number' %}:</b></td>
+            <td>{{patient.id_card_number}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Street' %}:</b></td>
+            <td>{{patient.post_code}} {{patient.street}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'City' %}:</b></td>
+            <td>{{patient.post_code}} {{patient.city}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Phone' %}:</b></td>
+            <td>{{patient.post_code}} {{patient.phone}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Email' %}:</b></td>
+            <td>{{patient.post_code}} {{patient.email}}</td>
+        </tr>
+    </table>
+</section>
+{% endblock %}
