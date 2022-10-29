@@ -90,6 +90,7 @@ class TreatmentPlan(models.Model):
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    anamnesis = models.ForeignKey('Anamnesis', on_delete=models.CASCADE)
     name = models.CharField(_("Name"), max_length=50, help_text=_("Descriptive name for the treatment plan."))
     description = models.TextField(help_text=_("Detailed description of the treatment plan. Supports Markdown"))
     number_of_sessions = models.SmallIntegerField()

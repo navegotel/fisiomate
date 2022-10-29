@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import Http404
 from django.utils.translation import gettext as _
 from .models import Patient
+from .forms import PatientForm
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -17,7 +18,7 @@ def login(request):
 
 
 def patients(request):
-    patients = Patient.objects.all()
+    patients = Patient.objects.filter(user=request.user)
     context = {
         'title': _("Patients"),
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -31,6 +32,8 @@ def view_patient(request, patient_id):
         patient = Patient.objects.get(pk=patient_id)
     except Patient.DoesNotExist:
         raise Http404(_("There is no patient with Id {0}").format(patient_id))
+    if patient.user != request.user:
+        raise Http403(_("You are not allowed to see the data of this user"))
     context = {
         'title': _("Patient"),
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -39,11 +42,25 @@ def view_patient(request, patient_id):
     return render(request, 'fisiocore/patient.html', context)
 
 def add_patient(request):
-    pass
+    return render(request, 'fisiocore/patient.html', context)
     
 
 def edit_patient(request, patient_id):
-    pass
+    try:
+        patient = Patient.objects.get(pk=patient_id)
+    except Patient.DoesNotExist:
+        raise Http404(_("There is no patient with Id {0}").format(patient_id))
+    if patient.user != request.user:
+        raise Http403(_("You are not allowed to see the data of this user"))
+    form = PatientForm(instance=patient)
+    rendered_form = form.render()
+    context = {
+        'title': _('Edit Patient "{0}"'.format(patient)),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+        'form': rendered_form
+    }
+    return render(request, 'fisiocore/edit_patient.html', context)
     
     
 def delete_patient(request, patient_id):
@@ -53,6 +70,8 @@ def delete_patient(request, patient_id):
 def add_consent(request):
     pass
 
+def revoke_consent(request, consent_id):
+    pass
 
 def add_anamnesis(request):
     pass

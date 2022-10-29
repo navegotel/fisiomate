@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% load markdownify %}
 {% block main %}
 <section class="section">
     <h1 class="title">{{title}}</h1>
     <div class="level">
         <div class="level-left">
             <div class="level-item">
-                
             </div>
         </div>
         <div class="level-right">
@@ -22,6 +20,16 @@
                     </span>
                 </a>
             </div>
+            <div class="level-item">
+                <a class="button" href="{% url 'fisiocore:delete_patient' patient.id %}">
+                    <span class="icon">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span>
+                        {% translate "Delete patient" %}
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
     <div class="tabs">
@@ -31,6 +39,7 @@
             <li><a>{% translate 'Treatment plans' %}</a></li>
             <li><a>{% translate 'Sessions' %}</a></li>
             <li><a>{% translate 'Invoicing' %}</a></li>
+            <li><a>{% translate 'Informed consent' %}</a></li>
         </ul>
     </div>
     <table class="table">
@@ -60,7 +69,7 @@
         </tr>
         <tr>
             <td><b>{% translate 'Street' %}:</b></td>
-            <td>{{patient.post_code}} {{patient.street}}</td>
+            <td>{{patient.street}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'City' %}:</b></td>
@@ -68,11 +77,39 @@
         </tr>
         <tr>
             <td><b>{% translate 'Phone' %}:</b></td>
-            <td>{{patient.post_code}} {{patient.phone}}</td>
+            <td>{{patient.phone}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Email' %}:</b></td>
-            <td>{{patient.post_code}} {{patient.email}}</td>
+            <td>{{patient.email}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Social Security number' %}:</b></td>
+            <td>{{patient.ss_number}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Social Security country of issue' %}:</b></td>
+            <td>{{patient.ss_country}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Social Security date of issue' %}:</b></td>
+            <td>{{patient.ss_issue_date}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Social Security expiry date' %}:</b></td>
+            <td>{{patient.ss_expiry_date}}</td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'In treatment' %}:</b></td>
+            <td>
+                    <span class="icon">
+                        {% if patient.in_treatment %}
+                            <i class="fas fa-check-square"></i>
+                        {% else %}
+                            <i class="fas fa-square"></i>
+                        {% endif %}
+                    </span>
+                </td>
         </tr>
     </table>
 </section>

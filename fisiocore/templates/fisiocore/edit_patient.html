@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+{% block main %}
+<section class="section">
+    <h1 class="title">{{title}}</h1>
+    <form>
+    {{form}}
+        <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <button class="button">
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span>
+                        {% translate "save changes" %}
+                    </span>
+                </button>
+            </div>
+            <div class="level-item">
+                <a class="button" href="{% url 'fisiocore:view_patient' patient.id %}">
+                    <span class="icon">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span>
+                        {% translate "cancel" %}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </form>
+</section>
+{% endblock %}
