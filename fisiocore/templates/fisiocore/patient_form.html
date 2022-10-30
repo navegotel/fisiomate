@@ -1,0 +1,182 @@
+<div class="field">
+  <div class="control">
+    <label class="checkbox">
+      <input type="checkbox" name="form.in_treatment" {%if form.in_treatment.value %}checked{% endif %} >
+      Currently in treatment
+    </label>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.first_name.label}} / {{ form.last_name.label }}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+        <p class="control is-expanded has-icons-left">
+            <input class="input" type="text" placeholder="{{form.first_name.label}}" name="first_name" value="{{form.first_name.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+        </p>
+        </div>
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.last_name.label}}" name="last_name" value="{{form.last_name.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.street.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.street.label}}" name="street" value="{{form.street.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-map"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.post_code.label}} / {{ form.city.label }}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.post_code.label}}" name="post_code" value="{{form.post_code.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.city.label}}" value="{{form.city.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-map-marker"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.date_of_birth.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="date" name="date_of_birth" value="{{form.date_of_birth.value|date:'Y-m-d'}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.phone.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.phone.label}}" name="phone" value="{{form.phone.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.email.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.email.label}}" name="email" value="{{form.email.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.id_card_number.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.id_card_number.label}}" name="id_card_number" value="{{form.id_card_number.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-id-card"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.ss_number.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.ss_number.label}}" name="ss_number" value="{{form.ss_number.value}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-id-card"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.ss_issue_date.label}} / {{ form.ss_expiry_date.label }}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="date" placeholder="{{form.ss_isssue_date.label}}" name="ss_issue_date" value="{{form.ss_issue_date.value|date:'Y-m-d'}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="date" placeholder="{{form.ss_expiry_date.label}}" value="{{form.ss_expiry_date.value|date:'Y-m-d'}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+    
+</div>
+    {% for error in field.errors %}
+        <p class="error"></p>
+    {% endfor %}
+</div>

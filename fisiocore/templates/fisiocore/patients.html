@@ -43,7 +43,7 @@
             <tr>
                 <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.first_name}}</a></td>
                 <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.last_name}}</a></td>
-                <td class="is-hidden-mobile" >{{patient.date_of_birth|date:"d/m/Y"}}</td>
+                <td class="is-hidden-mobile" >{{patient.date_of_birth}}</td>
                 <td class="is-hidden-mobile">{{patient.id_card_number}}</td>
                 <td class="is-hidden-mobile">{{patient.post_code}}</td>
                 <td>{{patient.city}}</td>
