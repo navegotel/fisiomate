@@ -13,7 +13,7 @@
             <div class="level-item">
                 <a class="button is-info" href="{% url 'fisiocore:edit_patient' patient.id %}">
                     <span class="icon">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-user-edit"></i>
                     </span>
                     <span>
                         {% translate "Edit patient" %}
@@ -23,7 +23,7 @@
             <div class="level-item">
                 <a class="button is-danger" href="{% url 'fisiocore:delete_patient' patient.id %}">
                     <span class="icon">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-user-slash"></i>
                     </span>
                     <span>
                         {% translate "Delete patient" %}
@@ -112,6 +112,10 @@
                         {% endif %}
                     </span>
                 </td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Remarks' %}:</b></td>
+            <td>{{patient.remarks|default_if_none:''}}</td>
         </tr>
     </table>
 </section>

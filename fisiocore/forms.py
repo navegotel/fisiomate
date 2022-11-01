@@ -19,7 +19,8 @@ class PatientForm(ModelForm):
             'ss_country',
             'ss_issue_date',
             'ss_expiry_date',
-            'in_treatment'
+            'in_treatment',
+            'remarks'
         ]
         
 

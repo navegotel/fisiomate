@@ -18,6 +18,10 @@ class UserProfile(models.Model):
     
 
 class Patient(models.Model):
+    
+    class Meta:
+        ordering = ['last_name', 'first_name', 'date_of_birth', 'post_code']
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
@@ -35,6 +39,7 @@ class Patient(models.Model):
     ss_issue_date = models.DateField(_("Social security date of issue"), blank=True, null=True)
     ss_expiry_date = models.DateField(_("Social security expiry date"), blank=True, null=True)
     in_treatment = models.BooleanField(_("In treatment"))
+    remarks = models.TextField(_("Remarks"), blank="True", null="True")
     
     def __str__(self):
         return "{0}, {1}".format(self.last_name, self.first_name)
