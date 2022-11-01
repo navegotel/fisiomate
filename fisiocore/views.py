@@ -43,23 +43,31 @@ def view_patient(request, patient_id):
     return render(request, 'fisiocore/patient.html', context)
 
 def add_patient(request):
-    if request.method == "POST":
-        pass
-        #return redirect(reverse('fisiocore:view_patient', args=[patient_id]))
-    patient = Patient(user=request.user)
-    form = PatientForm(instance=patient)
-    rendered_form = form.render('fisiocore/patient_form.html')
     context = {
-        'title': _('Add Patient'),
         'main_menu_items': MAIN_MENU_ITEMS,
-        'patient': patient,
-        'form': rendered_form
+        'title': "Add patient"
     }
+    if request.method == "POST":
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            patient = form.save()
+            return redirect(reverse('fisiocore:view_patient', args=[patient.id]))
+        else:
+            rendered_form = form.render('fisiocore/patient_form.html')
+            context['form'] = rendered_form
+            return render(request, 'fisiocore/add_patient.html', context)
+    form = PatientForm(initial={'user':request.user.id})
+    rendered_form = form.render('fisiocore/patient_form.html')
+    context['form'] = rendered_form
     return render(request, 'fisiocore/add_patient.html', context)
     
 
 def edit_patient(request, patient_id):
     if request.method == "POST":
+        patient = Patient.objects.get(pk=patient_id)
+        form = PatientForm(request.POST, instance=patient)
+        if form.is_valid():
+            form.save()
         return redirect(reverse('fisiocore:view_patient', args=[patient_id]))
     try:
         patient = Patient.objects.get(pk=patient_id)
@@ -79,7 +87,17 @@ def edit_patient(request, patient_id):
     
     
 def delete_patient(request, patient_id):
-    pass
+    patient = Patient.objects.get(pk=patient_id)
+    if request.method == "POST":
+        if request.POST.get('confirm') is not None:
+            patient.delete()
+            return redirect(reverse('fisiocore:patients'))
+    patient = Patient.objects.get(pk=patient_id)
+    context = {
+        'title': _('Delete patient {0} {1}'.format(patient.first_name, patient.last_name)),
+        'patient': patient
+    }
+    return render(request, 'fisiocore/delete_patient.html', context)
     
     
 def add_consent(request):

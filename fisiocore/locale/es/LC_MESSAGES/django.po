@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-30 17:44+0000\n"
+"POT-Creation-Date: 2022-11-01 08:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,7 +198,32 @@ msgstr "Consentimiento informado"
 #: fisiocore/templates/fisiocore/add_patient.html:24
 #: fisiocore/templates/fisiocore/edit_patient.html:24
 msgid "save changes"
-msgstr ""
+msgstr "guardar cambios"
+
+#: fisiocore/templates/fisiocore/delete_patient.html:10
+msgid "Are you sure you want to delete patient"
+msgstr "Seguro que quiere eliminar el paciente"
+
+#: fisiocore/templates/fisiocore/delete_patient.html:14
+msgid ""
+"You are about to permanently delete a patient record and all data related to "
+"this patient. It is highly recommended to download a dump of the patient "
+"data before deletion."
+msgstr "Está a punto de eliminar de forma permante el registro de un paciente "
+"y todos los datos relacionados. Es muy recomendable descargar un dump de este paciente "
+"antes de eliminarlo."
+
+#: fisiocore/templates/fisiocore/delete_patient.html:25
+msgid "I understand the implications of this action and want to proceed"
+msgstr "Comprendo las implicaciones de esta acción y quiero continuar"
+
+#: fisiocore/templates/fisiocore/delete_patient.html:36
+msgid "Delete"
+msgstr "Borrar"
+
+#: fisiocore/templates/fisiocore/delete_patient.html:46
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: fisiocore/templates/fisiocore/edit_patient.html:34
 msgid "cancel"
@@ -256,7 +281,7 @@ msgstr "Número de Seguridad social"
 #, fuzzy
 #| msgid "Social security date of issue"
 msgid "Social Security country of issue"
-msgstr "Fecha de emisión de la tarejeta"
+msgstr "País de emisión de la tarejeta"
 
 #: fisiocore/templates/fisiocore/patient.html:97
 #, fuzzy
@@ -275,35 +300,34 @@ msgid "New patient"
 msgstr "Paciente nuevo"
 
 #: fisiocore/views.py:9 fisiocore/views.py:24
-#, fuzzy
-#| msgid "Patient report"
 msgid "Patients"
-msgstr "Informe para el paciente"
+msgstr "Pacientes"
 
 #: fisiocore/views.py:10
 msgid "Calendar"
 msgstr "Agenda"
 
-#: fisiocore/views.py:35 fisiocore/views.py:67
+#: fisiocore/views.py:35 fisiocore/views.py:75
 #, python-brace-format
 msgid "There is no patient with Id {0}"
 msgstr "No hay ningún paciente con Id {0}"
 
-#: fisiocore/views.py:37 fisiocore/views.py:69
+#: fisiocore/views.py:37 fisiocore/views.py:77
 msgid "You are not allowed to see the data of this user"
 msgstr "No tiene autorización para ver los datos de este paciente"
 
 #: fisiocore/views.py:39
-#, fuzzy
-#| msgid "Patient report"
 msgid "Patient"
-msgstr "Informe para el paciente"
+msgstr "Paciente"
 
-#: fisiocore/views.py:53
-msgid "Add Patient"
-msgstr "Añadir paciente"
-
-#: fisiocore/views.py:73
+#: fisiocore/views.py:81
 #, python-brace-format
 msgid "Edit Patient \"{0}\""
 msgstr "Editar paciente \"{0}\""
+
+#: fisiocore/views.py:92
+msgid "Delete patient {0} {1}"
+msgstr "Borrar paciente"
+
+#~ msgid "Add Patient"
+#~ msgstr "Añadir paciente"

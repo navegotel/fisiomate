@@ -16,14 +16,24 @@
         </div>
         <div class="level-right">
             <div class="level-item">
-                <button class="button">
+                <button class="button is-info">
                     <span class="icon">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-plus-square"></i>
                     </span>
                     <span>
-                        {% translate "save changes" %}
+                        {% translate "Add patient" %}
                     </span>
                 </button>
+            </div>
+            <div class="level-item">
+                <a class="button is-success" href="{% url 'fisiocore:patients' %}">
+                    <span class="icon is-small">
+                        <i class="fas fa-undo"></i>
+                    </span>
+                    <span>
+                        {% translate 'Cancel' %}            
+                    </span>
+                </a>
             </div>
         </div>
     </div>

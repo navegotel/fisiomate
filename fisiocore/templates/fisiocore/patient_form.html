@@ -1,7 +1,8 @@
-<div class="field">
+<input type="hidden" name="user" value="{{form.user.value}}" >-
+<div class="field is-horizontal">
   <div class="control">
     <label class="checkbox">
-      <input type="checkbox" name="form.in_treatment" {%if form.in_treatment.value %}checked{% endif %} >
+      <input type="checkbox" name="in_treatment" {%if form.in_treatment.value %}checked{% endif %}>
       Currently in treatment
     </label>
   </div>
@@ -14,19 +15,25 @@
     <div class="field-body">
         <div class="field">
         <p class="control is-expanded has-icons-left">
-            <input class="input" type="text" placeholder="{{form.first_name.label}}" name="first_name" value="{{form.first_name.value}}">
+            <input class="input" type="text" placeholder="{{form.first_name.label}}" name="first_name" value="{{form.first_name.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
         </p>
+        {% for error in form.first_name.errors %}
+            <p class="help is-danger">{{error}}</p>
+        {% endfor %}
         </div>
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.last_name.label}}" name="last_name" value="{{form.last_name.value}}">
+                <input class="input" type="text" placeholder="{{form.last_name.label}}" name="last_name" value="{{form.last_name.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
             </p>
+            {% for error in form.last_name.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -38,11 +45,14 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.street.label}}" name="street" value="{{form.street.value}}">
+                <input class="input" type="text" placeholder="{{form.street.label}}" name="street" value="{{form.street.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-map"></i>
                 </span>
             </p>
+            {% for error in form.street.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -54,19 +64,25 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.post_code.label}}" name="post_code" value="{{form.post_code.value}}">
+                <input class="input" type="text" placeholder="{{form.post_code.label}}" name="post_code" value="{{form.post_code.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>
             </p>
+            {% for error in form.post_code.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.city.label}}" value="{{form.city.value}}">
+                <input class="input" type="text" placeholder="{{form.city.label}}" name="city" value="{{form.city.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-map-marker"></i>
                 </span>
             </p>
+            {% for error in form.city.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -83,6 +99,9 @@
                     <i class="fas fa-calendar"></i>
                 </span>
             </p>
+            {% for error in form.date_of_birth.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -94,11 +113,14 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.phone.label}}" name="phone" value="{{form.phone.value}}">
+                <input class="input" type="text" placeholder="{{form.phone.label}}" name="phone" value="{{form.phone.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-phone"></i>
                 </span>
             </p>
+            {% for error in form.phone.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -110,11 +132,14 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.email.label}}" name="email" value="{{form.email.value}}">
+                <input class="input" type="text" placeholder="{{form.email.label}}" name="email" value="{{form.email.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>
             </p>
+            {% for error in form.email.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -126,11 +151,14 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.id_card_number.label}}" name="id_card_number" value="{{form.id_card_number.value}}">
+                <input class="input" type="text" placeholder="{{form.id_card_number.label}}" name="id_card_number" value="{{form.id_card_number.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-id-card"></i>
                 </span>
             </p>
+            {% for error in form.id_card_number.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -142,11 +170,14 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.ss_number.label}}" name="ss_number" value="{{form.ss_number.value}}">
+                <input class="input" type="text" placeholder="{{form.ss_number.label}}" name="ss_number" value="{{form.ss_number.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
                     <i class="fas fa-id-card"></i>
                 </span>
             </p>
+            {% for error in form.ss_number.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -163,6 +194,9 @@
                     <i class="fas fa-calendar"></i>
                 </span>
             </p>
+            {% for error in form.ss_issue_date.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
         <div class="field">
             <p class="control is-expanded has-icons-left">
@@ -171,12 +205,9 @@
                     <i class="fas fa-calendar"></i>
                 </span>
             </p>
+            {% for error in form.ss_expiry_date.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
         </div>
     </div>
-</div>
-    
-</div>
-    {% for error in field.errors %}
-        <p class="error"></p>
-    {% endfor %}
 </div>

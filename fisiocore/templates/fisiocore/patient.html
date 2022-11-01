@@ -11,7 +11,7 @@
         </div>
         <div class="level-right">
             <div class="level-item">
-                <a class="button" href="{% url 'fisiocore:edit_patient' patient.id %}">
+                <a class="button is-info" href="{% url 'fisiocore:edit_patient' patient.id %}">
                     <span class="icon">
                         <i class="fas fa-edit"></i>
                     </span>
@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="level-item">
-                <a class="button" href="{% url 'fisiocore:delete_patient' patient.id %}">
+                <a class="button is-danger" href="{% url 'fisiocore:delete_patient' patient.id %}">
                     <span class="icon">
                         <i class="fas fa-trash"></i>
                     </span>
@@ -79,27 +79,27 @@
         </tr>
         <tr>
             <td><b>{% translate 'Phone' %}:</b></td>
-            <td>{{patient.phone}}</td>
+            <td>{{patient.phone|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Email' %}:</b></td>
-            <td>{{patient.email}}</td>
+            <td>{{patient.email|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Social Security number' %}:</b></td>
-            <td>{{patient.ss_number}}</td>
+            <td>{{patient.ss_number|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Social Security country of issue' %}:</b></td>
-            <td>{{patient.ss_country}}</td>
+            <td>{{patient.ss_country|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Social Security date of issue' %}:</b></td>
-            <td>{{patient.ss_issue_date}}</td>
+            <td>{{patient.ss_issue_date|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Social Security expiry date' %}:</b></td>
-            <td>{{patient.ss_expiry_date}}</td>
+            <td>{{patient.ss_expiry_date|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'In treatment' %}:</b></td>

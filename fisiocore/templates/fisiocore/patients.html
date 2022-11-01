@@ -44,12 +44,12 @@
                 <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.first_name}}</a></td>
                 <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.last_name}}</a></td>
                 <td class="is-hidden-mobile" >{{patient.date_of_birth}}</td>
-                <td class="is-hidden-mobile">{{patient.id_card_number}}</td>
-                <td class="is-hidden-mobile">{{patient.post_code}}</td>
-                <td>{{patient.city}}</td>
-                <td class="is-hidden-mobile">{{patient.street}}</td>
-                <td>{{patient.phone}}</td>
-                <td class="is-hidden-mobile">{{patient.email}}</td>
+                <td class="is-hidden-mobile">{{patient.id_card_number|default_if_none:''}}</td>
+                <td class="is-hidden-mobile">{{patient.post_code|default_if_none:''}}</td>
+                <td>{{patient.city|default_if_none:''}}</td>
+                <td class="is-hidden-mobile">{{patient.street|default_if_none:''}}</td>
+                <td>{{patient.phone|default_if_none:''}}</td>
+                <td class="is-hidden-mobile">{{patient.email|default_if_none:''}}</td>
                 <td class="has-text-centered">
                     <span class="icon">
                         {% if patient.in_treatment %}

@@ -42,6 +42,20 @@
                 </nav>
             {% endif %}
         {% endblock %}
+        {% block messages %}
+            {% if messages %}
+            <section class="section"  id="notification" >
+                <div class="notification is-primary">
+                    <button class="delete" onclick="document.getElementById('notification').remove()" ></button>
+                    {% for message in messages %}
+                    <p>
+                    {{message}}
+                    </p>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+        {% endblock %}
         {% block main %}
             <section class="section">
                 <h1 class="title">{{title}}</h1>

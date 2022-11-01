@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+<section class="section">
+    <h1 class="title">{{title}}</h1>
+    
+    <article class="message is-danger">
+        <div class="message-header">
+            <p>{% translate 'Are you sure you want to delete patient' %} {{patient.first_name}} {{patient.last_name}}?</p>
+        </div>
+        <div class="message-body">
+            <p>
+            {% translate 'You are about to permanently delete a patient record and all data related to this patient. It is highly recommended to download a dump of the patient data before deletion.' %}
+            </p>
+        </div>
+    </article>
+    
+    <form method="post" >
+        {% csrf_token %}
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" name="confirm">
+                    {% translate 'I understand the implications of this action and want to proceed' %}
+                </label>
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-danger">
+                    <span class="icon is-small">
+                        <i class="fas fa-skull"></i>
+                    </span>
+                    <span>
+                        {% translate 'Delete' %}            
+                    </span>
+                </button>
+            </div>
+            <div class="control">
+                <a class="button is-success" href="{% url 'fisiocore:view_patient' patient.id %}">
+                    <span class="icon is-small">
+                        <i class="fas fa-undo"></i>
+                    </span>
+                    <span>
+                        {% translate 'Cancel' %}            
+                    </span>
+                </a>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock %}
