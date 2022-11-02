@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import Form, ModelForm, CharField
 from .models import Patient
 
 class PatientForm(ModelForm):
@@ -23,4 +23,6 @@ class PatientForm(ModelForm):
             'remarks'
         ]
         
-
+class LoginForm(Form):
+    username = CharField(max_length=100)
+    password = CharField(max_length=100)

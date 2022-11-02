@@ -44,12 +44,23 @@ class Patient(models.Model):
     def __str__(self):
         return "{0}, {1}".format(self.last_name, self.first_name)
     
+    
 class Anamnesis(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    anamnesis = models.TextField(_("Anamnesis"), help_text=_("Any health related information given by the patient."))
+    interview = models.TextField(_("Anamnesis"), help_text=_("Any health related information given by the patient."))
+    exploration = models.TextField(_("Exploration"))
+    
+    
+class ClinicalDocument(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anamnesis = models.ForeignKey('Anamnesis', on_delete= models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    label = models.CharField(_('Description'), max_length=200, help_text=_('A brief description of the attached document'))
+    upload = models.FileField(_('URL'), upload_to='uploads/%Y/%m/%d/')
     
     
 class MedicalImage(models.Model):
@@ -66,6 +77,7 @@ class MedicalImage(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
     description = models.CharField(max_length=200, blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
     
     
 class PatientReport(models.Model):

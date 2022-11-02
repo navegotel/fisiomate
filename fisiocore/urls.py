@@ -15,5 +15,5 @@ urlpatterns = [
     path('consents', views.consents, name='consents'),
     path('calendar', views.calendar, name='calendar'),
     path('invoices', views.invoices, name='invoices'),
-    path('login', views.login, name='login'),
+    path('login', views.UserLogin.as_view(), name='login'),
 ]

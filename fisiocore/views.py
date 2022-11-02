@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
+# from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView
 from django.utils.translation import gettext as _
 from .models import Patient
-from .forms import PatientForm
+from .forms import PatientForm, LoginForm
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -12,10 +14,25 @@ MAIN_MENU_ITEMS = [
     (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
 ]
 
+class UserLogin(LoginView):
+    template_name = "fisiocore/login.html"
 
-def login(request):
-    context = {}
-    return render(request, 'fisiocore/login.html', context)
+# def login(request):
+    # if request.method == 'POST':
+        # form = LoginForm(request.POST)
+        # if form.is_valid():
+            # print(form.cleaned_data)
+            # u = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            # if u is not None:
+                # login(request, u)
+        # return redirect(reverse('fisiocore:patients'))
+    # form = LoginForm()
+    # rendered_form = form.render('fisiocore/login_form.html')
+    # context = {'form': rendered_form}
+    # return render(request, 'fisiocore/login.html', context)
+
+
+
 
 
 def patients(request):
