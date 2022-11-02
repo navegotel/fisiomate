@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse
-# from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView
 from django.utils.translation import gettext as _
 from .models import Patient
-from .forms import PatientForm, LoginForm
+from .forms import PatientForm
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -14,27 +13,8 @@ MAIN_MENU_ITEMS = [
     (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
 ]
 
-class UserLogin(LoginView):
-    template_name = "fisiocore/login.html"
 
-# def login(request):
-    # if request.method == 'POST':
-        # form = LoginForm(request.POST)
-        # if form.is_valid():
-            # print(form.cleaned_data)
-            # u = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            # if u is not None:
-                # login(request, u)
-        # return redirect(reverse('fisiocore:patients'))
-    # form = LoginForm()
-    # rendered_form = form.render('fisiocore/login_form.html')
-    # context = {'form': rendered_form}
-    # return render(request, 'fisiocore/login.html', context)
-
-
-
-
-
+@login_required
 def patients(request):
     patients = Patient.objects.filter(user=request.user)
     context = {
@@ -43,8 +23,9 @@ def patients(request):
         'patients': patients
     }
     return render(request, 'fisiocore/patients.html', context)
-    
 
+
+@login_required
 def view_patient(request, patient_id):
     try:
         patient = Patient.objects.get(pk=patient_id)
@@ -59,6 +40,8 @@ def view_patient(request, patient_id):
     }
     return render(request, 'fisiocore/patient.html', context)
 
+
+@login_required
 def add_patient(request):
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -79,6 +62,7 @@ def add_patient(request):
     return render(request, 'fisiocore/add_patient.html', context)
     
 
+@login_required
 def edit_patient(request, patient_id):
     if request.method == "POST":
         patient = Patient.objects.get(pk=patient_id)
@@ -102,7 +86,8 @@ def edit_patient(request, patient_id):
     }
     return render(request, 'fisiocore/edit_patient.html', context)
     
-    
+
+@login_required
 def delete_patient(request, patient_id):
     patient = Patient.objects.get(pk=patient_id)
     if request.method == "POST":
@@ -116,6 +101,10 @@ def delete_patient(request, patient_id):
     }
     return render(request, 'fisiocore/delete_patient.html', context)
     
+    
+@login_required
+def clinical_history(request, patient_id):
+    pass
     
 def add_consent(request):
     pass

@@ -22,7 +22,3 @@ class PatientForm(ModelForm):
             'in_treatment',
             'remarks'
         ]
-        
-class LoginForm(Form):
-    username = CharField(max_length=100)
-    password = CharField(max_length=100)
