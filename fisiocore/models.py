@@ -50,8 +50,12 @@ class Anamnesis(models.Model):
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    reason = models.CharField(_('Reason'), max_length=50)
     interview = models.TextField(_("Anamnesis"), help_text=_("Any health related information given by the patient."))
     exploration = models.TextField(_("Exploration"))
+    
+    def __str__(self):
+        return "{0} {1}: {2}".format(self.patient.first_name, self.patient.last_name, self.reason)
     
     
 class ClinicalDocument(models.Model):

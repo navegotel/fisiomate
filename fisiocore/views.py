@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from .models import Patient
+from .models import Patient, Anamnesis
 from .forms import PatientForm
 
 MAIN_MENU_ITEMS = [
@@ -34,7 +34,7 @@ def view_patient(request, patient_id):
     if patient.user != request.user:
         raise Http403(_("You are not allowed to see the data of this user"))
     context = {
-        'title': _("Patient"),
+        'title': _('Patient "{0}"'.format(patient)),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient
     }
@@ -103,8 +103,16 @@ def delete_patient(request, patient_id):
     
     
 @login_required
-def clinical_history(request, patient_id):
-    pass
+def anamnesis(request, patient_id, anamnesis_id=None):
+    patient = Patient.objects.get(pk=patient_id)
+    anamnesis = Anamnesis.objects.filter(patient=patient_id)
+    context = {
+        'title': _('Clinical history "{0}"'.format(patient)),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+        'anamnesis': anamnesis,
+    }
+    return render(request, 'fisiocore/anamnesis.html', context)
     
 def add_consent(request):
     pass

@@ -35,7 +35,7 @@
     <div class="tabs">
         <ul>
             <li class="is-active is-medium"><a>{% translate 'Patient data' %}</a></li>
-            <li><a href="{% url 'fisiocore:clinical_history' patient.id %}" >{% translate 'Medical history' %}</a></li>
+            <li><a href="{% url 'fisiocore:anamnesis' patient.id %}" >{% translate 'Medical history' %}</a></li>
             <!--
             <li><a>{% translate 'Treatment plans' %}</a></li>
             <li><a>{% translate 'Sessions' %}</a></li>
@@ -67,7 +67,7 @@
         </tr>
         <tr>
             <td><b>{% translate 'Id card number' %}:</b></td>
-            <td>{{patient.id_card_number}}</td>
+            <td>{{patient.id_card_number|default_if_none:''}}</td>
         </tr>
         <tr>
             <td><b>{% translate 'Street' %}:</b></td>
