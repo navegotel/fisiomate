@@ -105,11 +105,16 @@ def delete_patient(request, patient_id):
 @login_required
 def anamnesis(request, patient_id, anamnesis_id=None):
     patient = Patient.objects.get(pk=patient_id)
-    anamnesis = Anamnesis.objects.filter(patient=patient_id)
+    try:
+        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
+    except Anamnesis.DoesNotExist:
+        anamnesis = None
+    anamnesis_list = Anamnesis.objects.filter(patient=patient_id)
     context = {
         'title': _('Clinical history "{0}"'.format(patient)),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
+        'anamnesis_list': anamnesis_list,
         'anamnesis': anamnesis,
     }
     return render(request, 'fisiocore/anamnesis.html', context)

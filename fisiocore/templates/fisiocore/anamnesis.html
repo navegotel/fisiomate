@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load markdownify %}
 {% block main %}
 <section class="section">
     <h1 class="title">{{title}}</h1>
@@ -46,7 +47,7 @@
     </div>
     <div class="columns">
         <div class="column is-one-third ">
-            <div class="panel">
+            <div class="panel is-primary">
                 <div class="panel-heading">
                     {% translate 'Anamnesis' %}
                 </div>
@@ -64,8 +65,8 @@
                     <a>Docs</a>
                     <a>Sessions</a>
                   </p>
-                  {% for a in anamnesis %}
-                      <a class="panel-block">
+                  {% for a in anamnesis_list %}
+                      <a href="{% url 'fisiocore:anamnesis' patient.id a.id %}" class="panel-block {%if a.id == anamnesis.id %}is-active{% endif %}">
                         <span class="panel-icon">
                         <i class="fas fa-file-medical-alt" aria-hidden="true"></i>
                         </span>
@@ -75,6 +76,43 @@
             </div>
         </div>
         <div class="column">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="has-text-weight-bold">{% translate 'Date: ' %}{{anamnesis.last_update}}</p>
+                    </div>
+                    <div class="level-item">
+                        <p class="has-text-weight-bold">{% translate 'Reason: ' %}{{anamnesis.reason}}</p>
+                    </div>
+                </div>
+                <div class="level-right">
+                
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-header has-background-primary">
+                    <p class="card-header-title">
+                        {% translate 'Clinical Interview' %}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        {{anamnesis.interview|markdownify}}
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-header has-background-primary">
+                    <p class="card-header-title">
+                        {% translate 'Exploration' %}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        {{anamnesis.exploration|markdownify}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
