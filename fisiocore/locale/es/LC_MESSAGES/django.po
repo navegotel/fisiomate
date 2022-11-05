@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-01 08:37+0000\n"
+"POT-Creation-Date: 2022-11-05 08:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,22 +22,22 @@ msgstr ""
 msgid "The login user"
 msgstr "El usuario para el login"
 
-#: fisiocore/models.py:9 fisiocore/models.py:22 fisiocore/models.py:44
-#: fisiocore/models.py:60 fisiocore/models.py:69 fisiocore/models.py:79
-#: fisiocore/models.py:90 fisiocore/models.py:162 fisiocore/models.py:171
-#: fisiocore/templates/fisiocore/patient.html:53
+#: fisiocore/models.py:9 fisiocore/models.py:26 fisiocore/models.py:50
+#: fisiocore/models.py:64 fisiocore/models.py:80 fisiocore/models.py:90
+#: fisiocore/models.py:100 fisiocore/models.py:111 fisiocore/models.py:183
+#: fisiocore/models.py:192 fisiocore/templates/fisiocore/patient.html:53
 msgid "Creation date"
 msgstr "Fecha de creación"
 
-#: fisiocore/models.py:10 fisiocore/models.py:23 fisiocore/models.py:45
-#: fisiocore/models.py:61 fisiocore/models.py:70 fisiocore/models.py:80
-#: fisiocore/models.py:91 fisiocore/models.py:163 fisiocore/models.py:172
-#: fisiocore/templates/fisiocore/patient.html:57
+#: fisiocore/models.py:10 fisiocore/models.py:27 fisiocore/models.py:51
+#: fisiocore/models.py:65 fisiocore/models.py:81 fisiocore/models.py:91
+#: fisiocore/models.py:101 fisiocore/models.py:112 fisiocore/models.py:184
+#: fisiocore/models.py:193 fisiocore/templates/fisiocore/patient.html:57
 msgid "Last update"
 msgstr "Última actualización"
 
-#: fisiocore/models.py:11 fisiocore/models.py:27 fisiocore/models.py:131
-#: fisiocore/models.py:152 fisiocore/templates/fisiocore/patient.html:77
+#: fisiocore/models.py:11 fisiocore/models.py:31 fisiocore/models.py:152
+#: fisiocore/models.py:173 fisiocore/templates/fisiocore/patient.html:77
 #: fisiocore/templates/fisiocore/patients.html:34
 msgid "City"
 msgstr "Localidad"
@@ -50,13 +50,13 @@ msgstr "Provincia"
 msgid "Postal code"
 msgstr "Código postal"
 
-#: fisiocore/models.py:14 fisiocore/models.py:29 fisiocore/models.py:133
-#: fisiocore/models.py:154 fisiocore/templates/fisiocore/patient.html:73
+#: fisiocore/models.py:14 fisiocore/models.py:33 fisiocore/models.py:154
+#: fisiocore/models.py:175 fisiocore/templates/fisiocore/patient.html:73
 #: fisiocore/templates/fisiocore/patients.html:35
 msgid "Street"
 msgstr "Calle"
 
-#: fisiocore/models.py:15 fisiocore/models.py:31
+#: fisiocore/models.py:15 fisiocore/models.py:35
 #: fisiocore/templates/fisiocore/patient.html:81
 #: fisiocore/templates/fisiocore/patients.html:36
 msgid "Phone"
@@ -70,135 +70,227 @@ msgstr "CIF"
 msgid "Logo"
 msgstr "Logotipo"
 
-#: fisiocore/models.py:24 fisiocore/models.py:129 fisiocore/models.py:150
+#: fisiocore/models.py:28 fisiocore/models.py:150 fisiocore/models.py:171
 #: fisiocore/templates/fisiocore/patients.html:29
 msgid "First name"
 msgstr "Nombre"
 
-#: fisiocore/models.py:25 fisiocore/models.py:130 fisiocore/models.py:151
+#: fisiocore/models.py:29 fisiocore/models.py:151 fisiocore/models.py:172
 #: fisiocore/templates/fisiocore/patients.html:30
 msgid "Last name"
 msgstr "Apellidos"
 
-#: fisiocore/models.py:26 fisiocore/templates/fisiocore/patient.html:65
+#: fisiocore/models.py:30 fisiocore/templates/fisiocore/patient.html:65
 #: fisiocore/templates/fisiocore/patients.html:31
 msgid "Date of birth"
 msgstr "Fecha de nacimiento"
 
-#: fisiocore/models.py:28 fisiocore/models.py:132 fisiocore/models.py:153
+#: fisiocore/models.py:32 fisiocore/models.py:153 fisiocore/models.py:174
 #: fisiocore/templates/fisiocore/patients.html:33
 msgid "Post code"
 msgstr "Código postal"
 
-#: fisiocore/models.py:30 fisiocore/templates/fisiocore/patient.html:85
+#: fisiocore/models.py:34 fisiocore/templates/fisiocore/patient.html:85
 #: fisiocore/templates/fisiocore/patients.html:37
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: fisiocore/models.py:32 fisiocore/templates/fisiocore/patients.html:32
+#: fisiocore/models.py:36 fisiocore/templates/fisiocore/patients.html:32
 msgid "Id card"
 msgstr "DNI"
 
-#: fisiocore/models.py:33
+#: fisiocore/models.py:37
 msgid "Social security number"
 msgstr "Número de Seguridad social"
 
-#: fisiocore/models.py:34
+#: fisiocore/models.py:38
 msgid "Social security country"
 msgstr "País del Seguro"
 
-#: fisiocore/models.py:35
+#: fisiocore/models.py:39
 msgid "Social security date of issue"
 msgstr "Fecha de emisión de la tarejeta"
 
-#: fisiocore/models.py:36
+#: fisiocore/models.py:40
 msgid "Social security expiry date"
 msgstr "Caducidad de la tarjeta"
 
-#: fisiocore/models.py:37 fisiocore/templates/fisiocore/patient.html:105
+#: fisiocore/models.py:41 fisiocore/templates/fisiocore/patient.html:105
 msgid "In treatment"
-msgstr ""
+msgstr "En tratamiento"
 
-#: fisiocore/models.py:47
+#: fisiocore/models.py:42 fisiocore/templates/fisiocore/patient.html:117
+msgid "Remarks"
+msgstr "Comentarios"
+
+#: fisiocore/models.py:53
+msgid "Reason"
+msgstr "Motivo"
+
+#: fisiocore/models.py:54 fisiocore/templates/fisiocore/anamnesis.html:52
 msgid "Anamnesis"
-msgstr "Anamnesia"
+msgstr "Anamnesis"
 
-#: fisiocore/models.py:47
+#: fisiocore/models.py:54
 msgid "Any health related information given by the patient."
 msgstr "Cualquier información relativa a la salud del paciente."
 
-#: fisiocore/models.py:52
+#: fisiocore/models.py:55 fisiocore/templates/fisiocore/anamnesis.html:127
+msgid "Exploration"
+msgstr "Exploración"
+
+#: fisiocore/models.py:66
+msgid "Description"
+msgstr "Descripción"
+
+#: fisiocore/models.py:66
+msgid "A brief description of the attached document"
+msgstr "Breve descripción del documento"
+
+#: fisiocore/models.py:67
+msgid "URL"
+msgstr "URL"
+
+#: fisiocore/models.py:72
 msgid "Photography"
 msgstr "Fotografía"
 
-#: fisiocore/models.py:53
+#: fisiocore/models.py:73
 msgid "X-Ray"
 msgstr "Radiografía"
 
-#: fisiocore/models.py:54
+#: fisiocore/models.py:74
 msgid "Ultrasound"
 msgstr "Ecografía"
 
-#: fisiocore/models.py:55
+#: fisiocore/models.py:75
 msgid "CT scan"
 msgstr "TAC"
 
-#: fisiocore/models.py:56
+#: fisiocore/models.py:76
 msgid "Nuclear magnetic resonance"
 msgstr "Resonancia magnética nuclear"
 
-#: fisiocore/models.py:57
+#: fisiocore/models.py:77
 msgid "Unknown/other"
 msgstr "Sin especificar"
 
-#: fisiocore/models.py:62
+#: fisiocore/models.py:82
 msgid "Image type"
 msgstr "Tipo de imagen"
 
-#: fisiocore/models.py:72
+#: fisiocore/models.py:93
 msgid "Patient report"
 msgstr "Informe para el paciente"
 
-#: fisiocore/models.py:82 fisiocore/models.py:94
+#: fisiocore/models.py:103 fisiocore/models.py:115
 #: fisiocore/templates/fisiocore/patient.html:61
 msgid "Name"
 msgstr "Nombre"
 
-#: fisiocore/models.py:82 fisiocore/models.py:94
+#: fisiocore/models.py:103 fisiocore/models.py:115
 msgid "Descriptive name for the treatment plan."
 msgstr "Nombre descriptivo para el plan de tratamiento."
 
-#: fisiocore/models.py:83
+#: fisiocore/models.py:104
 msgid "Overall price of the whole treatment plan."
 msgstr "Precio global del plan de tratamiento"
 
-#: fisiocore/models.py:95
+#: fisiocore/models.py:116
 msgid "Detailed description of the treatment plan. Supports Markdown"
 msgstr "Descripción detallada del plan de tratamiento. Se puede usar Markdown"
 
-#: fisiocore/models.py:97
-#, fuzzy
+#: fisiocore/models.py:118
 #| msgid "Overall price of the whole treatment plan."
 msgid "Overal price of the whole treatment plan."
 msgstr "Precio global del plan de tratamiento"
 
-#: fisiocore/models.py:99 fisiocore/templates/fisiocore/patients.html:38
+#: fisiocore/models.py:120 fisiocore/templates/fisiocore/patients.html:38
 msgid "Active"
 msgstr "Activado"
 
-#: fisiocore/models.py:111
+#: fisiocore/models.py:132
 msgid "Anything remarkable such as patient's progress"
 msgstr "Cualquier cosa mencionable como el progreso del paciente"
 
-#: fisiocore/models.py:174 fisiocore/templates/fisiocore/patient.html:44
-#: fisiocore/views.py:11
+#: fisiocore/models.py:195 fisiocore/templates/fisiocore/anamnesis.html:45
+#: fisiocore/templates/fisiocore/patient.html:44 fisiocore/views.py:12
 msgid "Informed consent"
 msgstr "Consentimiento informado"
 
-#: fisiocore/templates/fisiocore/add_patient.html:24
-#: fisiocore/templates/fisiocore/edit_patient.html:24
-msgid "save changes"
-msgstr "guardar cambios"
+#: fisiocore/templates/fisiocore/add_anamnesis.html:23
+#: fisiocore/templates/fisiocore/anamnesis.html:20
+#| msgid "Anamnesis"
+msgid "Add anamnesis"
+msgstr "Añadir Anamnesis"
+
+#: fisiocore/templates/fisiocore/add_anamnesis.html:33
+#: fisiocore/templates/fisiocore/add_patient.html:33
+#: fisiocore/templates/fisiocore/delete_patient.html:46
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: fisiocore/templates/fisiocore/add_patient.html:23
+#| msgid "Add Patient"
+msgid "Add patient"
+msgstr "Añadir paciente"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:30
+#| msgid "Sessions"
+msgid "Add session"
+msgstr "Añadir Sesión"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:38
+#: fisiocore/templates/fisiocore/patient.html:37
+#| msgid "Patient report"
+msgid "Patient data"
+msgstr "Datos del paciente"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:39
+#: fisiocore/templates/fisiocore/patient.html:38
+msgid "Medical history"
+msgstr "Historia clínica"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:41
+#: fisiocore/templates/fisiocore/patient.html:40
+msgid "Treatment plans"
+msgstr "Planos de tratamiento"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:42
+#: fisiocore/templates/fisiocore/patient.html:41
+msgid "Sessions"
+msgstr "Sesiones"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:44
+#: fisiocore/templates/fisiocore/patient.html:43 fisiocore/views.py:13
+msgid "Invoicing"
+msgstr "Facturación"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:83
+msgid "Date: "
+msgstr "Fecha"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:86
+msgid "Reason: "
+msgstr "Motivo: "
+
+#: fisiocore/templates/fisiocore/anamnesis.html:96
+msgid "Edit"
+msgstr "Editar"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:106
+#: fisiocore/templates/fisiocore/delete_patient.html:36
+msgid "Delete"
+msgstr "Borrar"
+
+#: fisiocore/templates/fisiocore/anamnesis.html:115
+msgid "Clinical Interview"
+msgstr ""
+
+#: fisiocore/templates/fisiocore/anamnesis_form.html:31
+#: fisiocore/templates/fisiocore/anamnesis_form.html:48
+msgid "text formatting with markdown"
+msgstr "formateado de texto con markdown"
 
 #: fisiocore/templates/fisiocore/delete_patient.html:10
 msgid "Are you sure you want to delete patient"
@@ -209,21 +301,18 @@ msgid ""
 "You are about to permanently delete a patient record and all data related to "
 "this patient. It is highly recommended to download a dump of the patient "
 "data before deletion."
-msgstr "Está a punto de eliminar de forma permante el registro de un paciente "
-"y todos los datos relacionados. Es muy recomendable descargar un dump de este paciente "
-"antes de eliminarlo."
+msgstr ""
+"Está a punto de eliminar de forma permante el registro de un paciente y "
+"todos los datos relacionados. Es muy recomendable descargar un dump de este "
+"paciente antes de eliminarlo."
 
 #: fisiocore/templates/fisiocore/delete_patient.html:25
 msgid "I understand the implications of this action and want to proceed"
 msgstr "Comprendo las implicaciones de esta acción y quiero continuar"
 
-#: fisiocore/templates/fisiocore/delete_patient.html:36
-msgid "Delete"
-msgstr "Borrar"
-
-#: fisiocore/templates/fisiocore/delete_patient.html:46
-msgid "Cancel"
-msgstr "Cancelar"
+#: fisiocore/templates/fisiocore/edit_patient.html:24
+msgid "save changes"
+msgstr "guardar cambios"
 
 #: fisiocore/templates/fisiocore/edit_patient.html:34
 msgid "cancel"
@@ -237,60 +326,32 @@ msgstr "Editar paciente"
 msgid "Delete patient"
 msgstr "Borrar paciente"
 
-#: fisiocore/templates/fisiocore/patient.html:37
-#, fuzzy
-#| msgid "Patient report"
-msgid "Patient data"
-msgstr "Informe para el paciente"
-
-#: fisiocore/templates/fisiocore/patient.html:38
-msgid "Medical history"
-msgstr "Historia clínica"
-
-#: fisiocore/templates/fisiocore/patient.html:40
-msgid "Treatment plans"
-msgstr "Planos de tratamiento"
-
-#: fisiocore/templates/fisiocore/patient.html:41
-msgid "Sessions"
-msgstr "Sesiones"
-
-#: fisiocore/templates/fisiocore/patient.html:43 fisiocore/views.py:12
-msgid "Invoicing"
-msgstr "Facturación"
-
 #: fisiocore/templates/fisiocore/patient.html:49
-#, fuzzy
 #| msgid "Patient report"
 msgid "Patient Id"
-msgstr "Informe para el paciente"
+msgstr "Id del paciente"
 
 #: fisiocore/templates/fisiocore/patient.html:69
-#, fuzzy
 #| msgid "Tax number"
 msgid "Id card number"
-msgstr "CIF"
+msgstr "DNI"
 
 #: fisiocore/templates/fisiocore/patient.html:89
-#, fuzzy
 #| msgid "Social security number"
 msgid "Social Security number"
 msgstr "Número de Seguridad social"
 
 #: fisiocore/templates/fisiocore/patient.html:93
-#, fuzzy
 #| msgid "Social security date of issue"
 msgid "Social Security country of issue"
-msgstr "País de emisión de la tarejeta"
+msgstr "País de emisión de la tarjeta"
 
 #: fisiocore/templates/fisiocore/patient.html:97
-#, fuzzy
 #| msgid "Social security date of issue"
 msgid "Social Security date of issue"
-msgstr "Fecha de emisión de la tarejeta"
+msgstr "Fecha de emisión de la tarjeta"
 
 #: fisiocore/templates/fisiocore/patient.html:101
-#, fuzzy
 #| msgid "Social security expiry date"
 msgid "Social Security expiry date"
 msgstr "Caducidad de la tarjeta"
@@ -299,35 +360,44 @@ msgstr "Caducidad de la tarjeta"
 msgid "New patient"
 msgstr "Paciente nuevo"
 
-#: fisiocore/views.py:9 fisiocore/views.py:24
+#: fisiocore/views.py:10 fisiocore/views.py:21
 msgid "Patients"
 msgstr "Pacientes"
 
-#: fisiocore/views.py:10
+#: fisiocore/views.py:11
 msgid "Calendar"
 msgstr "Agenda"
 
-#: fisiocore/views.py:35 fisiocore/views.py:75
+#: fisiocore/views.py:33 fisiocore/views.py:76
 #, python-brace-format
 msgid "There is no patient with Id {0}"
 msgstr "No hay ningún paciente con Id {0}"
 
-#: fisiocore/views.py:37 fisiocore/views.py:77
+#: fisiocore/views.py:35 fisiocore/views.py:78
 msgid "You are not allowed to see the data of this user"
 msgstr "No tiene autorización para ver los datos de este paciente"
 
-#: fisiocore/views.py:39
-msgid "Patient"
-msgstr "Paciente"
+#: fisiocore/views.py:37
+#| msgid "Edit Patient \"{0}\""
+msgid "Patient \"{0}\""
+msgstr "Paciente \"{0}\""
 
-#: fisiocore/views.py:81
+#: fisiocore/views.py:82
 #, python-brace-format
 msgid "Edit Patient \"{0}\""
 msgstr "Editar paciente \"{0}\""
 
-#: fisiocore/views.py:92
+#: fisiocore/views.py:99
+#, fuzzy, python-brace-format
+#| msgid "Delete patient {0} {1}"
 msgid "Delete patient {0} {1}"
-msgstr "Borrar paciente"
+msgstr "Borrar paciente  {0} {1}"
 
-#~ msgid "Add Patient"
-#~ msgstr "Añadir paciente"
+#: fisiocore/views.py:114
+#, fuzzy, python-brace-format
+#| msgid "Medical history"
+msgid "Clinical history \"{0}\""
+msgstr "Historia clínica \"{0}\""
+
+#~ msgid "Patient"
+#~ msgstr "Paciente"

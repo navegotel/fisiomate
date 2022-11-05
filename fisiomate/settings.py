@@ -146,33 +146,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = '/login'
 
-MARKDOWNIFY_WHITELIST_TAGS = [
-    'a',
-    'abbr',
-    'acronym',
-    'b',
-    'blockquote',
-    'code',
-    'em',
-    'i',
-    'li',
-    'ol',
-    'p',
-    'pre',
-    'strong',
-    'ul',
-    'h1',
-    'h2',
-    'h3',
-    'h4',
-    'img'
-]
-
-MARKDOWNIFY_WHITELIST_ATTRS = [
-    'href',
-    'src',
-    'alt',
-]
-
-MARKDOWNIFY_MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code',
-                                   'markdown.extensions.extra']
+MARKDOWNIFY = {
+    'default': {
+        'WHITELIST_TAGS': ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'p', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'h4', 'img'],
+        'WHITELIST_ATTRS': ['href', 'src', 'alt'],
+        'MARKDOWN_EXTENSIONS': ['markdown.extensions.fenced_code','markdown.extensions.extra']
+    }
+}

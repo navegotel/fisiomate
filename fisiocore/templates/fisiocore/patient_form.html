@@ -1,4 +1,4 @@
-<input type="hidden" name="user" value="{{form.user.value}}" >-
+<input type="hidden" name="user" value="{{form.user.value}}" >
 <div class="field is-horizontal">
   <div class="control">
     <label class="checkbox">
@@ -232,7 +232,7 @@
             <p class="control is-expanded">
                 <textarea class="textarea" name="remarks" placeholder="{{form.remarks.label}}">{{form.remarks.value|default_if_none:''}}</textarea>
             </p>
-            {% for error in form.id_card_number.errors %}
+            {% for error in form.remarks.errors %}
                 <p class="help is-danger">{{error}}</p>
             {% endfor %}
         </div>

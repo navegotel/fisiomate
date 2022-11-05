@@ -76,19 +76,39 @@
             </div>
         </div>
         <div class="column">
+            {% if anamnesis %}
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <p class="has-text-weight-bold">{% translate 'Date: ' %}{{anamnesis.last_update}}</p>
+                        <p class="has-text-weight-bold">{% translate 'Date: ' %}{{anamnesis.last_update|date:'d/m/Y'}}</p>
                     </div>
                     <div class="level-item">
                         <p class="has-text-weight-bold">{% translate 'Reason: ' %}{{anamnesis.reason}}</p>
                     </div>
                 </div>
                 <div class="level-right">
-                
+                    <div class="level-item">
+                        <a class="button is-info" href="{% url 'fisiocore:edit_anamnesis' anamnesis.id %}">
+                            <span class="icon">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span>
+                                {% translate "Edit" %}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-danger" href="{% url 'fisiocore:delete_anamnesis' anamnesis.id %}">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>
+                                {% translate "Delete" %}
+                            </span>
+                        </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
             <div class="card mb-2">
                 <div class="card-header has-background-primary">
                     <p class="card-header-title">
@@ -113,6 +133,11 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+                <div class="notification is-info">
+                    <p>Select an item from the left panel to see its content.</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>

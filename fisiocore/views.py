@@ -119,14 +119,21 @@ def anamnesis(request, patient_id, anamnesis_id=None):
     }
     return render(request, 'fisiocore/anamnesis.html', context)
     
+def add_anamnesis(request, patient_id):
+    pass
+    
+def edit_anamnesis(request, anamnesis_id):
+    pass
+    
+def delete_anamnesis(request, anamnesis_id):
+    pass
+    
 def add_consent(request):
     pass
 
 def revoke_consent(request, consent_id):
     pass
 
-def add_anamnesis(request):
-    pass
 
 def consents(request):
     pass
