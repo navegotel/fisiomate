@@ -4,7 +4,7 @@
 {% block main %}
 <section class="section">
     <h1 class="title">{{title}}</h1>
-    <form method="post">
+    <form method="POST" action="{% url 'fisiocore:add_anamnesis' patient_id %}" >
         {% csrf_token %}
     {{form}}
         <div class="level">

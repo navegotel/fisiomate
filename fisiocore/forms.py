@@ -1,5 +1,5 @@
 from django.forms import Form, ModelForm, CharField
-from .models import Patient
+from .models import Patient, Anamnesis
 
 class PatientForm(ModelForm):
     class Meta:
@@ -21,4 +21,15 @@ class PatientForm(ModelForm):
             'ss_expiry_date',
             'in_treatment',
             'remarks'
+        ]
+
+class AnamnesisForm(ModelForm):
+    class Meta:
+        model = Anamnesis
+        fields = [
+            'user',
+            'patient',
+            'reason',
+            'interview',
+            'exploration',
         ]

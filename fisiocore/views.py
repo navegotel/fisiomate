@@ -4,7 +4,7 @@ from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from .models import Patient, Anamnesis
-from .forms import PatientForm
+from .forms import PatientForm, AnamnesisForm
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -120,7 +120,25 @@ def anamnesis(request, patient_id, anamnesis_id=None):
     return render(request, 'fisiocore/anamnesis.html', context)
     
 def add_anamnesis(request, patient_id):
-    pass
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': "Add Anamnesis"
+    }
+    if request.method == "POST":
+        form = AnamnesisForm(request.POST)
+        if form.is_valid():
+            anamnesis = form.save()
+            return redirect(reverse('fisiocore:view_patient', args=[anamnesis.id]))
+        else:
+            rendered_form = form.render('fisiocore/anamnesis_form.html')
+            context['form'] = rendered_form
+            context['patient_id'] = patient_id
+            return render(request, 'fisiocore/add_anamnesis.html', context)
+    form = AnamnesisForm(initial={'user': request.user.id, 'patient': patient_id})
+    rendered_form = form.render('fisiocore/anamnesis_form.html')
+    context['form'] = rendered_form
+    context['patient_id'] = patient_id
+    return render(request, 'fisiocore/add_anamnesis.html', context)
     
 def edit_anamnesis(request, anamnesis_id):
     pass
