@@ -128,7 +128,7 @@ def add_anamnesis(request, patient_id):
         form = AnamnesisForm(request.POST)
         if form.is_valid():
             anamnesis = form.save()
-            return redirect(reverse('fisiocore:view_patient', args=[anamnesis.id]))
+            return redirect(reverse('fisiocore:anamnesis', args=[patient_id, anamnesis.id]))
         else:
             rendered_form = form.render('fisiocore/anamnesis_form.html')
             context['form'] = rendered_form
@@ -141,7 +141,28 @@ def add_anamnesis(request, patient_id):
     return render(request, 'fisiocore/add_anamnesis.html', context)
     
 def edit_anamnesis(request, anamnesis_id):
-    pass
+    if request.method == "POST":
+        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
+        form = AnamnesisForm(request.POST, instance=anamnesis)
+        if form.is_valid():
+            form.save()
+        return redirect(reverse('fisiocore:anamnesis', args=[anamnesis.patient.id, anamnesis_id]))
+        # return redirect(reverse('fisiocore:anamnesis', args=[anamnesis.patient]))
+    try:
+        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
+    except Anamnesis.DoesNotExist:
+        raise Http404(_("There is no Anamnesis with Id {0}").format(anamnesis_id))
+    if anamnesis.user != request.user:
+        raise Http403(_("You are not allowed to see the data of this user"))
+    form = AnamnesisForm(instance=anamnesis)
+    rendered_form = form.render('fisiocore/anamnesis_form.html')
+    context = {
+        'title': _('Edit Anamnesis "{0}"'.format(anamnesis)),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'anamnesis': anamnesis,
+        'form': rendered_form
+    }
+    return render(request, 'fisiocore/edit_anamnesis.html', context)
     
 def delete_anamnesis(request, anamnesis_id):
     pass

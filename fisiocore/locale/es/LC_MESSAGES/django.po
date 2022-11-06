@@ -285,7 +285,7 @@ msgstr "Borrar"
 
 #: fisiocore/templates/fisiocore/anamnesis.html:115
 msgid "Clinical Interview"
-msgstr ""
+msgstr "Entrevista clínica"
 
 #: fisiocore/templates/fisiocore/anamnesis_form.html:31
 #: fisiocore/templates/fisiocore/anamnesis_form.html:48
