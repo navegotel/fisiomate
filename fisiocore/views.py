@@ -165,7 +165,19 @@ def edit_anamnesis(request, anamnesis_id):
     return render(request, 'fisiocore/edit_anamnesis.html', context)
     
 def delete_anamnesis(request, anamnesis_id):
-    pass
+    anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
+    patient_id = anamnesis.patient.id
+    if request.method == 'POST':
+        if request.POST.get('confirm') is not None:
+            anamnesis.delete()
+            return redirect(reverse('fisiocore:anamnesis', patient_id))
+    context = {
+        'title': _('Delete anamnesis {0}'.format(anamnesis)),
+        'anamnesis': anamnesis
+    }
+    return render(request, 'fisiocore/delete_anamnesis.html', context)
+    
+
     
 def add_consent(request):
     pass
