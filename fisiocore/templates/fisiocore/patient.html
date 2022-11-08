@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load markdownify %}
 {% block main %}
 <section class="section">
     <h1 class="title">{{title}}</h1>
@@ -115,7 +116,11 @@
         </tr>
         <tr>
             <td><b>{% translate 'Remarks' %}:</b></td>
-            <td>{{patient.remarks|default_if_none:''}}</td>
+            <td>
+                <div class="content">
+                    {{patient.remarks|default_if_none:''|markdownify}}
+                </div>
+            </td>
         </tr>
     </table>
 </section>

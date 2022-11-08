@@ -80,14 +80,6 @@
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <p class="has-text-weight-bold">{% translate 'Date: ' %}{{anamnesis.last_update|date:'d/m/Y'}}</p>
-                    </div>
-                    <div class="level-item">
-                        <p class="has-text-weight-bold">{% translate 'Reason: ' %}{{anamnesis.reason}}</p>
-                    </div>
-                </div>
-                <div class="level-right">
-                    <div class="level-item">
                         <a class="button is-info" href="{% url 'fisiocore:edit_anamnesis' anamnesis.id %}">
                             <span class="icon">
                                 <i class="fas fa-edit"></i>
@@ -106,9 +98,32 @@
                                 {% translate "Delete" %}
                             </span>
                         </a>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <a class="button is-info" href="">
+                            <span class="icon">
+                                <i class="fas fa-images"></i>
+                            </span>
+                            <span>
+                                {% translate "Add image" %}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-info" href="">
+                            <span class="icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <span>
+                                {% translate "Add document" %}
+                            </span>
+                        </a>
                         </div>
                     </div>
                 </div>
+            <p class="has-text-weight-bold mb-2">{% translate 'Date: ' %}{{anamnesis.last_update|date:'d/m/Y'}} {% translate 'Reason: ' %}{{anamnesis.reason}}</p>
             <div class="card mb-2">
                 <div class="card-header has-background-primary">
                     <p class="card-header-title">
