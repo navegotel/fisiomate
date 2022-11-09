@@ -45,7 +45,7 @@ class Patient(models.Model):
         return "{0}, {1}".format(self.last_name, self.first_name)
     
     
-class Anamnesis(models.Model):
+class Examination(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
@@ -60,7 +60,7 @@ class Anamnesis(models.Model):
     
 class ClinicalDocument(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    anamnesis = models.ForeignKey('Anamnesis', on_delete= models.CASCADE)
+    examination = models.ForeignKey('Examination', on_delete= models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     label = models.CharField(_('Description'), max_length=200, help_text=_('A brief description of the attached document'))
@@ -76,7 +76,8 @@ class MedicalImage(models.Model):
         ('RMN', _('Nuclear magnetic resonance')),
         ('UNKN', _('Unknown/other'))
     ]
-    anamnesis = models.ForeignKey('Anamnesis', on_delete=models.CASCADE)
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    examination = models.ForeignKey('Examination', on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
@@ -111,7 +112,7 @@ class TreatmentPlan(models.Model):
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    anamnesis = models.ForeignKey('Anamnesis', on_delete=models.CASCADE)
+    examination = models.ForeignKey('Examination', on_delete=models.CASCADE)
     name = models.CharField(_("Name"), max_length=50, help_text=_("Descriptive name for the treatment plan."))
     description = models.TextField(help_text=_("Detailed description of the treatment plan. Supports Markdown"))
     number_of_sessions = models.SmallIntegerField()

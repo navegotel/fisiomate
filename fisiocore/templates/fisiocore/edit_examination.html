@@ -4,7 +4,7 @@
 {% block main %}
 <section class="section">
     <h1 class="title">{{title}}</h1>
-    <form method="POST" action="{% url 'fisiocore:add_anamnesis' patient_id %}" >
+    <form method="POST" action="{% url 'fisiocore:edit_examination' examination.id %}" >
         {% csrf_token %}
     {{form}}
         <div class="level">
@@ -20,12 +20,12 @@
                         <i class="fas fa-plus-square"></i>
                     </span>
                     <span>
-                        {% translate "Add anamnesis" %}
+                        {% translate "Save changes" %}
                     </span>
                 </button>
             </div>
             <div class="level-item">
-                <a class="button is-success" href="{% url 'fisiocore:anamnesis' patient_id %}">
+                <a class="button is-success" href="{% url 'fisiocore:examination' examination.id %}">
                     <span class="icon is-small">
                         <i class="fas fa-undo"></i>
                     </span>

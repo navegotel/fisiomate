@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Anamnesis, MedicalImage
+from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Examination, MedicalImage
 
 class PatientAdmin(admin.ModelAdmin):
     pass
@@ -55,4 +55,4 @@ admin.site.register(Session, SessionAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Receipt, ReceiptAdmin)
-admin.site.register(Anamnesis, AnamnesisAdmin)
+admin.site.register(Examination, AnamnesisAdmin)
