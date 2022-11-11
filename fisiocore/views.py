@@ -1,10 +1,14 @@
+import pathlib
+import base64
+from django.conf import settings as conf_settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from .models import Patient, Anamnesis
-from .forms import PatientForm, AnamnesisForm
+from .models import Patient, Examination, MedicalImage
+from .forms import PatientForm, ExaminationForm
+
 
 MAIN_MENU_ITEMS = [
     (_("Patients"), "fisiocore:patients", "fa-home"),
@@ -12,6 +16,12 @@ MAIN_MENU_ITEMS = [
     (_("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
     (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
 ]
+
+
+FILE_FORMAT = {
+    b"\xff\xd8\xff\xe0": "image/jpeg",
+    b"\x89\x50\x4e\x47": "image/png",
+}
 
 
 @login_required
@@ -103,84 +113,119 @@ def delete_patient(request, patient_id):
     
     
 @login_required
-def anamnesis(request, patient_id, anamnesis_id=None):
+def examination(request, patient_id, examination_id=None):
     patient = Patient.objects.get(pk=patient_id)
     try:
-        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
-    except Anamnesis.DoesNotExist:
-        anamnesis = None
-    anamnesis_list = Anamnesis.objects.filter(patient=patient_id)
+        examination = Examination.objects.get(pk=examination_id)
+    except Examination.DoesNotExist:
+        examination = None
+    examination_list = Examination.objects.filter(patient=patient_id)
+    images = MedicalImage.objects.filter(examination = examination_id)
     context = {
         'title': _('Clinical history "{0}"'.format(patient)),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
-        'anamnesis_list': anamnesis_list,
-        'anamnesis': anamnesis,
+        'examination_list': examination_list,
+        'examination': examination,
+        'images': images
     }
-    return render(request, 'fisiocore/anamnesis.html', context)
-    
-def add_anamnesis(request, patient_id):
+    return render(request, 'fisiocore/examination.html', context)
+
+
+@login_required
+def add_examination(request, patient_id):
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
-        'title': "Add Anamnesis"
+        'title': "Add Examination"
     }
     if request.method == "POST":
-        form = AnamnesisForm(request.POST)
+        form = ExaminationForm(request.POST)
         if form.is_valid():
-            anamnesis = form.save()
-            return redirect(reverse('fisiocore:anamnesis', args=[patient_id, anamnesis.id]))
+            examination = form.save()
+            return redirect(reverse('fisiocore:examination', args=[patient_id, examination.id]))
         else:
-            rendered_form = form.render('fisiocore/anamnesis_form.html')
+            rendered_form = form.render('fisiocore/examination_form.html')
             context['form'] = rendered_form
             context['patient_id'] = patient_id
-            return render(request, 'fisiocore/add_anamnesis.html', context)
-    form = AnamnesisForm(initial={'user': request.user.id, 'patient': patient_id})
-    rendered_form = form.render('fisiocore/anamnesis_form.html')
+            return render(request, 'fisiocore/add_examination.html', context)
+    form = ExaminationForm(initial={'user': request.user.id, 'patient': patient_id})
+    rendered_form = form.render('fisiocore/examination_form.html')
     context['form'] = rendered_form
     context['patient_id'] = patient_id
-    return render(request, 'fisiocore/add_anamnesis.html', context)
+    return render(request, 'fisiocore/add_examination.html', context)
     
-def edit_anamnesis(request, anamnesis_id):
+
+@login_required
+def edit_examination(request, examination_id):
     if request.method == "POST":
-        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
-        form = AnamnesisForm(request.POST, instance=anamnesis)
+        examination = Examination.objects.get(pk=examination_id)
+        form = ExaminationForm(request.POST, instance=examination)
         if form.is_valid():
             form.save()
-        return redirect(reverse('fisiocore:anamnesis', args=[anamnesis.patient.id, anamnesis_id]))
-        # return redirect(reverse('fisiocore:anamnesis', args=[anamnesis.patient]))
+        return redirect(reverse('fisiocore:examination', args=[examination.patient.id, examination_id]))
+        # return redirect(reverse('fisiocore:examination', args=[examination.patient]))
     try:
-        anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
-    except Anamnesis.DoesNotExist:
-        raise Http404(_("There is no Anamnesis with Id {0}").format(anamnesis_id))
-    if anamnesis.user != request.user:
+        examination = Examination.objects.get(pk=examination_id)
+    except Examination.DoesNotExist:
+        raise Http404(_("There is no Examination with Id {0}").format(examination_id))
+    if examination.user != request.user:
         raise Http403(_("You are not allowed to see the data of this user"))
-    form = AnamnesisForm(instance=anamnesis)
-    rendered_form = form.render('fisiocore/anamnesis_form.html')
+    form = ExaminationForm(instance=examination)
+    rendered_form = form.render('fisiocore/examination_form.html')
     context = {
-        'title': _('Edit Anamnesis "{0}"'.format(anamnesis)),
+        'title': _('Edit Examination "{0}"'.format(examination)),
         'main_menu_items': MAIN_MENU_ITEMS,
-        'anamnesis': anamnesis,
+        'examination': examination,
         'form': rendered_form
     }
-    return render(request, 'fisiocore/edit_anamnesis.html', context)
-    
-def delete_anamnesis(request, anamnesis_id):
-    anamnesis = Anamnesis.objects.get(pk=anamnesis_id)
-    patient_id = anamnesis.patient.id
+    return render(request, 'fisiocore/edit_examination.html', context)
+
+
+@login_required
+def delete_examination(request, examination_id):
+    examination = Examination.objects.get(pk=examination_id)
+    patient_id = examination.patient.id
     if request.method == 'POST':
         if request.POST.get('confirm') is not None:
-            anamnesis.delete()
-            return redirect(reverse('fisiocore:anamnesis', patient_id))
+            examination.delete()
+            return redirect(reverse('fisiocore:examination', patient_id))
     context = {
-        'title': _('Delete anamnesis {0}'.format(anamnesis)),
-        'anamnesis': anamnesis
+        'title': _('Delete examination {0}'.format(examination)),
+        'examination': examination
     }
-    return render(request, 'fisiocore/delete_anamnesis.html', context)
-    
+    return render(request, 'fisiocore/delete_examination.html', context)
+
+
+@login_required
+def medical_image(request):
+    image_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
+    image_path = conf_settings.MEDIA_ROOT / image_path
+    with open(image_path, "rb") as image_file:
+        image_data = image_file.read()
+        content_type = FILE_FORMAT.get(image_data[:4])
+        if content_type is not None:
+            return HttpResponse(image_data, content_type=content_type)
+        else:
+            raise HttpResponseServerError("Cannot determine content_type")
+
+
+# @login_required
+# def medical_image(request):
+#     image_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
+#     image_path = conf_settings.MEDIA_ROOT / image_path
+#     with open(image_path, "rb") as image_file:
+#         image_data = base64.b64encode(image_file.read()).decode('utf-8')
+#     context = {
+#         'main_menu_items': MAIN_MENU_ITEMS,
+#         'title': "View Image",
+#         'image': image_data
+#     }
+#     return render(request, 'fisiocore/show_image.html', context)
 
     
 def add_consent(request):
     pass
+
 
 def revoke_consent(request, consent_id):
     pass
@@ -189,8 +234,10 @@ def revoke_consent(request, consent_id):
 def consents(request):
     pass
     
+    
 def calendar(request):
     pass
+    
     
 def invoices(request):
     pass

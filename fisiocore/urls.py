@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth.views import LoginView, logout_then_login
 from . import views
 
@@ -12,14 +12,15 @@ urlpatterns = [
     path('patient/delete/<int:patient_id>', views.delete_patient, name='delete_patient'),
     path('patient/addconsent/<int:patient_id>', views.add_consent, name='add_consent'),
     path('patient/revokeconsent/<int:consent_id>', views.revoke_consent, name='revoke_consent'),
-    path('patient/anamnesis/<int:patient_id>', views.anamnesis, name='anamnesis'),
-    path('patient/anamnesis/<int:patient_id>/<int:anamnesis_id>', views.anamnesis, name='anamnesis'),
-    path('patient/addanamnesis/<int:patient_id>', views.add_anamnesis, name='add_anamnesis'),
-    path('patient/editanamnesis/<int:anamnesis_id>', views.edit_anamnesis, name='edit_anamnesis'),
-    path('patient/deleteanamnesis/<int:anamnesis_id>', views.delete_anamnesis, name='delete_anamnesis'),
+    path('patient/examination/<int:patient_id>', views.examination, name='examination'),
+    path('patient/examination/<int:patient_id>/<int:examination_id>', views.examination, name='examination'),
+    path('patient/addanamnesis/<int:patient_id>', views.add_examination, name='add_examination'),
+    path('patient/editanamnesis/<int:examination_id>', views.edit_examination, name='edit_examination'),
+    path('patient/deleteanamnesis/<int:examination_id>', views.delete_examination, name='delete_examination'),
     path('consents', views.consents, name='consents'),
     path('calendar', views.calendar, name='calendar'),
     path('invoices', views.invoices, name='invoices'),
     path('login', LoginView.as_view(template_name = "fisiocore/login.html"), name='login'),
     path('logout', logout_then_login, name='logout'),
+    re_path('^media/medical_images/\w+', views.medical_image, name='medical_image')
 ]

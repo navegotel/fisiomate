@@ -1,0 +1,57 @@
+{% load i18n %}
+
+<input type="hidden" name="user" value="{{form.user.value}}" >
+<input type="hidden" name="patient" value="{{form.patient.value}}">
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.reason.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.reason.label}}" name="reason" value="{{form.reason.value|default_if_none:''}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-wheelchair"></i>
+                </span>
+            </p>
+            {% for error in form.reason.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.interview.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="interview" placeholder="{{form.interview.label}}">{{form.interview.value|default_if_none:''}}</textarea>
+            </p>
+            <p class="help is-info">{% translate 'text formatting with markdown' %}</p>
+            {% for error in form.interview.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.exploration.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="exploration" placeholder="{{form.exploration.label}}">{{form.exploration.value|default_if_none:''}}</textarea>
+            </p>
+            <p class="help is-info">{% translate 'text formatting with markdown' %}</p>
+            {% for error in form.exploration.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

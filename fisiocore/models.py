@@ -1,3 +1,5 @@
+import os
+from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
@@ -66,6 +68,12 @@ class ClinicalDocument(models.Model):
     label = models.CharField(_('Description'), max_length=200, help_text=_('A brief description of the attached document'))
     upload = models.FileField(_('URL'), upload_to='uploads/%Y/%m/%d/')
     
+
+
+def medical_image_upload_name(instance, filename):
+    ext = filename.split('.')[-1]
+    return "medical_images/{0}/{1}/{2}.{3}".format(instance.patient.id, instance.examination.id, uuid4().hex, ext)
+
     
 class MedicalImage(models.Model):
     IMAGE_TYPE_CHOICES=[
@@ -82,7 +90,8 @@ class MedicalImage(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
     description = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+    image = models.ImageField(upload_to=medical_image_upload_name)
+
     
     
 class PatientReport(models.Model):
