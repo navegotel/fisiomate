@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from .models import Patient, Examination, MedicalImage
+from .models import Patient, Examination, MedicalImage, ClinicalDocument
 from .forms import PatientForm, ExaminationForm
 
 
@@ -121,12 +121,14 @@ def examination(request, patient_id, examination_id=None):
         examination = None
     examination_list = Examination.objects.filter(patient=patient_id)
     images = MedicalImage.objects.filter(examination = examination_id)
+    documents = ClinicalDocument.objects.filter(examination = examination_id)
     context = {
         'title': _('Clinical history "{0}"'.format(patient)),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'examination_list': examination_list,
         'examination': examination,
+        'documents': documents,
         'images': images
     }
     return render(request, 'fisiocore/examination.html', context)
@@ -134,9 +136,10 @@ def examination(request, patient_id, examination_id=None):
 
 @login_required
 def add_examination(request, patient_id):
+    patient = Patient.objects.get(pk=patient_id)
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
-        'title': "Add Examination"
+        'title': "Add Examination for {0}".format(patient)
     }
     if request.method == "POST":
         form = ExaminationForm(request.POST)

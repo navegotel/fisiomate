@@ -15,10 +15,6 @@ class PatientForm(ModelForm):
             'email', 
             'phone', 
             'id_card_number',
-            'ss_number',
-            'ss_country',
-            'ss_issue_date',
-            'ss_expiry_date',
             'in_treatment',
             'remarks'
         ]

@@ -36,10 +36,6 @@ class Patient(models.Model):
     email = models.EmailField(_("Email"), blank=True, null=True)
     phone = models.CharField(_("Phone"), max_length=20, blank=True, null=True)
     id_card_number = models.CharField(_("Id card"), max_length=20, blank=True, null=True)
-    ss_number = models.CharField(_("Social security number"), max_length=20, blank=True, null=True)
-    ss_country = models.CharField(_("Social security country"), max_length=2, blank=True, null=True)
-    ss_issue_date = models.DateField(_("Social security date of issue"), blank=True, null=True)
-    ss_expiry_date = models.DateField(_("Social security expiry date"), blank=True, null=True)
     in_treatment = models.BooleanField(_("In treatment"))
     remarks = models.TextField(_("Remarks"), blank="True", null="True")
     
@@ -59,16 +55,20 @@ class Examination(models.Model):
     def __str__(self):
         return "{0} {1}: {2}".format(self.patient.first_name, self.patient.last_name, self.reason)
     
-    
+
+def clinical_document_upload_name(instance, filename):
+    ext = filename.split('.')[-1]
+    return "clinical_documents/{0}/{1}/{2}.{3}".format(instance.patient.id, instance.examination.id, uuid4().hex, ext)
+
+
 class ClinicalDocument(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     examination = models.ForeignKey('Examination', on_delete= models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     label = models.CharField(_('Description'), max_length=200, help_text=_('A brief description of the attached document'))
-    upload = models.FileField(_('URL'), upload_to='uploads/%Y/%m/%d/')
+    upload = models.FileField(_('URL'), upload_to=clinical_document_upload_name)
     
-
 
 def medical_image_upload_name(instance, filename):
     ext = filename.split('.')[-1]
@@ -78,6 +78,7 @@ def medical_image_upload_name(instance, filename):
 class MedicalImage(models.Model):
     IMAGE_TYPE_CHOICES=[
         ('FOTO', _('Photography')),
+        ('SKTC', _('Sketch')),
         ('XRAY', _('X-Ray')),
         ('ECHO', _('Ultrasound')),
         ('TAC', _('CT scan')),
@@ -89,9 +90,9 @@ class MedicalImage(models.Model):
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
-    description = models.CharField(max_length=200, blank=True, null=True)
+    projection = models.CharField(_("Projection"), max_length=20, blank=True, null=True)
+    description = models.CharField(_('Description'), max_length=200, blank=True, null=True, help_text=_("Findings or explanation of what is depicted in the image"))
     image = models.ImageField(upload_to=medical_image_upload_name)
-
     
     
 class PatientReport(models.Model):
@@ -101,7 +102,6 @@ class PatientReport(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     report = models.TextField(_("Patient report"))
-    
     
 
 class TreatmentPlanTemplate(models.Model):
@@ -184,7 +184,6 @@ class Receipt(models.Model):
     post_code = models.CharField(_("Post code"), max_length=10)
     street = models.CharField(_("Street"), max_length=10)
     date = models.DateField()
-    
 
 
 class InformedConsentDocument(models.Model):
@@ -192,7 +191,6 @@ class InformedConsentDocument(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
-    
     
     
 class InformedConsent(models.Model):

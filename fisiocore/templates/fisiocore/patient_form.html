@@ -165,66 +165,6 @@
 
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">{{form.ss_number.label}} / {{form.ss_country.label}}</label>
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.ss_number.label}}" name="ss_number" value="{{form.ss_number.value|default_if_none:''}}">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-id-card"></i>
-                </span>
-            </p>
-            {% for error in form.ss_number.errors %}
-                <p class="help is-danger">{{error}}</p>
-            {% endfor %}
-        </div>
-        <div class="field">
-            <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="{{form.ss_country.label}}" name="ss_country" value="{{form.country.value|default_if_none:''}}">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-landmark"></i>
-                </span>
-            </p>
-            {% for error in form.city.errors %}
-                <p class="help is-danger">{{error}}</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">{{form.ss_issue_date.label}} / {{ form.ss_expiry_date.label }}</label>
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <p class="control is-expanded has-icons-left">
-                <input class="input" type="date" placeholder="{{form.ss_isssue_date.label}}" name="ss_issue_date" value="{{form.ss_issue_date.value|date:'Y-m-d'}}">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-calendar"></i>
-                </span>
-            </p>
-            {% for error in form.ss_issue_date.errors %}
-                <p class="help is-danger">{{error}}</p>
-            {% endfor %}
-        </div>
-        <div class="field">
-            <p class="control is-expanded has-icons-left">
-                <input class="input" type="date" placeholder="{{form.ss_expiry_date.label}}" name="ss_expiry_date" value="{{form.ss_expiry_date.value|date:'Y-m-d'}}">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-calendar"></i>
-                </span>
-            </p>
-            {% for error in form.ss_expiry_date.errors %}
-                <p class="help is-danger">{{error}}</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
         <label class="label">{{form.remarks.label}}</label>
     </div>
     <div class="field-body">

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Examination, MedicalImage
+from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Examination, MedicalImage, ClinicalDocument
 
 class PatientAdmin(admin.ModelAdmin):
     pass
@@ -36,10 +36,14 @@ class ReceiptAdmin(admin.ModelAdmin):
 class MedicalImageInline(admin.StackedInline):
     model = MedicalImage
     can_delete = True
+
+class ClinicalDocumentInline(admin.StackedInline):
+    model = ClinicalDocument
+    can_delete = True
     
     
 class AnamnesisAdmin(admin.ModelAdmin):
-    inlines = (MedicalImageInline,)
+    inlines = (MedicalImageInline, ClinicalDocumentInline)
     
     
     

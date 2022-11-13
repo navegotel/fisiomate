@@ -68,7 +68,7 @@
                   {% for a in examination_list %}
                       <a href="{% url 'fisiocore:examination' patient.id a.id %}" class="panel-block {%if a.id == examination.id %}is-active{% endif %}">
                         <span class="panel-icon">
-                        <i class="fas fa-notes-medical" aria-hidden="true"></i>
+                        <i class="fas fa-comment-medical" aria-hidden="true"></i>
                         </span>
                         {{a.last_update|date:'d/m/Y'}}: {{a.reason}}
                       </a>
@@ -107,7 +107,7 @@
                                 <i class="fas fa-images"></i>
                             </span>
                             <span>
-                                {% translate "Add image" %}
+                                {% translate "Add images" %}
                             </span>
                         </a>
                     </div>
@@ -117,7 +117,7 @@
                                 <i class="fas fa-file-pdf"></i>
                             </span>
                             <span>
-                                {% translate "Add document" %}
+                                {% translate "Add documents" %}
                             </span>
                         </a>
                         </div>
@@ -148,21 +148,37 @@
                     </div>
                 </div>
             </div>
-
+            {% if images %}
             <div class="panel is-primary">
                 <div class="panel-heading">
-                    {% translate 'Medical Images' %}
+                    {% translate 'Clinical Images' %}
                 </div>
                 {% for image in images %}
                 <a href="{{image.image.url}}" class="panel-block" target="_blank">
                     <span class="panel-icon">
                     <i class="fas fa-file-medical-alt" aria-hidden="true"></i>
                     </span>
-                    {{image.last_update|date:'d/m/Y'}}, {{image.image_type}}: {{image.description}}
+                    {{image.last_update|date:'d/m/Y'}}, {{image.get_image_type_display}} {{image.projection|default_if_none:''}}: {{image.description}}
                 </a>
                 {% endfor %}
             </div>
-            
+            {% endif %}
+            {% if documents %}
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Clinical Documents' %}
+                </div>
+                {% for document in documents %}
+                <a href="{{document.upload.url}}" class="panel-block" target="_blank">
+                    <span class="panel-icon">
+                    <i class="fas fa-file-medical" aria-hidden="true"></i>
+                    </span>
+                    {{document.last_update|date:'d/m/Y'}}, {{document.label}}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             {% else %}
                 <div class="notification is-info">
                     <p>Select an item from the left panel to see its content.</p>
