@@ -1,0 +1,20 @@
+<input type="hidden" name="patient" value="{{form.patient.value}}" >
+<input type="hidden" name="examination" value="{{form.examination.value}}">
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.description.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input class="input" type="text" placeholder="{{form.description.label}}" name="description" value="{{form.description.value|default_if_none:''}}">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-tag"></i>
+                </span>
+            </p>
+            {% for error in form.description.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

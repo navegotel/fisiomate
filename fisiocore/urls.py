@@ -17,6 +17,7 @@ urlpatterns = [
     path('patient/addanamnesis/<int:patient_id>', views.add_examination, name='add_examination'),
     path('patient/editanamnesis/<int:examination_id>', views.edit_examination, name='edit_examination'),
     path('patient/deleteanamnesis/<int:examination_id>', views.delete_examination, name='delete_examination'),
+    path('patient/addimages/<int:examination_id>', views.add_images, name='add_images'),
     path('consents', views.consents, name='consents'),
     path('calendar', views.calendar, name='calendar'),
     path('invoices', views.invoices, name='invoices'),

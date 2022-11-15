@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument
-from .forms import PatientForm, ExaminationForm
+from .forms import PatientForm, ExaminationForm, MedicalImageForm
 
 
 MAIN_MENU_ITEMS = [
@@ -200,7 +200,27 @@ def delete_examination(request, examination_id):
 
 
 @login_required
+def add_images(request, examination_id):
+    examination = Examination.objects.get(pk=examination_id)
+    context = {
+        'title': "Add Images for {0}".format(examination.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'examination': examination
+    }
+    if request.method == 'POST':
+        pass
+    initial_data = {
+        'patient': examination.patient.id,
+        'examination': examination_id
+    }
+    form = MedicalImageForm(initial=initial_data)
+    rendered_form = form.render('fisiocore/medical_image_form.html')
+    context['form'] = rendered_form
+    return render(request, 'fisiocore/add_images.html', context)
+
+@login_required
 def medical_image(request):
+    """open an image from a file on the server and deliver it over http"""
     image_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
     image_path = conf_settings.MEDIA_ROOT / image_path
     with open(image_path, "rb") as image_file:

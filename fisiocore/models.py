@@ -91,7 +91,7 @@ class MedicalImage(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     image_type = models.CharField(_("Image type"), max_length=4, choices=IMAGE_TYPE_CHOICES, default='UNKN')
     projection = models.CharField(_("Projection"), max_length=20, blank=True, null=True)
-    description = models.CharField(_('Description'), max_length=200, blank=True, null=True, help_text=_("Findings or explanation of what is depicted in the image"))
+    description = models.CharField(_('Image description'), max_length=200, blank=True, null=True, help_text=_("Findings or explanation of what is depicted in the image"))
     image = models.ImageField(upload_to=medical_image_upload_name)
     
     
