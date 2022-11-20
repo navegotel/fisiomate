@@ -3,36 +3,36 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-11 17:10+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-11-13 09:56+0000\n"
+"PO-Revision-Date: 2022-11-13 11:04+0100\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: fisiocore/models.py:10
 msgid "The login user"
 msgstr "El usuario para el login"
 
-#: fisiocore/models.py:11 fisiocore/models.py:28 fisiocore/models.py:52
-#: fisiocore/models.py:66 fisiocore/models.py:89 fisiocore/models.py:100
-#: fisiocore/models.py:110 fisiocore/models.py:121 fisiocore/models.py:193
-#: fisiocore/models.py:202 fisiocore/templates/fisiocore/patient.html:54
+#: fisiocore/models.py:11 fisiocore/models.py:28 fisiocore/models.py:48
+#: fisiocore/models.py:67 fisiocore/models.py:90 fisiocore/models.py:101
+#: fisiocore/models.py:110 fisiocore/models.py:121 fisiocore/models.py:192
+#: fisiocore/models.py:200 fisiocore/templates/fisiocore/patient.html:54
 msgid "Creation date"
 msgstr "Fecha de creación"
 
-#: fisiocore/models.py:12 fisiocore/models.py:29 fisiocore/models.py:53
-#: fisiocore/models.py:67 fisiocore/models.py:90 fisiocore/models.py:101
-#: fisiocore/models.py:111 fisiocore/models.py:122 fisiocore/models.py:194
-#: fisiocore/models.py:203 fisiocore/templates/fisiocore/patient.html:58
+#: fisiocore/models.py:12 fisiocore/models.py:29 fisiocore/models.py:49
+#: fisiocore/models.py:68 fisiocore/models.py:91 fisiocore/models.py:102
+#: fisiocore/models.py:111 fisiocore/models.py:122 fisiocore/models.py:193
+#: fisiocore/models.py:201 fisiocore/templates/fisiocore/patient.html:58
 msgid "Last update"
 msgstr "Última actualización"
 
@@ -99,55 +99,39 @@ msgstr "Correo electrónico"
 msgid "Id card"
 msgstr "DNI"
 
-#: fisiocore/models.py:39
-msgid "Social security number"
-msgstr "Número de Seguridad social"
-
-#: fisiocore/models.py:40
-msgid "Social security country"
-msgstr "País del Seguro"
-
-#: fisiocore/models.py:41
-msgid "Social security date of issue"
-msgstr "Fecha de emisión de la tarejeta"
-
-#: fisiocore/models.py:42
-msgid "Social security expiry date"
-msgstr "Caducidad de la tarjeta"
-
-#: fisiocore/models.py:43 fisiocore/templates/fisiocore/patient.html:106
+#: fisiocore/models.py:39 fisiocore/templates/fisiocore/patient.html:90
 msgid "In treatment"
 msgstr "En tratamiento"
 
-#: fisiocore/models.py:44 fisiocore/templates/fisiocore/patient.html:118
+#: fisiocore/models.py:40 fisiocore/templates/fisiocore/patient.html:102
 msgid "Remarks"
 msgstr "Comentarios"
 
-#: fisiocore/models.py:55
+#: fisiocore/models.py:51
 msgid "Reason"
 msgstr "Motivo"
 
-#: fisiocore/models.py:56
+#: fisiocore/models.py:52
 msgid "Anamnesis"
 msgstr "Anamnesis"
 
-#: fisiocore/models.py:56
+#: fisiocore/models.py:52
 msgid "Any health related information given by the patient."
 msgstr "Cualquier información relativa a la salud del paciente."
 
-#: fisiocore/models.py:57 fisiocore/templates/fisiocore/examination.html:142
+#: fisiocore/models.py:53 fisiocore/templates/fisiocore/examination.html:142
 msgid "Exploration"
 msgstr "Exploración"
 
-#: fisiocore/models.py:68
+#: fisiocore/models.py:69 fisiocore/models.py:94
 msgid "Description"
 msgstr "Descripción"
 
-#: fisiocore/models.py:68
+#: fisiocore/models.py:69
 msgid "A brief description of the attached document"
 msgstr "Breve descripción del documento"
 
-#: fisiocore/models.py:69
+#: fisiocore/models.py:70
 msgid "URL"
 msgstr "URL"
 
@@ -156,30 +140,42 @@ msgid "Photography"
 msgstr "Fotografía"
 
 #: fisiocore/models.py:81
+msgid "Sketch"
+msgstr "Dibujo"
+
+#: fisiocore/models.py:82
 msgid "X-Ray"
 msgstr "Radiografía"
 
-#: fisiocore/models.py:82
+#: fisiocore/models.py:83
 msgid "Ultrasound"
 msgstr "Ecografía"
 
-#: fisiocore/models.py:83
+#: fisiocore/models.py:84
 msgid "CT scan"
 msgstr "TAC"
 
-#: fisiocore/models.py:84
+#: fisiocore/models.py:85
 msgid "Nuclear magnetic resonance"
 msgstr "Resonancia magnética nuclear"
 
-#: fisiocore/models.py:85
+#: fisiocore/models.py:86
 msgid "Unknown/other"
 msgstr "Sin especificar"
 
-#: fisiocore/models.py:91
+#: fisiocore/models.py:92
 msgid "Image type"
 msgstr "Tipo de imagen"
 
-#: fisiocore/models.py:103
+#: fisiocore/models.py:93
+msgid "Projection"
+msgstr "Proyección"
+
+#: fisiocore/models.py:94
+msgid "Findings or explanation of what is depicted in the image"
+msgstr "Hallazgos o una explicación de lo que se muestra en la imagen"
+
+#: fisiocore/models.py:104
 msgid "Patient report"
 msgstr "Informe para el paciente"
 
@@ -202,7 +198,7 @@ msgstr "Descripción detallada del plan de tratamiento. Se puede usar Markdown"
 
 #: fisiocore/models.py:128
 msgid "Overal price of the whole treatment plan."
-msgstr "Precio global del plan de tratamiento"
+msgstr "Precio global del plan de tratamiento."
 
 #: fisiocore/models.py:130 fisiocore/templates/fisiocore/patients.html:38
 msgid "Active"
@@ -212,7 +208,7 @@ msgstr "Activado"
 msgid "Anything remarkable such as patient's progress"
 msgstr "Cualquier cosa mencionable como el progreso del paciente"
 
-#: fisiocore/models.py:205 fisiocore/templates/fisiocore/examination.html:45
+#: fisiocore/models.py:203 fisiocore/templates/fisiocore/examination.html:45
 #: fisiocore/templates/fisiocore/patient.html:45 fisiocore/views.py:16
 msgid "Informed consent"
 msgstr "Consentimiento informado"
@@ -220,7 +216,7 @@ msgstr "Consentimiento informado"
 #: fisiocore/templates/fisiocore/add_examination.html:23
 #: fisiocore/templates/fisiocore/examination.html:20
 msgid "Add examination"
-msgstr "Añadir Examination"
+msgstr "Añadir Reconocimiento"
 
 #: fisiocore/templates/fisiocore/add_examination.html:33
 #: fisiocore/templates/fisiocore/add_patient.html:33
@@ -235,14 +231,14 @@ msgid "Add patient"
 msgstr "Añadir paciente"
 
 #: fisiocore/templates/fisiocore/delete_examination.html:10
-#, fuzzy
-#| msgid "Are you sure you want to delete patient"
-msgid "Are you sure you want to delete the clinical examination"
+msgid "Are you sure you want to delete the examination"
 msgstr "Seguro que quiere eliminar este reconocimiento clínico"
 
 #: fisiocore/templates/fisiocore/delete_examination.html:14
 msgid "You are about to permanently the examination and all related data?"
-msgstr "Está a punto de eliminar este reconocimiento clínico y todos los datos relacionados"
+msgstr ""
+"Está a punto de eliminar este reconocimiento clínico y todos los datos "
+"relacionados"
 
 #: fisiocore/templates/fisiocore/delete_examination.html:25
 #: fisiocore/templates/fisiocore/delete_patient.html:25
@@ -270,7 +266,6 @@ msgstr ""
 "paciente antes de eliminarlo."
 
 #: fisiocore/templates/fisiocore/edit_examination.html:23
-#| msgid "save changes"
 msgid "Save changes"
 msgstr "Guardar cambios"
 
@@ -320,17 +315,16 @@ msgid "Edit"
 msgstr "Editar"
 
 #: fisiocore/templates/fisiocore/examination.html:110
-msgid "Add image"
-msgstr "Añadir imagen"
+msgid "Add images"
+msgstr "Añadir imágenes"
 
 #: fisiocore/templates/fisiocore/examination.html:120
-#, fuzzy
-msgid "Add document"
-msgstr "Añadir documento"
+msgid "Add documents"
+msgstr "Añadir documentos"
 
 #: fisiocore/templates/fisiocore/examination.html:126
 msgid "Date: "
-msgstr "Fecha"
+msgstr "Fecha: "
 
 #: fisiocore/templates/fisiocore/examination.html:126
 msgid "Reason: "
@@ -341,8 +335,12 @@ msgid "Clinical Interview"
 msgstr "Entrevista clínica"
 
 #: fisiocore/templates/fisiocore/examination.html:154
-msgid "Medical Images"
+msgid "Clinical Images"
 msgstr "Imágenes clínicos"
+
+#: fisiocore/templates/fisiocore/examination.html:169
+msgid "Clinical Documents"
+msgstr "Documentos clínicos"
 
 #: fisiocore/templates/fisiocore/examination_form.html:34
 #: fisiocore/templates/fisiocore/examination_form.html:51
@@ -365,22 +363,6 @@ msgstr "Id del paciente"
 msgid "Id card number"
 msgstr "DNI"
 
-#: fisiocore/templates/fisiocore/patient.html:90
-msgid "Social Security number"
-msgstr "Número de Seguridad social"
-
-#: fisiocore/templates/fisiocore/patient.html:94
-msgid "Social Security country of issue"
-msgstr "País de emisión de la tarjeta"
-
-#: fisiocore/templates/fisiocore/patient.html:98
-msgid "Social Security date of issue"
-msgstr "Fecha de emisión de la tarjeta"
-
-#: fisiocore/templates/fisiocore/patient.html:102
-msgid "Social Security expiry date"
-msgstr "Caducidad de la tarjeta"
-
 #: fisiocore/templates/fisiocore/patients.html:20
 msgid "New patient"
 msgstr "Paciente nuevo"
@@ -398,7 +380,7 @@ msgstr "Agenda"
 msgid "There is no patient with Id {0}"
 msgstr "No hay ningún paciente con Id {0}"
 
-#: fisiocore/views.py:45 fisiocore/views.py:88 fisiocore/views.py:172
+#: fisiocore/views.py:45 fisiocore/views.py:88 fisiocore/views.py:175
 msgid "You are not allowed to see the data of this user"
 msgstr "No tiene autorización para ver los datos de este paciente"
 
@@ -413,21 +395,50 @@ msgid "Edit Patient \"{0}\""
 msgstr "Editar paciente \"{0}\""
 
 #: fisiocore/views.py:109
+#, python-brace-format
 msgid "Delete patient {0} {1}"
 msgstr "Borrar paciente  {0} {1}"
 
-#: fisiocore/views.py:125
+#: fisiocore/views.py:126
+#, python-brace-format
 msgid "Clinical history \"{0}\""
 msgstr "Historia clínica \"{0}\""
 
-#: fisiocore/views.py:170
+#: fisiocore/views.py:173
+#, python-brace-format
 msgid "There is no Examination with Id {0}"
 msgstr "No hay ningún reconocimiento clínico con Id {0}"
 
-#: fisiocore/views.py:176
+#: fisiocore/views.py:179
+#, python-brace-format
 msgid "Edit Examination \"{0}\""
 msgstr "Editar Reconocimiento clínico\"{0}\""
 
-#: fisiocore/views.py:193
+#: fisiocore/views.py:196
+#, python-brace-format
 msgid "Delete examination {0}"
 msgstr "Borrar reconocimiento clínico {0}"
+
+#~ msgid "Social security number"
+#~ msgstr "Número de Seguridad social"
+
+#~ msgid "Social security country"
+#~ msgstr "País del Seguro"
+
+#~ msgid "Social security date of issue"
+#~ msgstr "Fecha de emisión de la tarejeta"
+
+#~ msgid "Social security expiry date"
+#~ msgstr "Caducidad de la tarjeta"
+
+#~ msgid "Social Security number"
+#~ msgstr "Número de Seguridad social"
+
+#~ msgid "Social Security country of issue"
+#~ msgstr "País de emisión de la tarjeta"
+
+#~ msgid "Social Security date of issue"
+#~ msgstr "Fecha de emisión de la tarjeta"
+
+#~ msgid "Social Security expiry date"
+#~ msgstr "Caducidad de la tarjeta"

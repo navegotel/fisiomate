@@ -208,15 +208,64 @@ def add_images(request, examination_id):
         'examination': examination
     }
     if request.method == 'POST':
-        pass
-    initial_data = {
-        'patient': examination.patient.id,
-        'examination': examination_id
-    }
-    form = MedicalImageForm(initial=initial_data)
-    rendered_form = form.render('fisiocore/medical_image_form.html')
+        print(request.FILES)
+        form = MedicalImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:examination', args=[examination.patient.id, examination.id]))
+    try: 
+        rendered_form = form.render('fisiocore/medical_image_form.html')
+    except NameError:
+        initial_data = {
+            'patient': examination.patient.id,
+            'examination': examination_id
+        }
+        form = MedicalImageForm(initial=initial_data)   
+        rendered_form = form.render('fisiocore/medical_image_form.html') 
+    print(form.errors)
     context['form'] = rendered_form
     return render(request, 'fisiocore/add_images.html', context)
+
+
+@login_required
+def edit_medical_image(request, image_id):
+    image = MedicalImage.objects.get(pk=image_id)
+    if request.method == 'POST':
+        form = MedicalImageForm(request.POST, instance=image)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:view_medical_image', args=[image_id]))
+    try:
+        rendered_form = form.render('fisiocore/medical_image_form.html')
+    except NameError:
+        form = MedicalImageForm(instance=image)
+        rendered_form = form.render('fisiocore/medical_image_form.html')
+    context = {
+        'title': "Edit Image for {0}".format(image.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'image': image,
+        'form': rendered_form
+    }
+    return render(request, 'fisiocore/edit_image.html', context)
+
+
+@login_required
+def delete_medical_image(request, image_id):
+    image = MedicalImage.objects.get(pk=image_id)
+    if request.method == 'POST':
+        pass
+
+@login_required
+def view_medical_image(request, image_id):
+    image = MedicalImage.objects.get(pk=image_id)
+    context = {
+        'title': "View Image for {0}".format(image.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'examination': examination,
+        'image': image,
+    }
+    return render(request, 'fisiocore/view_medical_image.html', context)
+
 
 @login_required
 def medical_image(request):

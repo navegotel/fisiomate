@@ -25,7 +25,7 @@
                 </button>
             </div>
             <div class="level-item">
-                <a class="button is-success" href="{% url 'fisiocore:examination' examination.id %}">
+                <a class="button is-success" href="{% url 'fisiocore:examination' examination.patient.id examination.id %}">
                     <span class="icon is-small">
                         <i class="fas fa-undo"></i>
                     </span>

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'markdownify',
     'fisiocore',
+    'fisiohelp',
 ]
 
 MIDDLEWARE = [

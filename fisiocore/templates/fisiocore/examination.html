@@ -154,7 +154,7 @@
                     {% translate 'Clinical Images' %}
                 </div>
                 {% for image in images %}
-                <a href="{{image.image.url}}" class="panel-block" target="_blank">
+                <a href="{% url 'fisiocore:view_medical_image' image.id %}" class="panel-block" target="_blank">
                     <span class="panel-icon">
                     <i class="fas fa-file-medical-alt" aria-hidden="true"></i>
                     </span>

@@ -37,6 +37,13 @@ class MedicalImageForm(ModelForm):
             'patient',
             'examination',
             'image_type',
+            'projection',
             'description',
             'image',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs.update({'class': 'input'})
+        self.fields['projection'].widget.attrs.update({'class': 'input'})
+        self.fields['image_type'].widget.attrs.update({'class': 'select'})
