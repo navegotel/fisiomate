@@ -253,7 +253,15 @@ def edit_medical_image(request, image_id):
 def delete_medical_image(request, image_id):
     image = MedicalImage.objects.get(pk=image_id)
     if request.method == 'POST':
-        pass
+        if request.POST.get('confirm') is not None:
+            image.delete()
+            return redirect(reverse('fisiocore:examination', args=[image.patient.id, image.examination.id]))
+    context = {
+        'title': "Delete image from {0}".format(image.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'image': image,
+    }
+    return render(request, 'fisiocore/delete_image.html', context)
 
 @login_required
 def view_medical_image(request, image_id):
