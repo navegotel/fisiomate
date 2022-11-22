@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+{% block main %}
+<section class="section">
+    <h1 class="title"><a class="has-text-black" href="{% url 'fisiocore:examination' document.patient.id document.examination.id %}">{{title}}</a></h1>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-info" href="{% url 'fisiocore:edit_document' document.id %}">
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span>
+                        {% translate "Edit document" %}
+                    </span>
+                </a>
+            </div>
+            <div class="level-item">
+                <a class="button is-danger" href="{% url 'fisiocore:delete_document' document.id %}">
+                    <span class="icon">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span>
+                        {% translate "Delete document" %}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><b>{% translate 'Creation date' %}</b></td>
+                <td>{{document.creation_date}}</td>
+            </tr>
+            <tr>
+                <td><b>{% translate 'Last update' %}</b></td>
+                <td>{{document.last_update}}</td>
+            </tr>
+            <tr>
+                <td><b>{% translate 'Label' %}</b></td>
+                <td>{{document.label}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <object src="{{document.upload.url}}" type="application/pdf" width="100%" height="100%">
+        <a class="button is-info" href="{{document.upload.url}}" target="_blank">{% translate 'download pdf file' %}</a>
+    </object>
+</section>
+{% endblock %}

@@ -112,7 +112,7 @@
                         </a>
                     </div>
                     <div class="level-item">
-                        <a class="button is-info" href="">
+                        <a class="button is-info" href="{% url 'fisiocore:add_document' examination.id %}">
                             <span class="icon">
                                 <i class="fas fa-file-pdf"></i>
                             </span>
@@ -169,7 +169,7 @@
                     {% translate 'Clinical Documents' %}
                 </div>
                 {% for document in documents %}
-                <a href="{{document.upload.url}}" class="panel-block" target="_blank">
+                <a href="{% url 'fisiocore:view_document' document.id %}" class="panel-block" target="_blank">
                     <span class="panel-icon">
                     <i class="fas fa-file-medical" aria-hidden="true"></i>
                     </span>

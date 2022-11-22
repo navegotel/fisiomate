@@ -21,10 +21,15 @@ urlpatterns = [
     path('patient/viewimage/<int:image_id>', views.view_medical_image, name='view_medical_image'),
     path('patient/editimage/<int:image_id>', views.edit_medical_image, name='edit_medical_image'),
     path('patient/deleteimage/<int:image_id>', views.delete_medical_image, name='delete_medical_image'),
+    path('patient/adddocument/<int:examination_id>', views.add_document, name='add_document'),
+    path('patient/viewdocument/<int:document_id>', views.view_document, name='view_document'),
+    path('patient/editdocument/<int:document_id>', views.edit_document, name='edit_document'),
+    path('patient/deletedocument/<int:document_id>', views.delete_document, name='delete_document'),
     path('consents', views.consents, name='consents'),
     path('calendar', views.calendar, name='calendar'),
     path('invoices', views.invoices, name='invoices'),
     path('login', LoginView.as_view(template_name = "fisiocore/login.html"), name='login'),
     path('logout', logout_then_login, name='logout'),
-    re_path('^media/medical_images/\w+', views.medical_image, name='medical_image')
+    re_path('^media/medical_images/\w+', views.medical_image, name='medical_image'),
+    re_path('^media/clinical_documents/\w+', views.document, name='clinical_document')
 ]

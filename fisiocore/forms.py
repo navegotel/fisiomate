@@ -1,5 +1,6 @@
 from django.forms import Form, ModelForm, CharField
-from .models import Patient, Examination, MedicalImage
+from .models import Patient, Examination, MedicalImage, ClinicalDocument
+
 
 class PatientForm(ModelForm):
     class Meta:
@@ -19,6 +20,7 @@ class PatientForm(ModelForm):
             'remarks'
         ]
 
+
 class ExaminationForm(ModelForm):
     class Meta:
         model = Examination
@@ -29,6 +31,7 @@ class ExaminationForm(ModelForm):
             'interview',
             'exploration',
         ]
+
 
 class MedicalImageForm(ModelForm):
     class Meta:
@@ -47,3 +50,18 @@ class MedicalImageForm(ModelForm):
         self.fields['description'].widget.attrs.update({'class': 'input'})
         self.fields['projection'].widget.attrs.update({'class': 'input'})
         self.fields['image_type'].widget.attrs.update({'class': 'select'})
+
+
+class ClinicalDocumentForm(ModelForm):
+    class Meta:
+        model = ClinicalDocument
+        fields = [
+            'patient',
+            'examination',
+            'label',
+            'upload',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['label'].widget.attrs.update({'class': 'input'})

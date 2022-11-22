@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument
-from .forms import PatientForm, ExaminationForm, MedicalImageForm
+from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm
 
 
 MAIN_MENU_ITEMS = [
@@ -21,6 +21,7 @@ MAIN_MENU_ITEMS = [
 FILE_FORMAT = {
     b"\xff\xd8\xff\xe0": "image/jpeg",
     b"\x89\x50\x4e\x47": "image/png",
+    b"\x25\x50\x44\x46\x2D": "application/pdf",
 }
 
 
@@ -208,7 +209,6 @@ def add_images(request, examination_id):
         'examination': examination
     }
     if request.method == 'POST':
-        print(request.FILES)
         form = MedicalImageForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -222,7 +222,6 @@ def add_images(request, examination_id):
         }
         form = MedicalImageForm(initial=initial_data)   
         rendered_form = form.render('fisiocore/medical_image_form.html') 
-    print(form.errors)
     context['form'] = rendered_form
     return render(request, 'fisiocore/add_images.html', context)
 
@@ -231,7 +230,7 @@ def add_images(request, examination_id):
 def edit_medical_image(request, image_id):
     image = MedicalImage.objects.get(pk=image_id)
     if request.method == 'POST':
-        form = MedicalImageForm(request.POST, instance=image)
+        form = MedicalImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid():
             form.save()
             return redirect(reverse('fisiocore:view_medical_image', args=[image_id]))
@@ -287,6 +286,90 @@ def medical_image(request):
             return HttpResponse(image_data, content_type=content_type)
         else:
             raise HttpResponseServerError("Cannot determine content_type")
+
+#@login_required
+def document(request):
+    """read documente from file on server and return over http"""
+    document_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
+    document_path = conf_settings.MEDIA_ROOT / document_path
+    with open(document_path, "rb") as doc_file:
+        document = doc_file.read()
+    return HttpResponse(document, content_type="application/pdf")
+
+
+@login_required
+def view_document(request, document_id):
+    document = ClinicalDocument.objects.get(pk=document_id)
+    context = {
+        'title': "View document for {0}".format(document.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'document': document,
+    }
+    return render(request, 'fisiocore/view_medical_document.html', context)
+
+
+@login_required
+def edit_document(request, document_id):
+    document = ClinicalDocument.objects.get(pk=document_id)
+    if request.method == 'POST':
+        form = ClinicalDocumentForm(request.POST, request.FILES, instance=document)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:view_document', args=[document_id]))
+    try:
+        rendered_form = form.render('fisiocore/clinical_document_form.html')
+    except NameError:
+        form = ClinicalDocumentForm(instance=document)
+        rendered_form = form.render('fisiocore/clinical_document_form.html')
+    context = {
+        'title': "Edit Document for {0}".format(document.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'document': document,
+        'form': rendered_form
+    }
+    return render(request, 'fisiocore/edit_document.html', context)
+
+
+@login_required
+def add_document(request, examination_id):
+    examination = Examination.objects.get(pk=examination_id)
+    context = {
+        'title': "Add Document for {0}".format(examination.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'examination': examination
+    }
+    if request.method == 'POST':
+        form = ClinicalDocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:examination', args=[examination.patient.id, examination.id]))
+    try: 
+        rendered_form = form.render('fisiocore/clinical_document_form.html')
+    except NameError:
+        initial_data = {
+            'patient': examination.patient.id,
+            'examination': examination_id
+        }
+        form = ClinicalDocumentForm(initial=initial_data)   
+        rendered_form = form.render('fisiocore/clinical_document_form.html') 
+    context['form'] = rendered_form
+    return render(request, 'fisiocore/add_document.html', context)
+
+
+@login_required
+def delete_document(request, document_id):
+    document = ClinicalDocument.objects.get(pk=document_id)
+    if request.method == 'POST':
+        if request.POST.get('confirm') is not None:
+            document.delete()
+            return redirect(reverse('fisiocore:examination', args=[document.patient.id, document.examination.id]))
+    context = {
+        'title': "Delete document from {0}".format(document.patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'document': document,
+    }
+    return render(request, 'fisiocore/delete_document.html', context)
+
 
 
 # @login_required
