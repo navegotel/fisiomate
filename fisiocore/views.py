@@ -115,11 +115,11 @@ def delete_patient(request, patient_id):
     
 @login_required
 def examination(request, patient_id, examination_id=None):
+    if examination_id is None:
+        latest = Examination.objects.filter(patient=patient_id).latest('creation_date')
+        return redirect(reverse('fisiocore:examination', args=[patient_id, latest.id]))
     patient = Patient.objects.get(pk=patient_id)
-    try:
-        examination = Examination.objects.get(pk=examination_id)
-    except Examination.DoesNotExist:
-        examination = None
+    examination = Examination.objects.get(pk=examination_id)
     examination_list = Examination.objects.filter(patient=patient_id)
     images = MedicalImage.objects.filter(examination = examination_id)
     documents = ClinicalDocument.objects.filter(examination = examination_id)
@@ -370,6 +370,23 @@ def delete_document(request, document_id):
     }
     return render(request, 'fisiocore/delete_document.html', context)
 
+
+@login_required
+def imagelist(request, patient_id, image_id=None):
+    if image_id is None:
+        latest = MedicalImage.objects.filter(patient=patient_id).latest('creation_date')
+        return redirect(reverse('fisiocore:imagelist', args=[patient_id, latest.id]))
+    patient = Patient.objects.get(pk=patient_id)
+    images = MedicalImage.objects.filter(patient=patient_id)
+    image = MedicalImage.objects.get(pk=image_id)
+    context = {
+        'title': "Clinical images of {0}".format(patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+        'images': images,
+        'image': image,
+    }
+    return render(request, 'fisiocore/clinical_images.html', context)
 
 
 # @login_required

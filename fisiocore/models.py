@@ -44,6 +44,10 @@ class Patient(models.Model):
     
     
 class Examination(models.Model):
+
+    class Meta:
+        ordering = ['last_update', 'creation_date']
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
