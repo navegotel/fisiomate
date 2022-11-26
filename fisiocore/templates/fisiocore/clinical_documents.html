@@ -2,9 +2,10 @@
 {% load static %}
 {% load i18n %}
 {% load markdownify %}
-{% block main %}
 
-{# listing of clinical images for a patient within the examination page #}
+{# listing of clinical documents for a patient within the examination page #}
+
+{% block main %}
 
     <div class="columns">
         <div class="column is-one-third ">
@@ -22,16 +23,16 @@
                   </div>
                   <p class="panel-tabs">
                     <a href="{% url 'fisiocore:examination' patient.id %}">Examination</a>
-                    <a class="is-active">Images</a>
-                    <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
+                    <a href="{% url 'fisiocore:imagelist' patient.id %}">Images</a>
+                    <a class="is-active">Docs</a>
                     <a href="{% url 'fisiocore:sessionlist' patient.id %}">Sessions</a>
                   </p>
-                  {% for i in images %}
-                      <a href="{% url 'fisiocore:imagelist' patient.id i.id %}" class="searchable panel-block {%if i.id == image.id %}is-active{% endif %}">
+                  {% for d in documents %}
+                      <a href="{% url 'fisiocore:documentlist' patient.id d.id %}" class="searchable panel-block {%if d.id == document.id %}is-active{% endif %}">
                         <span class="panel-icon">
                         <i class="fas fa-comment-medical" aria-hidden="true"></i>
                         </span>
-                        {{i.last_update|date:'d/m/Y'}}: {{i.description}}
+                        {{d.last_update|date:'d/m/Y'}}: {{d.label}}
                       </a>
                   {% endfor %}
             </div>
@@ -41,29 +42,22 @@
                 <tbody>
                     <tr>
                         <td><b>{% translate 'Creation date' %}</b></td>
-                        <td>{{image.creation_date}}</td>
+                        <td>{{document.creation_date}}</td>
                     </tr>
                     <tr>
                         <td><b>{% translate 'Last update' %}</b></td>
-                        <td>{{image.last_update}}</td>
+                        <td>{{document.last_update}}</td>
                     </tr>
                     <tr>
-                        <td><b>{% translate 'Image type' %}</b></td>
-                        <td>{{image.image_type}} ({{image.get_image_type_display}})</td>
-                    </tr>
-                    <tr>
-                        <td><b>{% translate 'Projection' %}</b></td>
-                        <td>{{image.projection}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>{% translate 'Description' %}</b></td>
-                        <td>{{image.description}}</td>
+                        <td><b>{% translate 'Label' %}</b></td>
+                        <td>{{document.label}}</td>
                     </tr>
                 </tbody>
             </table>
-            <div class="image">
-                <img src="{{image.image.url}}">
-            </div>
+            <object src="{{document.upload.url}}" type="application/pdf" width="100%" height="100%">
+                <a class="button is-info" href="{{document.upload.url}}" target="_blank">{% translate 'download pdf file' %}</a>
+            </object>
         </div>
-</div>    
+    </div>   
+
 {% endblock %}

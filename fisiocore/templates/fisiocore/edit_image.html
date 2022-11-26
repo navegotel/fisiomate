@@ -2,8 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block main %}
-<section class="section">
-    <h1 class="title">{{title}}</h1>
+
     <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:edit_medical_image' image.id %}" >
         {% csrf_token %}
     {{form}}
@@ -37,5 +36,4 @@
         </div>
     </div>
     </form>
-</section>
 {% endblock %}

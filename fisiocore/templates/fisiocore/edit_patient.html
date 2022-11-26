@@ -3,8 +3,7 @@
 {% load i18n %}
 {% load markdownify %}
 {% block main %}
-<section class="section">
-    <h1 class="title">{{title}}</h1>
+
     <form method="post">
         {% csrf_token %}
     {{form}}
@@ -38,5 +37,5 @@
         </div>
     </div>
     </form>
-</section>
+
 {% endblock %}

@@ -336,7 +336,7 @@ def add_document(request, examination_id):
     context = {
         'title': "Add Document for {0}".format(examination.patient),
         'main_menu_items': MAIN_MENU_ITEMS,
-        'examination': examination
+        'examination': examination,
     }
     if request.method == 'POST':
         form = ClinicalDocumentForm(request.POST, request.FILES)
@@ -375,7 +375,8 @@ def delete_document(request, document_id):
 def imagelist(request, patient_id, image_id=None):
     if image_id is None:
         latest = MedicalImage.objects.filter(patient=patient_id).latest('creation_date')
-        return redirect(reverse('fisiocore:imagelist', args=[patient_id, latest.id]))
+        if latest is not None:
+            return redirect(reverse('fisiocore:imagelist', args=[patient_id, latest.id]))
     patient = Patient.objects.get(pk=patient_id)
     images = MedicalImage.objects.filter(patient=patient_id)
     image = MedicalImage.objects.get(pk=image_id)
@@ -388,6 +389,30 @@ def imagelist(request, patient_id, image_id=None):
     }
     return render(request, 'fisiocore/clinical_images.html', context)
 
+
+@login_required
+def document_list(request, patient_id, document_id=None):
+    if document_id is None:
+        latest = ClinicalDocument.objects.filter(patient=patient_id).latest('creation_date')
+        if latest is not None:
+            return redirect(reverse('fisiocore:documentlist', args=[patient_id, latest.id]))
+    patient = Patient.objects.get(pk=patient_id)
+    documents = ClinicalDocument.objects.filter(patient=patient_id)
+    document = ClinicalDocument.objects.get(pk=document_id)
+    context = {
+        'title': "Clinical documents of {0}".format(patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+        'documents': documents,
+        'document': document,
+    }
+    return render(request, 'fisiocore/clinical_documents.html', context)
+
+
+@login_required
+def session_list(request, patient_id, session_id=None):
+    if session_id is None:
+        pass
 
 # @login_required
 # def medical_image(request):

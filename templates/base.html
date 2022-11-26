@@ -76,12 +76,19 @@
             </section>
             {% endif %}
         {% endblock %}
-        {% block main %}
             <section class="section">
-                <h1 class="title">{{title}}</h1>
+                {% block mainheader %}
+                    <h1 class="title">{{title}}</h1>
+                {% endblock %}
+
+                {% block submenu %}
+                {% endblock %}
+
+                {% block main %}
+                {% endblock %}
             </section>
-        {% endblock %}
     <script>   
+    {% block js %}
     document.addEventListener('DOMContentLoaded', () => {
         const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
         if ($navbarBurgers.length > 0) {
@@ -95,6 +102,7 @@
             });
         }
     });
+    {% endblock %}
     </script>
     </body>
 </html>

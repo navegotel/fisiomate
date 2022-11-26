@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load markdownify %}
 {% block main %}
-<section class="section">
+
     <h1 class="title"><a class="has-text-black" href="{% url 'fisiocore:examination' image.patient.id image.examination.id %}">{{title}}</a></h1>
     <div class="level">
         <div class="level-left">
@@ -60,5 +60,5 @@
     <div class="image">
         <img src="{{image.image.url}}">
     </div>
-</section>
+
 {% endblock %}

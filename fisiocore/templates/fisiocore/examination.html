@@ -1,50 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_clinic_history.html" %}
 {% load static %}
 {% load i18n %}
 {% load markdownify %}
 {% block main %}
-<section class="section">
-    <h1 class="title">{{title}}</h1>
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-            </div>
-        </div>
-        <div class="level-right">
-            <div class="level-item">
-                <a class="button is-info" href="{% url 'fisiocore:add_examination' patient.id %}">
-                    <span class="icon">
-                        <i class="fas fa-diagnoses"></i>
-                    </span>
-                    <span>
-                        {% translate "Add examination" %}
-                    </span>
-                </a>
-            </div>
-            <div class="level-item">
-                <a class="button is-info" href="{% url 'fisiocore:delete_patient' patient.id %}">
-                    <span class="icon">
-                        <i class="fas fa-calendar"></i>
-                    </span>
-                    <span>
-                        {% translate "Add session" %}
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="tabs">
-        <ul>
-            <li class="is-medium"><a href="{% url 'fisiocore:view_patient' patient.id %}">{% translate 'Patient data' %}</a></li>
-            <li class="is-active is-medium"><a href="{% url 'fisiocore:examination' patient.id %}" >{% translate 'Medical history' %}</a></li>
-            <!--
-            <li><a>{% translate 'Treatment plans' %}</a></li>
-            <li><a>{% translate 'Sessions' %}</a></li>
-            -->
-            <li><a>{% translate 'Invoicing' %}</a></li>
-            <li><a>{% translate 'Informed consent' %}</a></li>
-        </ul>
-    </div>
+
     <div class="columns">
         <div class="column is-one-third ">
             <div class="panel is-primary">
@@ -53,7 +12,7 @@
                 </div>
                 <div class="panel-block">
                     <p class="control has-icons-left">
-                      <input class="input" type="text" placeholder="Search">
+                      <input id="searchbox" class="input" type="text" placeholder="Search"  onkeyup="searchItems()">
                       <span class="icon is-left">
                         <i class="fas fa-search" aria-hidden="true"></i>
                       </span>
@@ -62,11 +21,11 @@
                   <p class="panel-tabs">
                     <a class="is-active">Examination</a>
                     <a href="{% url 'fisiocore:imagelist' patient.id %}">Images</a>
-                    <a>Docs</a>
-                    <a>Sessions</a>
+                    <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
+                    <a href="{% url 'fisiocore:sessionlist' patient.id %}">Sessions</a>
                   </p>
                   {% for a in examination_list %}
-                      <a href="{% url 'fisiocore:examination' patient.id a.id %}" class="panel-block {%if a.id == examination.id %}is-active{% endif %}">
+                      <a href="{% url 'fisiocore:examination' patient.id a.id %}" class="searchable panel-block {%if a.id == examination.id %}is-active{% endif %}">
                         <span class="panel-icon">
                         <i class="fas fa-comment-medical" aria-hidden="true"></i>
                         </span>
@@ -187,6 +146,4 @@
         </div>
     </div>
     
-
-</section>
 {% endblock %}
