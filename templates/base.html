@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,23 +40,39 @@
                             {% endfor %}
                         </div>
                         <div class="navbar-end" >
-                            <a class="navbar-item" href="/">
-                                <span class="panel-icon has-text-info">
-                                    <i class="fas fa-user" aria-hidden="true"></i>
-                                </span>
-                                {{ user.get_username }}
-                            </a>
-                            <a class="navbar-item" href="{% url 'fisiocore:logout' %}">
-                                <span class="panel-icon has-text-info">
-                                    <i class="fas fa-door-open" aria-hidden="true"></i>
-                                </span>
-                                logout
-                            </a>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link">
+                                    <span class="panel-icon has-text-info">
+                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    {{ user.get_username }}
+                                </a>
+                                <div class="navbar-dropdown is-boxed">
+                                    <a class="navbar-item" href="{% url 'fisiocore:userprofile' %}">
+                                        <span class="panel-icon has-text-info">
+                                            <i class="fas fa-wrench" aria-hidden="true"></i>
+                                        </span>
+                                        {% translate 'Profile' %}
+                                    </a>
+                                    <a class="navbar-item" href="{% url 'fisiocore:stats' %}">
+                                        <span class="panel-icon has-text-info">
+                                            <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                                        </span>
+                                        {% translate 'Statistics' %}
+                                    </a>
+                                    <a class="navbar-item" href="{% url 'fisiocore:logout' %}">
+                                        <span class="panel-icon has-text-info">
+                                            <i class="fas fa-door-open" aria-hidden="true"></i>
+                                        </span>
+                                        logout
+                                    </a>
+                                </div>
+                            </div>
                             <a class="navbar-item" href="/help">
                                 <span class="panel-icon has-text-info">
                                     <i class="fas fa-question" aria-hidden="true"></i>
                                 </span>
-                                help
+                                {% translate 'help' %}
                             </a>
                         </div>
                     </div>

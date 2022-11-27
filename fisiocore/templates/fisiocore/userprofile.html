@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block main %}
+
+<table class="table">
+    <tr>
+        <td><b>{% translate 'First name' %}</b></td>
+        <td>{{user.first_name}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Last name' %}</b></td>
+        <td>{{user.last_name}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'User name' %}</b></td>
+        <td>{{user.username}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Email' %}</b></td>
+        <td>{{user.email}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Date joined' %}</b></td>
+        <td>{{user.date_joined}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Last login' %}</b></td>
+        <td>{{user.last_login}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'City' %}</b></td>
+        <td>{{user.userprofile.city|default_if_none:''}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Postal code' %}</b></td>
+        <td>{{user.userprofile.post_code|default_if_none:''}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Street' %}</b></td>
+        <td>{{user.userprofile.street|default_if_none:''}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Phone' %}</b></td>
+        <td>{{user.userprofile.phone|default_if_none:''}}</td>
+    </tr>
+    <tr>
+        <td><b>{% translate 'Tax number' %}</b></td>
+        <td>{{user.userprofile.tax_number|default_if_none:''}}</td>
+    </tr>
+
+</table>
+
+{% endblock %}

@@ -381,7 +381,7 @@ def imagelist(request, patient_id, image_id=None):
     images = MedicalImage.objects.filter(patient=patient_id)
     image = MedicalImage.objects.get(pk=image_id)
     context = {
-        'title': "Clinical images of {0}".format(patient),
+        'title': _("Clinical images of {0}").format(patient),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'images': images,
@@ -400,13 +400,32 @@ def document_list(request, patient_id, document_id=None):
     documents = ClinicalDocument.objects.filter(patient=patient_id)
     document = ClinicalDocument.objects.get(pk=document_id)
     context = {
-        'title': "Clinical documents of {0}".format(patient),
+        'title': _("Clinical documents of {0}").format(patient),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'documents': documents,
         'document': document,
     }
     return render(request, 'fisiocore/clinical_documents.html', context)
+
+
+@login_required
+def stats(request):
+    context = {
+        'title': _("Statistics"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+    }
+    return render(request, 'fisiocore/stats.html', context)
+
+
+@login_required
+def userprofile(request):
+    context = {
+        'title': _("User Profile"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'user': request.user,
+    }
+    return render(request, 'fisiocore/userprofile.html', context)
 
 
 @login_required

@@ -4,13 +4,22 @@
 {% load markdownify %}
 {% block main %}
 
-    <h1 class="title"><a class="has-text-black" href="{% url 'fisiocore:examination' document.patient.id document.examination.id %}">{{title}}</a></h1>
     <div class="level">
         <div class="level-left">
             <div class="level-item">
             </div>
         </div>
         <div class="level-right">
+            <div class="level-item">
+                <a class="button is-success" href="{% url 'fisiocore:examination' document.patient.id document.examination.id %}">
+                    <span class="icon">
+                        <i class="fas fa-hand-point-left"></i>
+                    </span>
+                    <span>
+                        {% translate "Back" %}
+                    </span>
+                </a>
+            </div>
             <div class="level-item">
                 <a class="button is-info" href="{% url 'fisiocore:edit_document' document.id %}">
                     <span class="icon">
