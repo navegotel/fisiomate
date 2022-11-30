@@ -1,12 +1,13 @@
 import pathlib
-import base64
+import calendar
+import datetime
 from django.conf import settings as conf_settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from .models import Patient, Examination, MedicalImage, ClinicalDocument
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm
 
 
@@ -16,6 +17,21 @@ MAIN_MENU_ITEMS = [
     (_("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
     (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
 ]
+
+MONTH_NAMES = {
+    1: 'January',
+    2: 'February',
+    3: 'March',
+    4: 'April',
+    5: 'May',
+    6: 'June',
+    7: 'July',
+    8: 'August',
+    9: 'September',
+    10: 'October',
+    11: 'November',
+    12: 'December'
+}
 
 
 FILE_FORMAT = {
@@ -171,7 +187,7 @@ def edit_examination(request, examination_id):
     try:
         examination = Examination.objects.get(pk=examination_id)
     except Examination.DoesNotExist:
-        raise Http404(_("There is no Examination with Id {0}").format(examination_id))
+        raise Http404(_("Th    #print(c.monthdays2calendar(year, month))ere is no Examination with Id {0}").format(examination_id))
     if examination.user != request.user:
         raise Http403(_("You are not allowed to see the data of this user"))
     form = ExaminationForm(instance=examination)
@@ -447,9 +463,47 @@ def session_list(request, patient_id, session_id=None):
 #     return render(request, 'fisiocore/show_image.html', context)
 
     
-def add_consent(request):
-    pass
+def view_calendar(request, year=None, month=None):
+    if year is None or month is None:
+        return redirect(reverse('fisiocore:calendar', args=[datetime.date.today().year, datetime.date.today().month]))
+    c = calendar.Calendar()
+    current_day = None
+    today = datetime.date.today()
+    if year == today.year and month == today.month:
+        current_day = today.day
+    if month > 1:
+        prev_month = month - 1
+        prev_year = year
+    else:
+        prev_month = 12
+        prev_year = year - 1
+    if month < 12:
+        next_month = month + 1
+        next_year = year
+    else:
+        next_month = 1
+        next_year = year + 1
+    sessions = Session.objects.filter(user=request.user, date__year=year, date__month=month)
+    context = {
+        'title': _(MONTH_NAMES[month]) + ' ' + str(year),
+        'prev_month': prev_month,
+        'prev_year': prev_year,
+        'next_month': next_month,
+        'next_year': next_year,
+        'month': month,
+        'year': year,
+        'month_name': _(MONTH_NAMES[month]),
+        'prev_month_name': _(MONTH_NAMES[prev_month]),
+        'next_month_name': _(MONTH_NAMES[next_month]),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'weeks': c.monthdays2calendar(year, month),
+        'current_day': current_day,
+        'sessions': sessions,
+    }
+    return render(request, 'fisiocore/calendar_month.html', context)
 
+def view_calendar_day(request, year, month, day):
+    pass
 
 def revoke_consent(request, consent_id):
     pass
@@ -459,7 +513,7 @@ def consents(request):
     pass
     
     
-def calendar(request):
+def add_consent(request):
     pass
     
     

@@ -24,7 +24,6 @@
                     <a href="{% url 'fisiocore:examination' patient.id %}">Examination</a>
                     <a class="is-active">Images</a>
                     <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
-                    <a href="{% url 'fisiocore:sessionlist' patient.id %}">Sessions</a>
                   </p>
                   {% for i in images %}
                       <a href="{% url 'fisiocore:imagelist' patient.id i.id %}" class="searchable panel-block {%if i.id == image.id %}is-active{% endif %}">

@@ -4,6 +4,32 @@
 
 {% block main %}
 
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="">
+                <span class="icon">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span>
+                    {% translate "Edit user profile" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="tabs">
+    <ul>
+        <li class="is-active"><a>{% translate 'User Profile' %}</a></li>
+        <li><a>{% translate 'Preferences' %}</a></li>
+    </ul>
+</div>
+
 <table class="table">
     <tr>
         <td><b>{% translate 'First name' %}</b></td>
