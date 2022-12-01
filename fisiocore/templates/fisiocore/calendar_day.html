@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load i18n %}
+{% load markdownify %}
+
+{% block main %}
+{% for s in sessions %}
+<div class="card my-2">
+    <header class="card-header has-background-success">
+      <p class="card-header-title">
+        {{s.start}} - {{s.end}}
+      </p>
+      <p class="card-header-title"><a href="{% url 'fisiocore:view_patient' s.patient.id %}">{{s.patient}}</a></p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        {{s.remarks|markdownify}}
+      </div>
+    </div>
+    <footer class="card-footer">
+      <a href="#" class="card-footer-item has-background-info">Edit</a>
+      <a href="#" class="card-footer-item has-background-danger">Delete</a>
+      {% if s.treatment_plan %}
+      <a href="#" class="card-footer-item">Treatment plan</a>
+      {% endif %}
+    </footer>
+  </div>
+  {% endfor %}
+{% endblock %}

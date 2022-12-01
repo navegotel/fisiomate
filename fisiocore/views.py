@@ -503,7 +503,14 @@ def view_calendar(request, year=None, month=None):
     return render(request, 'fisiocore/calendar_month.html', context)
 
 def view_calendar_day(request, year, month, day):
-    pass
+    date = datetime.date(year, month, day)
+    sessions = Session.objects.filter(user=request.user, date=date)
+    context={
+        'title': date,
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'sessions': sessions
+    }
+    return render(request, 'fisiocore/calendar_day.html', context)
 
 def revoke_consent(request, consent_id):
     pass
