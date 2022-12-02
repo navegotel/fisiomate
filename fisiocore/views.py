@@ -503,12 +503,36 @@ def view_calendar(request, year=None, month=None):
     return render(request, 'fisiocore/calendar_month.html', context)
 
 def view_calendar_day(request, year, month, day):
+    class FreeSlot(object):
+        def __init__(self, start, end):
+            self.free = True
+            self.start = start
+            self.end = end
+
+        @property
+        def duration(self):
+            value = datetime.timedelta(hours=self.end.hour, minutes=self.end.minute) - datetime.timedelta(hours=self.start.hour, minutes=self.start.minute)
+            print(value)
+            return "{0:02d}:{1:02d}".format(int(value.seconds/3600), int((value.seconds%3600)/60))
+        
+        def __repr__(self):
+            return "{0} - {1}".format(self.start, self.end)
+
     date = datetime.date(year, month, day)
     sessions = Session.objects.filter(user=request.user, date=date)
+    slots = []
+    for i in range(0, len(sessions)):
+        slots.append(sessions[i])
+        try:
+            if sessions[i].end < sessions[i+1].start:
+                slots.append(FreeSlot(sessions[i].end, sessions[i+1].start))
+        except IndexError:
+            pass
     context={
         'title': date,
         'main_menu_items': MAIN_MENU_ITEMS,
-        'sessions': sessions
+        'sessions': sessions,
+        'slots': slots
     }
     return render(request, 'fisiocore/calendar_day.html', context)
 
