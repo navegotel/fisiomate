@@ -8,7 +8,7 @@ from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
-from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm
+from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
 
 
 MAIN_MENU_ITEMS = [
@@ -502,6 +502,7 @@ def view_calendar(request, year=None, month=None):
     }
     return render(request, 'fisiocore/calendar_month.html', context)
 
+
 def view_calendar_day(request, year, month, day):
     class FreeSlot(object):
         def __init__(self, start, end):
@@ -512,7 +513,6 @@ def view_calendar_day(request, year, month, day):
         @property
         def duration(self):
             value = datetime.timedelta(hours=self.end.hour, minutes=self.end.minute) - datetime.timedelta(hours=self.start.hour, minutes=self.start.minute)
-            print(value)
             return "{0:02d}:{1:02d}".format(int(value.seconds/3600), int((value.seconds%3600)/60))
         
         def __repr__(self):
@@ -532,9 +532,53 @@ def view_calendar_day(request, year, month, day):
         'title': date,
         'main_menu_items': MAIN_MENU_ITEMS,
         'sessions': sessions,
-        'slots': slots
+        'slots': slots,
+        'year':year,
+        'month': month,
+        'day': day,
+        'date': date,
+        'monthname': _(MONTH_NAMES[month])
     }
     return render(request, 'fisiocore/calendar_day.html', context)
+
+def add_session(request):
+    if request.method == "GET":
+        initial_data = {
+            'date': request.GET.get('date'),
+            'user': request.user.id
+        }
+        form = SessionForm(initial=initial_data)   
+        rendered_form = form.render('fisiocore/session_form.html') 
+        context = {
+            'title': "Add appointment",
+            'main_menu_items': MAIN_MENU_ITEMS,
+            'date': datetime.date.fromisoformat(request.GET.get('date')),
+            'form': rendered_form,
+        }
+    if request.method == 'POST':
+        form = SessionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:calendar_day', args=[form.cleaned_data['date'].year, form.cleaned_data['date'].month, form.cleaned_data['date'].day]))
+        else:
+            print(form.cleaned_data['date'])
+            rendered_form = form.render('fisiocore/session_form.html') 
+            context = {
+                'date': form.cleaned_data['date'],
+                'title': "Add appointment",
+                'main_menu_items': MAIN_MENU_ITEMS,
+                'form': rendered_form,
+            }
+
+    return render(request, 'fisiocore/add_session.html', context)
+
+
+def edit_session(request, session_id):
+    context = {
+
+    }
+    return render(request, 'fisiocore/edit_session.html', context)
+
 
 def revoke_consent(request, consent_id):
     pass

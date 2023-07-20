@@ -38,6 +38,8 @@ urlpatterns = [
     path('calendar/month', views.view_calendar, name='calendar'),
     path('calendar/month/<int:year>/<int:month>', views.view_calendar, name='calendar'),
     path('calendar/day/<int:year>/<int:month>/<int:day>', views.view_calendar_day, name='calendar_day'),
+    path('calendar/addsession', views.add_session, name='add_session'),
+    path('calendar/editsession/<int:session_id>', views.edit_session, name='edit_session'),
     path('invoices', views.invoices, name='invoices'),
     path('login', LoginView.as_view(template_name = "fisiocore/login.html"), name='login'),
     path('logout', logout_then_login, name='logout'),

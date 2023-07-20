@@ -46,7 +46,7 @@ class Patient(models.Model):
 class Examination(models.Model):
 
     class Meta:
-        ordering = ['last_update', 'creation_date']
+        ordering = ['-last_update', '-creation_date']
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
@@ -68,7 +68,7 @@ def clinical_document_upload_name(instance, filename):
 class ClinicalDocument(models.Model):
     
     class Meta:
-        ordering = ['last_update', 'creation_date']
+        ordering = ['-last_update', '-creation_date']
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     examination = models.ForeignKey('Examination', on_delete= models.CASCADE)
@@ -84,6 +84,10 @@ def medical_image_upload_name(instance, filename):
 
     
 class MedicalImage(models.Model):
+
+    class Meta:
+        ordering = ['-last_update', '-creation_date']
+
     IMAGE_TYPE_CHOICES=[
         ('FOTO', _('Photography')),
         ('SKTC', _('Sketch')),

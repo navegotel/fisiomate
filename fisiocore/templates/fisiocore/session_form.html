@@ -1,0 +1,112 @@
+<input type="hidden" name="user" value="{{form.user.value}}" >
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.patient.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                {{form.patient}}
+            </p>
+            {% for error in form.patient.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.date.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.date}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+            {% for error in form.date.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.start.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input name="start" tupe="time" class="input" required id="id_start">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clock"></i>
+                </span>
+            </p>
+            {% for error in form.start.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.end.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                <input name="end" tupe="time" class="input" required id="id_end">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clock"></i>
+                </span>
+            </p>
+            {% for error in form.end.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.session_number.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.session_number}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clock"></i>
+                </span>
+            </p>
+            {% for error in form.session_number.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.remarks.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.remarks}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-thermometer"></i>
+                </span>
+            </p>
+            {% for error in form.reason.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -5,6 +5,35 @@
 {% load markdownify %}
 
 {% block main %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:calendar' year month %}">
+                <span class="icon">
+                    <i class="fas fa-calendar"></i>
+                </span>
+                <span>
+                    {{monthname}} {{year}}
+                </span>
+            </a>
+        </div>
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:add_session' %}?date={{date.isoformat}}">
+                <span class="icon">
+                    <i class="fas fa-person-booth"></i>
+                </span>
+                <span>
+                    {% translate "Add appointment" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
 {% for s in slots %}
   {% if s.free %}
     <div class="box has-background-success">

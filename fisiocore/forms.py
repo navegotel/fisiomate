@@ -1,5 +1,6 @@
-from django.forms import Form, ModelForm, CharField
-from .models import Patient, Examination, MedicalImage, ClinicalDocument
+from django.forms import Form, ModelForm, CharField 
+from django.forms.widgets import DateInput, TimeInput, NumberInput
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 
 
 class PatientForm(ModelForm):
@@ -50,6 +51,37 @@ class MedicalImageForm(ModelForm):
         self.fields['description'].widget.attrs.update({'class': 'input'})
         self.fields['projection'].widget.attrs.update({'class': 'input'})
         self.fields['image_type'].widget.attrs.update({'class': 'select'})
+
+
+class SessionForm(ModelForm):
+    class Meta:
+        model = Session
+        fields = [
+            'user',
+            'patient',
+            'date',
+            'start',
+            'end',
+            'session_number',
+            'treatment_plan',
+            'completed',
+            'remarks',
+            'price',
+        ]
+        widgets = {
+            'date': DateInput(attrs={'type': 'date', 'class': 'input'}),
+            'start': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
+            'end': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
+            'session_number': NumberInput(attrs={'type': 'number', 'class': 'input'})
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['patient'].widget.attrs.update({'class':'select'})
+        self.fields['treatment_plan'].widget.attrs.update({'class':'select'})
+        self.fields['remarks'].widget.attrs.update({'class':'textarea'})
+        self.fields['price'].widget.attrs.update({'class':'input'})
 
 
 class ClinicalDocumentForm(ModelForm):
