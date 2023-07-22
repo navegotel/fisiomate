@@ -138,8 +138,18 @@
             {% endif %}
 
             {% else %}
-                <div class="notification is-info">
-                    <p>Select an item from the left panel to see its content.</p>
+                <div class="notification is-warning">
+                    <p>
+                        {% translate "There is no anamnesis yet. You may want to create one." %} 
+                    </p>
+                    <a class="button is-info mt-3" href="{% url 'fisiocore:add_examination' patient.id %}">
+                        <span class="icon">
+                            <i class="fas fa-diagnoses"></i>
+                        </span>
+                        <span>
+                            {% translate "Add examination" %}
+                        </span>
+                    </a>
                 </div>
             {% endif %}
         </div>

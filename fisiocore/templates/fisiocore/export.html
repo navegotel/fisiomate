@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:import' %}" >
+        {% csrf_token %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{% translate "First name" %}</th>
+                    <th>{% translate "Last name" %}</th>
+                    <th class="is-hidden-mobile">{% translate "Date of birth" %}</th>
+                    <th class="is-hidden-mobile">{% translate "Id card" %}</th>
+                    <th class="is-hidden-mobile">{% translate "Post code" %}</th>
+                    <th>{% translate "City" %}</th>
+                    <th class="is-hidden-mobile">{% translate "Street" %}</th>
+                    <th>{% translate "Export" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.first_name}}</a></td>
+                    <td><a href="{% url 'fisiocore:view_patient' patient.id %}">{{patient.last_name}}</a></td>
+                    <td class="is-hidden-mobile" >{{patient.date_of_birth}}</td>
+                    <td class="is-hidden-mobile">{{patient.id_card_number|default_if_none:''}}</td>
+                    <td class="is-hidden-mobile">{{patient.post_code|default_if_none:''}}</td>
+                    <td>{{patient.city|default_if_none:''}}</td>
+                    <td class="is-hidden-mobile">{{patient.street|default_if_none:''}}</td>
+                    <td class="has-text-centered">
+                        <input type="checkbox" name="export" id="patient.id">
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    </form>
+    
+{% endblock %}

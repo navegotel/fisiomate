@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:import' %}" >
+        {% csrf_token %}
+    
+    </form>
+    
+{% endblock %}

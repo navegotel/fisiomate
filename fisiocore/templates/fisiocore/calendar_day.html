@@ -53,8 +53,8 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">Edit</a>
-          <a href="#" class="card-footer-item">Delete</a>
+          <a href="{% url 'fisiocore:edit_session' s.id%}" class="card-footer-item">{% translate "Edit" %}</a>
+          <a href="{% url 'fisiocore:delete_session' s.id %}" class="card-footer-item">{% translate "Delete" %}</a>
           {% if s.treatment_plan %}
           <a href="#" class="card-footer-item">Treatment plan</a>
           {% endif %}

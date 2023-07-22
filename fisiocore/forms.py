@@ -69,9 +69,9 @@ class SessionForm(ModelForm):
             'price',
         ]
         widgets = {
-            'date': DateInput(attrs={'type': 'date', 'class': 'input'}),
-            'start': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
-            'end': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
+            'date': DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'input'}),
+            # 'start': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
+            # 'end': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
             'session_number': NumberInput(attrs={'type': 'number', 'class': 'input'})
         }
 
@@ -82,6 +82,8 @@ class SessionForm(ModelForm):
         self.fields['treatment_plan'].widget.attrs.update({'class':'select'})
         self.fields['remarks'].widget.attrs.update({'class':'textarea'})
         self.fields['price'].widget.attrs.update({'class':'input'})
+        self.fields['start'].widget.attrs.update({'class': 'input'})
+        self.fields['end'].widget.attrs.update({'class': 'input'})
 
 
 class ClinicalDocumentForm(ModelForm):

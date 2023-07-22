@@ -10,12 +10,17 @@ from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
 
-
+# Each main menu item consist of 4 entries:
+# - Is sub menu
+# - Label
+# - Url reverse
+# - Icon
 MAIN_MENU_ITEMS = [
-    (_("Patients"), "fisiocore:patients", "fa-home"),
-    (_("Calendar"), "fisiocore:calendar", "fa-calendar"),
-    (_("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
-    (_("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
+    (False, _("Patients"), "fisiocore:patients", "fa-home"),
+    (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
+    (False, _("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
+    (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
+    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export")], "fa-gear"),
 ]
 
 MONTH_NAMES = {
@@ -132,10 +137,16 @@ def delete_patient(request, patient_id):
 @login_required
 def examination(request, patient_id, examination_id=None):
     if examination_id is None:
-        latest = Examination.objects.filter(patient=patient_id).latest('creation_date')
-        return redirect(reverse('fisiocore:examination', args=[patient_id, latest.id]))
+        queryset = Examination.objects.filter(patient=patient_id)
+        if queryset:
+            print(queryset)
+            return redirect(reverse('fisiocore:examination', args=[patient_id, queryset.latest('creation_date').id]))
+    
     patient = Patient.objects.get(pk=patient_id)
-    examination = Examination.objects.get(pk=examination_id)
+    if examination_id is not None:
+        examination = Examination.objects.get(pk=examination_id)
+    else: 
+        examination = None
     examination_list = Examination.objects.filter(patient=patient_id)
     images = MedicalImage.objects.filter(examination = examination_id)
     documents = ClinicalDocument.objects.filter(examination = examination_id)
@@ -187,7 +198,7 @@ def edit_examination(request, examination_id):
     try:
         examination = Examination.objects.get(pk=examination_id)
     except Examination.DoesNotExist:
-        raise Http404(_("Th    #print(c.monthdays2calendar(year, month))ere is no Examination with Id {0}").format(examination_id))
+        raise Http404(_("There is no Examination with Id {0}").format(examination_id))
     if examination.user != request.user:
         raise Http403(_("You are not allowed to see the data of this user"))
     form = ExaminationForm(instance=examination)
@@ -462,15 +473,21 @@ def session_list(request, patient_id, session_id=None):
 #     }
 #     return render(request, 'fisiocore/show_image.html', context)
 
-    
+
+@login_required    
 def view_calendar(request, year=None, month=None):
     if year is None or month is None:
         return redirect(reverse('fisiocore:calendar', args=[datetime.date.today().year, datetime.date.today().month]))
     c = calendar.Calendar()
-    current_day = None
+    current_day = 31
     today = datetime.date.today()
-    if year == today.year and month == today.month:
-        current_day = today.day
+    if year == today.year: 
+        if month == today.month:
+            current_day = today.day
+        elif month > today.month:
+            current_day = 0
+    elif year > today.year:
+        current_day = 0
     if month > 1:
         prev_month = month - 1
         prev_year = year
@@ -498,11 +515,13 @@ def view_calendar(request, year=None, month=None):
         'main_menu_items': MAIN_MENU_ITEMS,
         'weeks': c.monthdays2calendar(year, month),
         'current_day': current_day,
+        'today': today,
         'sessions': sessions,
     }
     return render(request, 'fisiocore/calendar_month.html', context)
 
 
+@login_required
 def view_calendar_day(request, year, month, day):
     class FreeSlot(object):
         def __init__(self, start, end):
@@ -541,6 +560,8 @@ def view_calendar_day(request, year, month, day):
     }
     return render(request, 'fisiocore/calendar_day.html', context)
 
+
+@login_required
 def add_session(request):
     if request.method == "GET":
         initial_data = {
@@ -573,15 +594,39 @@ def add_session(request):
     return render(request, 'fisiocore/add_session.html', context)
 
 
+@login_required
 def edit_session(request, session_id):
+    session = Session.objects.get(pk=session_id)
+    if request.method == 'POST':
+        form = SessionForm(request.POST, instance=session)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:calendar_day', args=[form.cleaned_data['date'].year, form.cleaned_data['date'].month, form.cleaned_data['date'].day]))
+    form = SessionForm(instance=session)
+    rendered_form = form.render('fisiocore/session_form.html') 
     context = {
-
+        'title': 'Edit appointment',
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'date': session.date,
+        'form': rendered_form,
     }
     return render(request, 'fisiocore/edit_session.html', context)
 
 
-def revoke_consent(request, consent_id):
-    pass
+@login_required
+def delete_session(request, session_id):
+    session = Session.objects.get(pk=session_id)
+    if request.method == "POST":
+        if request.POST.get('confirm') is not None:
+            session.delete()
+            return redirect(reverse('fisiocore:calendar_day', args=[session.date.year, session.date.month, session.date.day]))
+    context = {
+        'title': 'Delete appointment',
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'session': session,
+    }
+    return render(request, 'fisiocore/delete_session.html', context)
+
 
 
 def consents(request):
@@ -592,5 +637,30 @@ def add_consent(request):
     pass
     
     
+def revoke_consent(request, consent_id):
+    pass
+
+
 def invoices(request):
     pass
+
+
+@login_required
+def import_file(request):
+    context = {
+        'title': _("Import Patient Data"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+    }
+    return render(request, 'fisiocore/import.html', context)
+
+
+@login_required
+def export_file(request):
+    if request.method == "GET":
+        patients = Patient.objects.filter(user=request.user)
+        context = {
+            'title': _("Export Patient Data"),
+            'main_menu_items': MAIN_MENU_ITEMS,
+            'patients': patients,
+        }
+        return render(request, 'fisiocore/export.html', context)

@@ -1,9 +1,10 @@
+{% load i18n %}
 <input type="hidden" name="user" value="{{form.user.value}}" >
 <div class="field is-horizontal">
   <div class="control">
     <label class="checkbox">
       <input type="checkbox" name="in_treatment" {%if form.in_treatment.value %}checked{% endif %}>
-      Currently in treatment
+      {% translate "Currently in treatment" %}
     </label>
   </div>
 </div>

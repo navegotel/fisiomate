@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{% block main %}
+
+<article class="message is-danger">
+    <div class="message-header">
+        <p>{% translate 'Deleting Appointment' %}</p>
+    </div>
+    <div class="message-body">
+        <p>
+        {% translate "Are you sure you want to delete the following appointment?" %}
+        </p>
+    </div>
+</article>
+<table class="table">
+    <tr>
+        <td>{% translate "Patient" %}</td>
+        <td>{{session.patient}}</td>
+    </tr>
+    <tr>
+        <td>{% translate "Date" %}</td>
+        <td>{{session.date}}</td>
+    </tr>
+    <tr>
+        <td>{% translate "Start" %}</td>
+        <td>{{session.start}}</td>
+    </tr>
+    <tr>
+        <td>{% translate "End" %}</td>
+        <td>{{session.end}}</td>
+    </tr>
+    <tr>
+        <td>{% translate "Number" %}</td>
+        <td>{{session.session_number}}</td>
+    </tr>
+    <tr>
+        <td>{% translate "Remarks" %}</td>
+        <td>{{session.remarks|markdownify}}</td>
+    </tr>
+</table>
+
+<form method="post" >
+    {% csrf_token %}
+    <div class="field">
+        <div class="control">
+            <label class="checkbox">
+                <input type="checkbox" name="confirm">
+                {% translate 'Yes, I am sure!' %}
+            </label>
+        </div>
+    </div>
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-danger">
+                <span class="icon is-small">
+                    <i class="fas fa-trash"></i>
+                </span>
+                <span>
+                    {% translate 'Delete' %}            
+                </span>
+            </button>
+        </div>
+        <div class="control">
+            <a class="button is-success" href="{% url 'fisiocore:calendar_day' session.date.year session.date.month session.date.day %}">
+                <span class="icon is-small">
+                    <i class="fas fa-undo"></i>
+                </span>
+                <span>
+                    {% translate 'Cancel' %}            
+                </span>
+            </a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
