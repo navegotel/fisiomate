@@ -37,6 +37,7 @@
             </div>
         </div>
         <div class="column">
+            {% if document %}
             <table class="table">
                 <tbody>
                     <tr>
@@ -57,6 +58,12 @@
                 <a class="button is-info" href="{{document.upload.url}}" target="_blank">{% translate 'download pdf file' %}</a>
             </object>
         </div>
+        {% else %}
+            <div class="notification is-warning">
+                <p>
+                    {% translate "There are no clienical documents for patient" %} {{patient}}.
+                </p>
+            </div>
+        {% endif %}
     </div>   
-
 {% endblock %}

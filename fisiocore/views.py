@@ -139,7 +139,6 @@ def examination(request, patient_id, examination_id=None):
     if examination_id is None:
         queryset = Examination.objects.filter(patient=patient_id)
         if queryset:
-            print(queryset)
             return redirect(reverse('fisiocore:examination', args=[patient_id, queryset.latest('creation_date').id]))
     
     patient = Patient.objects.get(pk=patient_id)
@@ -401,12 +400,15 @@ def delete_document(request, document_id):
 @login_required
 def imagelist(request, patient_id, image_id=None):
     if image_id is None:
-        latest = MedicalImage.objects.filter(patient=patient_id).latest('creation_date')
-        if latest is not None:
-            return redirect(reverse('fisiocore:imagelist', args=[patient_id, latest.id]))
+        queryset = MedicalImage.objects.filter(patient=patient_id)
+        if queryset:
+            return redirect(reverse('fisiocore:imagelist', args=[patient_id, queryset.latest('creation_date').id]))
     patient = Patient.objects.get(pk=patient_id)
+    if image_id is not None:
+        image = MedicalImage.objects.get(pk=image_id)
+    else:
+        image = None
     images = MedicalImage.objects.filter(patient=patient_id)
-    image = MedicalImage.objects.get(pk=image_id)
     context = {
         'title': _("Clinical images of {0}").format(patient),
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -420,12 +422,15 @@ def imagelist(request, patient_id, image_id=None):
 @login_required
 def document_list(request, patient_id, document_id=None):
     if document_id is None:
-        latest = ClinicalDocument.objects.filter(patient=patient_id).latest('creation_date')
-        if latest is not None:
-            return redirect(reverse('fisiocore:documentlist', args=[patient_id, latest.id]))
+        queryset = ClinicalDocument.objects.filter(patient=patient_id)
+        if queryset:
+            return redirect(reverse('fisiocore:documentlist', args=[patient_id, queryset.latest('creation_date').id]))
     patient = Patient.objects.get(pk=patient_id)
+    if document_id is not None:
+        document = ClinicalDocument.objects.get(pk=document_id)
+    else: 
+        document = None
     documents = ClinicalDocument.objects.filter(patient=patient_id)
-    document = ClinicalDocument.objects.get(pk=document_id)
     context = {
         'title': _("Clinical documents of {0}").format(patient),
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -656,6 +661,11 @@ def import_file(request):
 
 @login_required
 def export_file(request):
+    if request.method == "POST":
+        items = request.POST.getlist('export')
+        for item in items:
+            print(item)
+
     if request.method == "GET":
         patients = Patient.objects.filter(user=request.user)
         context = {

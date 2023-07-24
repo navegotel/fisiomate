@@ -19,9 +19,11 @@
                     </p>
                   </div>
                   <p class="panel-tabs">
-                    <a class="is-active">Examination</a>
-                    <a href="{% url 'fisiocore:imagelist' patient.id %}">Images</a>
-                    <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
+                    {% if examination %}
+                        <a class="is-active">Examination</a>
+                        <a href="{% url 'fisiocore:imagelist' patient.id %}">Images</a>
+                        <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
+                    {% endif %}
                   </p>
                   {% for a in examination_list %}
                       <a href="{% url 'fisiocore:examination' patient.id a.id %}" class="searchable panel-block {%if a.id == examination.id %}is-active{% endif %}">

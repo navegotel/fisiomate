@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block main %}
 
-    <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:import' %}" >
+    <form method="POST" >
         {% csrf_token %}
         <table class="table">
             <thead>
@@ -29,12 +29,41 @@
                     <td>{{patient.city|default_if_none:''}}</td>
                     <td class="is-hidden-mobile">{{patient.street|default_if_none:''}}</td>
                     <td class="has-text-centered">
-                        <input type="checkbox" name="export" id="patient.id">
+                        <input type="checkbox" name="export" value="{{patient.id}}" value="{{patient.id}}">
                     </td>
                 </tr>
                 {% endfor%}
             </tbody>
         </table>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <button class="button is-info">
+                        <span class="icon">
+                            <i class="fas fa-save"></i>
+                        </span>
+                        <span>
+                            {% translate "Export Selection" %}
+                        </span>
+                    </button>
+                </div>
+                <div class="level-item">
+                    <a class="button is-success" href="{% url 'fisiocore:patients' %}">
+                        <span class="icon">
+                            <i class="fas fa-undo"></i>
+                        </span>
+                        <span>
+                            {% translate "Cancel" %}
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </form>
     
 {% endblock %}
