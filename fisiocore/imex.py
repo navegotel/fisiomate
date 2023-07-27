@@ -12,8 +12,16 @@ from .models import Patient
 def import_patient_data(data):
     pass
 
+def get_manifest(user):
+    manifest = {
+        'exportDate': datetime.date.today().isoformat(),
+        'user': "{0} {1}".format(user.first_name, user.last_name),
+        'email': user.email,
+        'version': settings.VERSION
+    }
+    return json.dumps(manifest, indent=4, ensure_ascii=False)
 
-def export_patient_data(patient_ids, include_examination_data=True):
+def export_patient_data(patient_ids, user, include_examination_data=True):
     filenames = []
     l = []
     for patient_id in patient_ids:
@@ -72,6 +80,7 @@ def export_patient_data(patient_ids, include_examination_data=True):
     buf = io.BytesIO()
     with ZipFile(buf, "w") as z:
         z.writestr("data.json", json.dumps(l, indent=4, ensure_ascii=False), compress_type=ZIP_DEFLATED)
+        z.writestr("manifest.json", get_manifest(user), compress_type=ZIP_DEFLATED)
         for filename in filenames:
             z.write(os.path.join(settings.MEDIA_ROOT, filename), filename, compress_type=ZIP_DEFLATED)
     response = HttpResponse(buf.getvalue(), content_type="application/zip")

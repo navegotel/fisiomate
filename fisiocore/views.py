@@ -664,7 +664,15 @@ def import_file(request):
 def export_file(request):
     if request.method == "POST":
         items = request.POST.getlist('export')
-        return export_patient_data([int(x) for x in items])
+        if request.POST.get("basiconly") == "on":
+            include_examination_data=False
+        else:
+            include_examination_data=True
+        return export_patient_data(
+            [int(x) for x in items], 
+            request.user, 
+            include_examination_data=include_examination_data
+        )
 
     if request.method == "GET":
         patients = Patient.objects.filter(user=request.user)
