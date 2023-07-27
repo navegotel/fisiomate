@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load markdownify %}
+
 {% block main %}
 
 {# listing of clinical images for a patient within the examination page #}
@@ -36,6 +37,7 @@
             </div>
         </div>
         <div class="column">
+            {% if image %}
             <table class="table">
                 <tbody>
                     <tr>
@@ -63,6 +65,13 @@
             <div class="image">
                 <img src="{{image.image.url}}">
             </div>
+            {% else %}
+            <div class="notification is-warning">
+                <p>
+                    {% translate "There are no images for patient" %} {{patient}}.
+                </p>
+            </div>
+            {% endif %}
         </div>
 </div>    
 {% endblock %}

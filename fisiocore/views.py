@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from.imex import import_patient_data, export_patient_data
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
 
@@ -663,8 +664,7 @@ def import_file(request):
 def export_file(request):
     if request.method == "POST":
         items = request.POST.getlist('export')
-        for item in items:
-            print(item)
+        return export_patient_data([int(x) for x in items])
 
     if request.method == "GET":
         patients = Patient.objects.filter(user=request.user)
