@@ -664,7 +664,7 @@ def import_file(request):
     }
     if request.method == "POST":
         token = request.POST.get('transaction_token') 
-        if token is None:
+        if token is None or len(token) == 0:
             uploaded_file = request.FILES.get('upload')
             with zipfile.ZipFile(uploaded_file, mode='r') as zf:
                 try:
@@ -673,13 +673,16 @@ def import_file(request):
                     pd = zf.read("data.json")
                     context['patient_data'] = json.loads(pd)
                 except KeyError:
-                    print("-------------------keyerror")
                     context["errormsg"] = _("This zip file does not seem to contain valid patient data.")
                     return render(request, 'fisiocore/import.html', context)
             context['transaction_token'] = uuid4().hex
             FileSystemStorage(location=conf_settings.TEMPDIR).save("{0}.zip".format(context['transaction_token']), uploaded_file)
             return render(request, 'fisiocore/import.html', context)
-            
+        else:
+            z = FileSystemStorage(location=conf_settings.TEMPDIR).open("{0}.zip".format(request.POST.get('transaction_token')))
+            # TODO open as zip file, extract data.json, iterate patients, check with importgroup and create patients....
+            print(request.POST.getlist('importgroup'))
+            print(request.POST.get('transaction_token'))    
     if request.method == "GET":
         return render(request, 'fisiocore/import.html', context)
 

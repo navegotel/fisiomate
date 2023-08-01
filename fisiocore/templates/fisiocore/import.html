@@ -2,10 +2,229 @@
 {% load static %}
 {% load i18n %}
 {% block main %}
-
+    {% if errormsg %}
+    <article class="message is-danger">
+        <div class="message-header">
+            <p>{% translate 'Data import error' %}</p>
+        </div>
+        <div class="message-body">
+            <p>
+            {{errormsg}}
+            </p>
+        </div>
+    </article>
+    {% endif %}
     <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:import' %}" >
         {% csrf_token %}
-    
+        <input type="hidden" name="transaction_token" value="{{transaction_token}}">
+    {% if transaction_token%}
+    <h2 class="subtitle">Meta data</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        {% translate 'Export date' %}
+                    </td>
+                    <td>
+                        {{manifest.exportDate}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% translate 'User' %}
+                    </td>
+                    <td>
+                        {{manifest.user}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% translate 'Email' %}
+                    </td>
+                    <td>
+                        {{manifest.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% translate 'Version' %}
+                    </td>
+                    <td>
+                        {{manifest.version}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="subtitle">Import data</h2>
+        {% for patient in patient_data %}
+            <div class="card  mb-2">
+                <header class="card-header has-background-primary">
+                    <p class="card-header-title">
+                    {{ patient.firstName}} {{patient.lastName}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="level">
+                        <div class="level-left">
+
+                        </div>
+                        <div class="level-right">
+                            <div class="level">
+                                <label class="checkbox">
+                                    <input type="checkbox" checked="checked" name="importgroup" value="{{patient.handle}}">
+                                    {% translate "Import data for patient" %} {{ patient.firstName}} {{patient.lastName}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width:25%">{% translate "Last Update" %}</td>
+                                <td>{{patient.lastUpdate}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "First Name" %}</td>
+                                <td>{{patient.firstName}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Last Name" %}</td>
+                                <td>{{patient.lastName}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Date of Birth" %}</td>
+                                <td>{{patient.dateOfBirth}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "City" %}</td>
+                                <td>{{patient.city}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Postal Code" %}</td>
+                                <td>{{patient.postCode}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Street" %}</td>
+                                <td>{{patient.street}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Email" %}</td>
+                                <td>{{patient.email}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Phone" %}</td>
+                                <td>{{patient.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">{% translate "Id Card Number" %}</td>
+                                <td>{{patient.idCardNumber}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% translate "Last Update" %}</th>
+                                <th>{% translate "Reason" %}</th>
+                                <th>{% translate "Anamnesis" %}</th>
+                                <th>{% translate "Exploration" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for examination in patient.examinations %}
+                            <tr>
+                                <td>{{examination.lastUpdate}}</td>
+                                <td>{{examination.reason}}</td>
+                                <td>{{examination.anamnesis}}</td>
+                                <td>{{examination.exploration}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <button class="button is-info">
+                        <span class="icon">
+                            <i class="fas fa-plus-square"></i>
+                        </span>
+                        <span>
+                            {% translate "Import selected data" %}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <div id="uploadfile" class="file has-name is-fullwidth">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="upload">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                {% translate 'Choose a file…' %}
+                            </span>
+                        </span>
+                        <span class="file-name">
+                            ...
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <button class="button is-info">
+                        <span class="icon">
+                            <i class="fas fa-plus-square"></i>
+                        </span>
+                        <span>
+                            {% translate "View contents for import" %}
+                        </span>
+                    </button>
+                </div>
+                <div class="level-item">
+                    <a class="button is-success" href="{% url 'fisiocore:patients' %}">
+                        <span class="icon is-small">
+                            <i class="fas fa-undo"></i>
+                        </span>
+                        <span>
+                            {% translate 'Cancel' %}            
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     </form>
-    
+   
+<script>
+    const fileInput = document.querySelector('#uploadfile input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+        const fileName = document.querySelector('#uploadfile .file-name');
+        fileName.textContent = fileInput.files[0].name;
+        }
+    }
+</script>
 {% endblock %}
