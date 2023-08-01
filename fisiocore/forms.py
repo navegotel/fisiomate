@@ -1,5 +1,6 @@
-from django.forms import Form, ModelForm, CharField 
+from django.forms import Form, ModelForm, CharField, FileField
 from django.forms.widgets import DateInput, TimeInput, NumberInput
+from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 
 

@@ -3,9 +3,11 @@ import io
 import json
 import datetime
 import os
+from uuid import uuid4
 from zipfile import ZipFile, ZIP_DEFLATED
 from django.http import HttpResponse
 from django.conf import settings
+from django.core.files.temp import NamedTemporaryFile
 from .models import Patient
 
 
@@ -26,7 +28,7 @@ def export_patient_data(patient_ids, user, include_examination_data=True):
     l = []
     for patient_id in patient_ids:
         p = Patient.objects.get(pk=patient_id)
-        d = {
+        d = {   'handle': uuid4().hex,
                 'lastUpdate': p.last_update.isoformat(),
                 'firstName': p.first_name,
                 'lastName': p.last_name,
