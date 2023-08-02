@@ -12,6 +12,8 @@ from .models import Patient
 
 
 def import_patient_data(data):
+    """Create new patient in the database"""
+    #TODO
     pass
 
 def get_manifest(user):

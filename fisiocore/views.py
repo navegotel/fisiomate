@@ -24,9 +24,8 @@ from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocum
 MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
-    (False, _("Informed consent"), "fisiocore:consents", "fa-pen-alt"),
     (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
-    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export")], "fa-gear"),
+    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export"), (_("Anamnesis templates"), "fisiocore:patients", "fa-pen-alt"), (_("Informed consent templates"), "fisiocore:consents", "fa-pen-alt")], "fa-gear"),
 ]
 
 MONTH_NAMES = {
@@ -679,10 +678,14 @@ def import_file(request):
             FileSystemStorage(location=conf_settings.TEMPDIR).save("{0}.zip".format(context['transaction_token']), uploaded_file)
             return render(request, 'fisiocore/import.html', context)
         else:
-            z = FileSystemStorage(location=conf_settings.TEMPDIR).open("{0}.zip".format(request.POST.get('transaction_token')))
-            # TODO open as zip file, extract data.json, iterate patients, check with importgroup and create patients....
-            print(request.POST.getlist('importgroup'))
-            print(request.POST.get('transaction_token'))    
+            importgroup = request.POST.getlist('importgroup')
+            tf = FileSystemStorage(location=conf_settings.TEMPDIR).open("{0}.zip".format(request.POST.get('transaction_token')))
+            with zipfile.ZipFile(tf, mode='r') as zf:
+                ds = zf.read("data.json")
+                pd = json.loads(ds)
+                for patient in pd:
+                    if patient['handle'] in importgroup:
+                        import_patient_data(patient, zf)
     if request.method == "GET":
         return render(request, 'fisiocore/import.html', context)
 
