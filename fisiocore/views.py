@@ -12,7 +12,7 @@ from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
-from.imex import import_patient_data, export_patient_data
+from .imex import import_patient_data, export_patient_data
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
 
@@ -685,7 +685,13 @@ def import_file(request):
                 pd = json.loads(ds)
                 for patient in pd:
                     if patient['handle'] in importgroup:
-                        import_patient_data(patient, zf)
+                        try:
+                            import_patient_data(patient, zf, request.user)
+                        except ImportError:
+                            pass
+                            # TODO Needs to be handled gracefully
+                return redirect(reverse('fisiocore:patients'))
+                    
     if request.method == "GET":
         return render(request, 'fisiocore/import.html', context)
 

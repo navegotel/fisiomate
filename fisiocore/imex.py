@@ -9,12 +9,33 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
 from .models import Patient
+import datetime
 
 
-def import_patient_data(data):
+def import_patient_data(data, zf, user):
     """Create new patient in the database"""
-    #TODO
-    pass
+    try:
+        patient = Patient(
+            user=user,
+            last_update=datetime.date.fromisoformat(data['lastUpdate']),
+            first_name=data['firstName'],
+            last_name=data['lastName'],
+            date_of_birth=data['dateOfBirth'],
+            city=data['city'],
+            post_code=data['postCode'],
+            street=data['street'],
+            email=data['email'],
+            phone=data['phone'],
+            id_card_number=data['idCardNumber'],
+            remarks=data['remarks'],
+            in_treatment=data['inTreatment'],
+            )
+    except KeyError:
+        raise ImportError
+    patient.save()
+    # TODO iterate over examinations
+    # TODO introduce images and docs
+    print(patient)
 
 def get_manifest(user):
     manifest = {
