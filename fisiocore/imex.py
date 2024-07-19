@@ -8,7 +8,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from django.http import HttpResponse
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
-from .models import Patient
+from .models import Patient, Examination
 import datetime
 
 
@@ -33,6 +33,25 @@ def import_patient_data(data, zf, user):
     except KeyError:
         raise ImportError
     patient.save()
+    for examination_data in data['examinations']:
+        try:
+            examination = Examination(
+                user=user,
+                last_update=datetime.date.fromisoformat(data['lastUpdate']),
+                reason=examination_data['reason'],
+                patient=patient,
+                interview=examination_data['anamnesis'],
+                exploration=examination_data['exploration'],
+            )
+        except KeyError:
+            raise ImportError
+        examination.save()
+        for document_data in examination_data['clinicalDocuments']:
+            print(document_data)
+        for image_data in examination_data['medicalImages']:
+            print(image_data)
+
+
     # TODO iterate over examinations
     # TODO introduce images and docs
     print(patient)

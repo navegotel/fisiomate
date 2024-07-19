@@ -9,7 +9,7 @@ from django.conf import settings as conf_settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseServerError
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from .imex import import_patient_data, export_patient_data
@@ -223,7 +223,7 @@ def delete_examination(request, examination_id):
     if request.method == 'POST':
         if request.POST.get('confirm') is not None:
             examination.delete()
-            return redirect(reverse('fisiocore:examination', patient_id))
+            return redirect(reverse('fisiocore:examination', args=[patient_id]))
     context = {
         'title': _('Delete examination {0}'.format(examination)),
         'examination': examination
