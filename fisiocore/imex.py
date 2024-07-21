@@ -3,12 +3,14 @@ import io
 import json
 import datetime
 import os
+from django.core.files.base import File as DjangoFile
+from django.core.files.images import ImageFile
 from uuid import uuid4
 from zipfile import ZipFile, ZIP_DEFLATED
 from django.http import HttpResponse
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
-from .models import Patient, Examination
+from .models import Patient, Examination, ClinicalDocument, MedicalImage
 import datetime
 
 
@@ -47,10 +49,39 @@ def import_patient_data(data, zf, user):
             raise ImportError
         examination.save()
         for document_data in examination_data['clinicalDocuments']:
-            print(document_data)
-        for image_data in examination_data['medicalImages']:
-            print(image_data)
+            b = zf.read(document_data['documentFile'])
+            fn = os.path.basename(document_data['documentFile'])
+            doc = DjangoFile(io.BytesIO(b), name=fn)
+            try:
+                clinical_doc = ClinicalDocument(
+                    last_update=datetime.date.fromisoformat(document_data['lastUpdate']),
+                    patient=patient,
+                    examination=examination,
+                    label=document_data['label'],
+                    upload=doc,
+                )
+            except (KeyError, ValueError):
+                raise ImportError
+            clinical_doc.save()
 
+        for image_data in examination_data['medicalImages']:
+            print("______________HI_____________")
+            b = zf.read(image_data['image'])
+            fn = os.path.basename(image_data['image'])
+            img = ImageFile(io.BytesIO(b), name=fn)
+            try:
+                medical_image = MedicalImage(
+                    last_update=datetime.date.fromisoformat(image_data['lastUpdate']),
+                    patient=patient,
+                    examination=examination,
+                    image_type=image_data['imageType'],
+                    projection=image_data['projection'],
+                    description=image_data['description'],
+                    image=img,
+                )
+            except KeyError:
+                raise ImportError
+            medical_image.save()
 
     # TODO iterate over examinations
     # TODO introduce images and docs
@@ -112,7 +143,7 @@ def export_patient_data(patient_ids, user, include_examination_data=True):
                         'lastUpdate': img.last_update.isoformat(),
                         'imageType': img.image_type,
                         'projection': img.projection,
-                        'descriptions': img.description,
+                        'description': img.description,
                         'image': img.image.name,
                     }
                 )
