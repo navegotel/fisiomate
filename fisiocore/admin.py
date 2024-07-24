@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Examination, MedicalImage, ClinicalDocument
+from .models import Patient, UserProfile, TreatmentPlan, Session, Invoice, Payment, Receipt, Examination, MedicalImage, ClinicalDocument, InformedConsentDocument
 
 class PatientAdmin(admin.ModelAdmin):
     pass
@@ -51,6 +51,10 @@ class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileInline,)
 
 
+class InformedConsentDocumentAdmin(admin.ModelAdmin):
+    model = InformedConsentDocument
+
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Patient, PatientAdmin)
@@ -60,3 +64,4 @@ admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Receipt, ReceiptAdmin)
 admin.site.register(Examination, AnamnesisAdmin)
+admin.site.register(InformedConsentDocument, InformedConsentDocumentAdmin)

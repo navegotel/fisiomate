@@ -78,13 +78,15 @@
                                         </span>
                                         {% translate 'Statistics' %}
                                     </a>
-                                    <a class="navbar-item" href="{% url 'fisiocore:logout' %}">
+                                    <div class="navbar-item">
                                         <span class="panel-icon has-text-info">
                                             <i class="fas fa-door-open" aria-hidden="true"></i>
                                         </span>
-                                        logout
-                                    </a>
-                                </div>
+                                        <form method="post" action="{% url 'fisiocore:logout' %}">
+                                            {% csrf_token %}
+                                            <button class="button is-normal">{% translate 'logout' %}</button>
+                                        </form>
+                                    </div>
                             </div>
                             <a class="navbar-item" href="/help">
                                 <span class="panel-icon has-text-info">

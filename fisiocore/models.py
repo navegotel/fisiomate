@@ -200,9 +200,21 @@ class Receipt(models.Model):
 
 class InformedConsentDocument(models.Model):
     """Document that needs to be signed by patient and uploaded"""
+    LANGUAGE_CHOICES=[
+        ('EN', _('English')),
+        ('ES', _('Spanish')),
+        ('FR', _('French')),
+        ('DE', _('German')),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
+    title = models.CharField(_("Title"), max_length=50)
+    language = models.CharField(_("Language"), max_length=2, choices=LANGUAGE_CHOICES, default='EN')
+    body = models.TextField(_("Body"))
+
+    def __str__(self):
+        return self.title
     
     
 class InformedConsent(models.Model):

@@ -13,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from .imex import import_patient_data, export_patient_data
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
 
 # Each main menu item consist of 4 entries:
@@ -25,7 +25,7 @@ MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
     (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
-    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export"), (_("Anamnesis templates"), "fisiocore:patients", "fa-pen-alt"), (_("Informed consent templates"), "fisiocore:consents", "fa-pen-alt")], "fa-gear"),
+    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export"), (_("Anamnesis templates"), "fisiocore:patients", "fa-pen-alt"), (_("Informed consent templates"), "fisiocore:view_consent_documents", "fa-pen-alt")], "fa-gear"),
 ]
 
 MONTH_NAMES = {
@@ -639,11 +639,21 @@ def delete_session(request, session_id):
 
 
 
-def consents(request):
+def view_consent_documents(request):
+    consent_documents = InformedConsentDocument.objects.all()
+    context = {
+        'title': _('Informed consent documents'),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'consent_documnents': consent_documents
+    }
+    return render(request, 'fisiocore/view_consent_documents.html', context=context)
+
+
+def consents(request, user_id):
     pass
     
     
-def add_consent(request):
+def add_consent(request, consent_template_id, user_id):
     pass
     
     
@@ -690,7 +700,7 @@ def import_file(request):
                         except ImportError:
                             pass
                             # TODO Needs to be handled gracefully
-                return redirect(reverse('fisiocore:patients'))
+            return redirect(reverse('fisiocore:patients'))
                     
     if request.method == "GET":
         return render(request, 'fisiocore/import.html', context)

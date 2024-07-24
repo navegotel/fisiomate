@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{# listing of clinical documents for a patient within the examination page #}
+
+{% block main %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:add_patient' %}">
+                <span class="icon">
+                    <i class="fas fa-plus-square"></i>
+                </span>
+                <span>
+                    {% translate "New informed consent" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% translate "Title" %}</th>
+            <th>{% translate "Language" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doc in consent_documnents %}
+            <tr>
+                <td>
+                    <a href="">{{ doc.title }}</a>
+                </td>
+                <td>
+                    {{ doc.language }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label" for="id_label">{{form.title.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.title}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-tag"></i>
+                </span>
+            </p>
+            {% for error in form.title.errors %}
+            <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
