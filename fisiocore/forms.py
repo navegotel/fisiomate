@@ -1,7 +1,7 @@
 from django.forms import Form, ModelForm, CharField, FileField
 from django.forms.widgets import DateInput, TimeInput, NumberInput
 from django.utils.translation import gettext as _
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument
 
 
 class PatientForm(ModelForm):
@@ -100,3 +100,14 @@ class ClinicalDocumentForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['label'].widget.attrs.update({'class': 'input'})
+
+
+class InformedConsentDocumentForm(ModelForm):
+    class Meta:
+        model = InformedConsentDocument
+        fields = [
+            'user',
+            'title',
+            'language',
+            'body',
+        ]

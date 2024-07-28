@@ -1,18 +1,36 @@
 {% load i18n %}
+<input type="hidden" name="user" value="{{form.user.value}}" >
+
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label" for="id_label">{{form.title.label}}</label>
+        <label class="label">{{form.title.label}}</label>
     </div>
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded has-icons-left">
-                {{form.title}}
+                <input class="input" type="text" placeholder="{{form.title.label}}" name="title" value="{{form.title.value|default_if_none:''}}">
                 <span class="icon is-small is-left">
-                    <i class="fas fa-tag"></i>
+                    <i class="fas fa-comment"></i>
                 </span>
             </p>
             {% for error in form.title.errors %}
-            <p class="help is-danger">{{error}}</p>
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.body.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="body" placeholder="{{form.body.label}}" rows="20">{{form.body.value|default_if_none:''}}</textarea>
+            </p>
+            {% for error in form.body.errors %}
+                <p class="help is-danger">{{error}}</p>
             {% endfor %}
         </div>
     </div>

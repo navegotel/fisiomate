@@ -14,7 +14,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from .imex import import_patient_data, export_patient_data
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument
-from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm
+from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm, InformedConsentDocumentForm 
 
 # Each main menu item consist of 4 entries:
 # - Is sub menu
@@ -638,15 +638,61 @@ def delete_session(request, session_id):
     return render(request, 'fisiocore/delete_session.html', context)
 
 
-
 def view_consent_documents(request):
     consent_documents = InformedConsentDocument.objects.all()
     context = {
         'title': _('Informed consent documents'),
         'main_menu_items': MAIN_MENU_ITEMS,
-        'consent_documnents': consent_documents
+        'consent_documents': consent_documents
     }
     return render(request, 'fisiocore/view_consent_documents.html', context=context)
+
+
+def view_consent_document(request, document_id):
+    consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    context = {
+        'title': consent_document.title,
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'consent_document': consent_document
+    }
+    return render(request, 'fisiocore/view_consent_document.html', context=context)
+
+
+def edit_consent_document(request, document_id):
+    consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    context = {
+        'title': consent_document.title,
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'consent_document': consent_document
+    }
+    return render(request, 'fisiocore/edit_consent_document.html', context=context)
+
+
+def delete_consent_document(request, document_id):
+    #TODO need delete and delete_confirm implementation
+    consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    context = {
+        'title': consent_document.title,
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'consent_document': consent_document
+    }
+    
+    return redirect(reverse('fisiocore:view_consent_documents'))
+
+
+def add_consent_document(request):
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': "Add Informed consent document"
+    }
+    if request.method == "POST":
+        if form.is_valid():
+            pass
+    
+    form = InformedConsentDocumentForm(initial={'user': request.user.id})
+    rendered_form = form.render('fisiocore/informed_consent_form.html')
+    context['form'] = rendered_form
+    return render(request, 'fisiocore/add_informed_consent.html', context)
 
 
 def consents(request, user_id):

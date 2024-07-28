@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{# listing of all infromed consent templates #}
+
+{% block main %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:edit_consent_document' consent_document.id %}">
+                <span class="icon">
+                    <i class="fas fa-plus-square"></i>
+                </span>
+                <span>
+                    {% translate "edit informed consent" %}
+                </span>
+            </a>
+        </div>
+        <div class="level-item">
+            <a class="button is-danger" href="{% url 'fisiocore:delete_consent_document' consent_document.id %}">
+                <span class="icon">
+                    <i class="fas fa-user-slash"></i>
+                </span>
+                <span>
+                    {% translate "Delete patient" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <p>
+        <b>{% translate "Language" %}:</b> {{consent_document.get_language_display}}
+    </p>
+    {{consent_document.body|default_if_none:''|markdownify}}
+</div>
+{% endblock %}
