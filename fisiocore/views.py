@@ -25,7 +25,11 @@ MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
     (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
-    (True, _("Tools"), [(_("Import"), "fisiocore:import", "fa-file-import"), (_("Export"), "fisiocore:export", "fa-file-export"), (_("Anamnesis templates"), "fisiocore:patients", "fa-pen-alt"), (_("Informed consent templates"), "fisiocore:view_consent_documents", "fa-pen-alt")], "fa-gear"),
+    (True, _("Tools"), [(_("Import patient data"), "fisiocore:import", "fa-file-import"), 
+                        (_("Export patient data"), "fisiocore:export", "fa-file-export"), 
+                        (_("Exploration templates"), "fisiocore:patients", "fa-pen-alt"), 
+                        (_("Informed consent templates"), "fisiocore:view_consent_documents", "fa-pen-alt")
+                        ], "fa-gear"),
 ]
 
 MONTH_NAMES = {
@@ -131,7 +135,7 @@ def delete_patient(request, patient_id):
         if request.POST.get('confirm') is not None:
             patient.delete()
             return redirect(reverse('fisiocore:patients'))
-    patient = Patient.objects.get(pk=patient_id)
+    # patient = Patient.objects.get(pk=patient_id)
     context = {
         'title': _('Delete patient {0} {1}'.format(patient.first_name, patient.last_name)),
         'patient': patient
@@ -578,7 +582,7 @@ def add_session(request):
             'date': request.GET.get('date'),
             'user': request.user.id
         }
-        form = SessionForm(initial=initial_data)   
+        form = SessionForm(initial=initial_data)  
         rendered_form = form.render('fisiocore/session_form.html') 
         context = {
             'title': "Add appointment",
@@ -659,25 +663,41 @@ def view_consent_document(request, document_id):
 
 
 def edit_consent_document(request, document_id):
-    consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    if request.method == "POST":
+        consent_document = InformedConsentDocument.objects.get(pk=document_id)
+        form = InformedConsentDocumentForm(request.POST, instance=consent_document)
+        if form.is_valid():
+            form.save()
+        return redirect(reverse('fisiocore:view_consent_document', args=[document_id]))
+    try:
+        consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    except InformedConsentDocument.DoesNotExist:
+        raise Http404(_("There is no informe consent document with Id {0}").format(document_id))
+    form = InformedConsentDocumentForm(instance=consent_document)
+    rendered_form = form.render('fisiocore/informed_consent_form.html')
+    print(rendered_form)
     context = {
         'title': consent_document.title,
         'main_menu_items': MAIN_MENU_ITEMS,
-        'consent_document': consent_document
+        'consent_document': consent_document,
+        'form': rendered_form
     }
     return render(request, 'fisiocore/edit_consent_document.html', context=context)
 
 
 def delete_consent_document(request, document_id):
-    #TODO need delete and delete_confirm implementation
     consent_document = InformedConsentDocument.objects.get(pk=document_id)
+    if request.method == "POST":
+        if request.POST.get('confirm') is not None:
+            consent_document.delete()
+            return redirect(reverse('fisiocore:view_consent_documents'))
     context = {
-        'title': consent_document.title,
-        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': _('Delete Informed consent document {0}'.format(consent_document.title)),
         'consent_document': consent_document
     }
+    return render(request, 'fisiocore/delete_consent_document.html', context)
     
-    return redirect(reverse('fisiocore:view_consent_documents'))
+    
 
 
 def add_consent_document(request):
@@ -686,8 +706,16 @@ def add_consent_document(request):
         'title': "Add Informed consent document"
     }
     if request.method == "POST":
+        form = InformedConsentDocumentForm(request.POST)
         if form.is_valid():
-            pass
+            informed_consent_document = form.save()
+            print(informed_consent_document.id)
+            return redirect(reverse('fisiocore:view_consent_document', args=[informed_consent_document.id]))
+        else:
+
+            rendered_form = form.render('fisiocore/informed_consent_form.html')
+            context['form'] = rendered_form
+            return render(request, 'fisiocore/add_informed_consent.html', context)
     
     form = InformedConsentDocumentForm(initial={'user': request.user.id})
     rendered_form = form.render('fisiocore/informed_consent_form.html')

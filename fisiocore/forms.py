@@ -79,6 +79,7 @@ class SessionForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['patient'].queryset = Patient.objects.filter(in_treatment=True)
         self.fields['patient'].widget.attrs.update({'class':'select'})
         self.fields['treatment_plan'].widget.attrs.update({'class':'select'})
         self.fields['remarks'].widget.attrs.update({'class':'textarea'})
@@ -111,3 +112,7 @@ class InformedConsentDocumentForm(ModelForm):
             'language',
             'body',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['language'].widget.attrs.update({'class': 'select'})
