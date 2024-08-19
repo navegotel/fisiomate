@@ -13,8 +13,8 @@ from django.urls import reverse, reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from .imex import import_patient_data, export_patient_data
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument
-from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm, InformedConsentDocumentForm 
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate
+from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm, InformedConsentDocumentForm, ExplorationTemplateForm 
 
 # Each main menu item consist of 4 entries:
 # - Is sub menu
@@ -27,7 +27,7 @@ MAIN_MENU_ITEMS = [
     (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
     (True, _("Tools"), [(_("Import patient data"), "fisiocore:import", "fa-file-import"), 
                         (_("Export patient data"), "fisiocore:export", "fa-file-export"), 
-                        (_("Exploration templates"), "fisiocore:patients", "fa-pen-alt"), 
+                        (_("Exploration templates"), "fisiocore:list_exploration_templates", "fa-pen-alt"), 
                         (_("Informed consent templates"), "fisiocore:view_consent_documents", "fa-pen-alt")
                         ], "fa-gear"),
 ]
@@ -642,6 +642,7 @@ def delete_session(request, session_id):
     return render(request, 'fisiocore/delete_session.html', context)
 
 
+@login_required
 def view_consent_documents(request):
     consent_documents = InformedConsentDocument.objects.all()
     context = {
@@ -652,6 +653,7 @@ def view_consent_documents(request):
     return render(request, 'fisiocore/view_consent_documents.html', context=context)
 
 
+@login_required
 def view_consent_document(request, document_id):
     consent_document = InformedConsentDocument.objects.get(pk=document_id)
     context = {
@@ -662,6 +664,7 @@ def view_consent_document(request, document_id):
     return render(request, 'fisiocore/view_consent_document.html', context=context)
 
 
+@login_required
 def edit_consent_document(request, document_id):
     if request.method == "POST":
         consent_document = InformedConsentDocument.objects.get(pk=document_id)
@@ -675,7 +678,6 @@ def edit_consent_document(request, document_id):
         raise Http404(_("There is no informe consent document with Id {0}").format(document_id))
     form = InformedConsentDocumentForm(instance=consent_document)
     rendered_form = form.render('fisiocore/informed_consent_form.html')
-    print(rendered_form)
     context = {
         'title': consent_document.title,
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -685,6 +687,7 @@ def edit_consent_document(request, document_id):
     return render(request, 'fisiocore/edit_consent_document.html', context=context)
 
 
+@login_required
 def delete_consent_document(request, document_id):
     consent_document = InformedConsentDocument.objects.get(pk=document_id)
     if request.method == "POST":
@@ -699,7 +702,7 @@ def delete_consent_document(request, document_id):
     
     
 
-
+@login_required
 def add_consent_document(request):
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -738,6 +741,86 @@ def revoke_consent(request, consent_id):
 def invoices(request):
     pass
 
+
+@login_required
+def list_exploration_templates(request):
+    exploration_templates = ExplorationTemplate.objects.all()
+    context = {
+        'title': _("Exploration Templates"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'exploration_templates': exploration_templates
+    }
+    return render(request, 'fisiocore/list_exploration_templates.html', context)
+
+
+
+@login_required
+def view_exploration_template(request, tmpl_id):
+    exploration_template = ExplorationTemplate.objects.get(pk=tmpl_id)
+    context = {
+        'title': exploration_template.title,
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'exploration_template': exploration_template,
+    }
+    return render(request, 'fisiocore/view_exploration_template.html', context)
+
+
+@login_required
+def add_exploration_template(request):
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': "New exploration template"
+    }
+    if request.method == "POST":
+        form = ExplorationTemplateForm(request.POST)
+        if form.is_valid():
+            exploration_template = form.save()
+            return redirect(reverse('fisiocore:view_exploration_template', args=[exploration_template.id]))
+        else:
+            rendered_form = form.render('fisiocore/exploration_template_form.html')
+            context['form'] = rendered_form
+            return render(request, 'fisiocore/add_exploration_template.html', context)
+    form = ExplorationTemplateForm(initial={'user':request.user.id})
+    rendered_form = form.render('fisiocore/exploration_template_form.html')
+    context['form'] = rendered_form
+    return render(request, 'fisiocore/add_exploration_template.html', context)
+
+
+@login_required
+def edit_exploration_template(request, tmpl_id):
+    if request.method == "POST":
+        exploration_template = ExplorationTemplate.objects.get(pk=tmpl_id)
+        form = ExplorationTemplateForm(request.POST, instance=exploration_template)
+        if form.is_valid():
+            form.save()
+        return redirect(reverse('fisiocore:view_exploration_template', args=[exploration_template.id]))
+    try:
+        exploration_template = ExplorationTemplate.objects.get(pk=tmpl_id)
+    except ExplorationTemplate.DoesNotExist:
+        raise Http404(_("There is no exploration template with Id {0}").format(tmpl_id))
+    form = ExplorationTemplateForm(instance=exploration_template)
+    rendered_form = form.render('fisiocore/exploration_template_form.html')
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': "Edit exploration template",
+        'exploration_template': exploration_template,
+        'form': rendered_form
+    }
+    return render(request, 'fisiocore/edit_exploration_template.html', context=context)
+
+
+def delete_exploration_template(request, tmpl_id):
+    exploration_template = ExplorationTemplate.objects.get(pk=tmpl_id)
+    if request.method == "POST":
+        if request.POST.get('confirm') is not None:
+            exploration_template.delete()
+            return redirect(reverse('fisiocore:list_exploration_templates'))
+    context = {
+        'title': _('delete exploration template'),
+        'are_you_sure_msg': _('Are you sure you want to delete the exploration template "{0}"?').format(exploration_template.title),
+        'cancel_url': reverse('fisiocore:view_exploration_template', args=[tmpl_id])
+    }
+    return render(request, 'fisiocore/delete.html', context)
 
 @login_required
 def import_file(request):

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{# preview of one exploration template #}
+
+{% block main %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:edit_exploration_template' exploration_template.id %}">
+                <span class="icon">
+                    <i class="fas fa-plus-square"></i>
+                </span>
+                <span>
+                    {% translate "edit exploration template" %}
+                </span>
+            </a>
+        </div>
+        <div class="level-item">
+            <a class="button is-danger" href="{% url 'fisiocore:delete_exploration_template' exploration_template.id %}">
+                <span class="icon">
+                    <i class="fas fa-user-slash"></i>
+                </span>
+                <span>
+                    {% translate "Delete exploration template" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <p class="card-header-title">{% translate 'Anamnesis' %}</p>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            {{exploration_template.anamnesis|default_if_none:''|markdownify}}
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <p class="card-header-title">{% translate 'Exploration' %}</p>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            {{exploration_template.exploration|default_if_none:''|markdownify}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

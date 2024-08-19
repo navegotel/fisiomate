@@ -226,3 +226,19 @@ class InformedConsent(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     signed_consent = models.FileField(_("Informed consent"), upload_to="signed_consent/")
     
+
+class ExplorationTemplate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
+    title = models.CharField(_("Title"), max_length=50)
+    anamnesis = models.TextField(_("Anamnesis"), blank=True, null=True)
+    exploration = models.TextField(_("Exploration"), blank=True, null=True)
+
+
+    def __str__(self):
+        return self.title
+
+
+
+

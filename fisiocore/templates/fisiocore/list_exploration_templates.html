@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{# listing of all exploration templates #}
+
+{% block main %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:add_exploration_template' %}">
+                <span class="icon">
+                    <i class="fas fa-plus-square"></i>
+                </span>
+                <span>
+                    {% translate "New exploration template" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% translate "Title" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exploration_template in exploration_templates %}
+            <tr>
+                <td>
+                    <a href="{% url 'fisiocore:view_exploration_template' exploration_template.id %}">{{ exploration_template.title }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
