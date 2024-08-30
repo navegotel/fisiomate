@@ -43,6 +43,7 @@ urlpatterns = [
     path('templates/exploration/add', views.add_exploration_template, name='add_exploration_template'),
     path('templates/exploration/edit/<int:tmpl_id>', views.edit_exploration_template, name="edit_exploration_template"),
     path('templates/exploration/delete/<int:tmpl_id>', views.delete_exploration_template, name="delete_exploration_template"),
+    path('templates/exploration/select/<int:patient_id>', views.select_exploration_template, name="select_exploration_template"),
     path('calendar', views.view_calendar, name='calendar'),
     path('calendar/month', views.view_calendar, name='calendar'),
     path('calendar/month/<int:year>/<int:month>', views.view_calendar, name='calendar'),

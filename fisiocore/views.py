@@ -187,7 +187,20 @@ def add_examination(request, patient_id):
             context['form'] = rendered_form
             context['patient_id'] = patient_id
             return render(request, 'fisiocore/add_examination.html', context)
-    form = ExaminationForm(initial={'user': request.user.id, 'patient': patient_id})
+    try:
+        exploration_template = ExplorationTemplate.objects.get(pk=request.GET["tmpl"])
+        exploration = exploration_template.exploration
+        interview = exploration_template.anamnesis
+    except KeyError:
+        exploration = ""
+        interview = ""
+
+    form = ExaminationForm(initial={'user': request.user.id, 
+                                    'patient': patient_id,
+                                    'exploration': exploration,
+                                    'interview': interview,
+                                    }
+                            )
     rendered_form = form.render('fisiocore/examination_form.html')
     context['form'] = rendered_form
     context['patient_id'] = patient_id
@@ -233,6 +246,17 @@ def delete_examination(request, examination_id):
         'examination': examination
     }
     return render(request, 'fisiocore/delete_examination.html', context)
+
+
+@login_required
+def select_exploration_template(request, patient_id):
+    exploration_template_list = ExplorationTemplate.objects.all()
+    context = {
+        'title': _('select examination template'),
+        'exploration_template_list': exploration_template_list,
+        'patient_id': patient_id
+    }
+    return render(request, "fisiocore/select_exploration_template.html", context)
 
 
 @login_required
