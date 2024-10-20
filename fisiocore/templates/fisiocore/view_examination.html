@@ -1,0 +1,160 @@
+{% extends "base_clinic_history.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+{% block main %}
+
+    <div class="columns">
+        <div class="column is-one-third ">
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Examination' %}
+                </div>
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                      <input id="searchbox" class="input" type="text" placeholder="Search"  onkeyup="searchItems()">
+                      <span class="icon is-left">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <p class="panel-tabs">
+                    {% if examination %}
+                        <a class="is-active">Examination</a>
+                        <a href="{% url 'fisiocore:imagelist' patient.id %}">Images</a>
+                        <a href="{% url 'fisiocore:documentlist' patient.id %}">Docs</a>
+                    {% endif %}
+                  </p>
+                  {% for a in examination_list %}
+                      <a href="{% url 'fisiocore:examination' patient.id a.id %}" class="searchable panel-block {%if a.id == examination.id %}is-active{% endif %}">
+                        <span class="panel-icon">
+                        <i class="fas fa-comment-medical" aria-hidden="true"></i>
+                        </span>
+                        {{a.last_update|date:'d/m/Y'}}: {{a.reason}}
+                      </a>
+                  {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            {% if examination %}
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-info" href="{% url 'fisiocore:edit_examination' examination.id %}">
+                            <span class="icon">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span>
+                                {% translate "Edit" %}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-danger" href="{% url 'fisiocore:delete_examination' examination.id %}">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>
+                                {% translate "Delete" %}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <a class="button is-info" href="{% url 'fisiocore:add_images' examination.id %}">
+                            <span class="icon">
+                                <i class="fas fa-images"></i>
+                            </span>
+                            <span>
+                                {% translate "Add images" %}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-info" href="{% url 'fisiocore:add_document' examination.id %}">
+                            <span class="icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <span>
+                                {% translate "Add documents" %}
+                            </span>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            <p class="has-text-weight-bold mb-2">{% translate 'Date: ' %}{{examination.last_update|date:'d/m/Y'}} {% translate 'Reason: ' %}{{examination.reason}}</p>
+            <div class="card mb-2">
+                <div class="card-header has-background-primary">
+                    <p class="card-header-title has-text-white">
+                        {% translate 'Clinical Interview' %}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        {{examination.interview|markdownify}}
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-header has-background-primary">
+                    <p class="card-header-title has-text-white">
+                        {% translate 'Exploration' %}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        {{examination.exploration|markdownify}}
+                    </div>
+                </div>
+            </div>
+            {% if images %}
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Clinical Images' %}
+                </div>
+                {% for image in images %}
+                <a href="{% url 'fisiocore:view_medical_image' image.id %}" class="panel-block">
+                    <span class="panel-icon">
+                    <i class="fas fa-file-medical-alt" aria-hidden="true"></i>
+                    </span>
+                    {{image.last_update|date:'d/m/Y'}}, {{image.get_image_type_display}} {{image.projection|default_if_none:''}}: {{image.description}}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if documents %}
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Clinical Documents' %}
+                </div>
+                {% for document in documents %}
+                <a href="{% url 'fisiocore:view_document' document.id %}" class="panel-block" >
+                    <span class="panel-icon">
+                    <i class="fas fa-file-medical" aria-hidden="true"></i>
+                    </span>
+                    {{document.last_update|date:'d/m/Y'}}, {{document.label}}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% else %}
+                <div class="notification is-warning">
+                    <p>
+                        {% translate "There is no anamnesis yet. You may want to create one." %} 
+                    </p>
+                    <a class="button is-info mt-3" href="{% url 'fisiocore:add_examination' patient.id %}">
+                        <span class="icon">
+                            <i class="fas fa-diagnoses"></i>
+                        </span>
+                        <span>
+                            {% translate "Add examination" %}
+                        </span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock %}

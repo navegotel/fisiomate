@@ -10,7 +10,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from django.http import HttpResponse
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
-from .models import Patient, Examination, ClinicalDocument, MedicalImage
+from .models import Patient, Examination, ClinicalDocument, MedicalImage, Session
 import datetime
 
 
@@ -150,6 +150,17 @@ def export_patient_data(patient_ids, user, include_examination_data=True):
                 filenames.append(img.image.name)
             examinations.append(exam_dict)
         d['examinations'] = examinations
+        sessions = []
+        for session in p.session_set.all():
+            session_dict = {
+                'date': session.date.isoformat(),
+                'start': session.start.isoformat(),
+                'end': session.end.isoformat(),
+                'session_number': session.session_number,
+                'remarks': session.remarks
+            }
+            sessions.append(session_dict)
+        d['sessions'] = sessions
 
         l.append(d)
     buf = io.BytesIO()

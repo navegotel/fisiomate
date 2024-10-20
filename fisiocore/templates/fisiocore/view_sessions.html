@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+{% block submenu %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:calendar' %}?patient={{patient.id}}">
+                <span class="icon">
+                    <i class="fas fa-diagnoses"></i>
+                </span>
+                <span>
+                    {% translate "Calendar" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="tabs">
+    <ul>
+        <li class="is-medium"><a href="{% url 'fisiocore:view_patient' patient.id %}">{% translate 'Patient data' %}</a></li>
+        <li class="is-medium"><a href="{% url 'fisiocore:examination' patient.id %}" >{% translate 'Medical history' %}</a></li>
+        <li class="is-active  is-medium"><a href="{% url 'fisiocore:view_sessions' patient.id %}">{% translate 'Sessions' %}</a></li>
+        <li><a>{% translate 'Invoicing' %}</a></li>
+        <li><a>{% translate 'Informed consent' %}</a></li>
+    </ul>
+</div>
+{% endblock %}
+{% block main %}
+    <div class="columns">
+        <div class="column is-one-third ">
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Sessions' %}
+                </div>
+                {% for item in sessions %}
+                    <a href="{% url 'fisiocore:view_sessions' patient.id item.id %}" class="panel-block {% if item.id == session.id %}is-active{% endif %}">
+                        <span class="panel-icon">
+                        <i class="fas fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        {{item.date|date:'d/m/Y'}}, {{item.start}} - {{item.end}}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            {% if session %}
+            <div class="card mb-2">
+                <div class="card-header has-background-primary">
+                    <p class="card-header-title has-text-white">
+                        {{session.date}}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <ul class="mb-2">
+                        <li>{% translate 'from' %}: {{session.start}}h</li>
+                        <li>{% translate 'to' %}: {{session.end}}h</li>
+                        <li>{% translate 'session number' %}: {{session.session_number}}</li>
+                    </ul>
+                    <div class="content">
+                        {{session.remarks | markdownify }}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div class="notification is-warning">
+                    <p>
+                        {% translate "There aren't any sessions yet. You may want to create one." %} 
+                    </p>
+                    <a class="button is-info mt-3" href="{% url 'fisiocore:calendar' %}">
+                        <span class="icon">
+                            <i class="fas fa-calendar"></i>
+                        </span>
+                        <span>
+                            {% translate "Agenda" %}
+                        </span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 06:08+0000\n"
-"PO-Revision-Date: 2023-08-02 08:15+0200\n"
+"POT-Creation-Date: 2024-07-28 17:56+0200\n"
+"PO-Revision-Date: 2024-07-28 18:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,14 +16,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: models.py:10
 msgid "The login user"
 msgstr "El usuario para el login"
 
 #: models.py:11 models.py:28 models.py:52 models.py:75 models.py:102
-#: models.py:113 models.py:122 models.py:133 models.py:204 models.py:212
+#: models.py:113 models.py:122 models.py:133 models.py:210 models.py:224
 #: templates/fisiocore/clinical_documents.html:44
 #: templates/fisiocore/clinical_images.html:44
 #: templates/fisiocore/patient.html:50
@@ -33,7 +33,7 @@ msgid "Creation date"
 msgstr "Fecha de creación"
 
 #: models.py:12 models.py:29 models.py:53 models.py:76 models.py:103
-#: models.py:114 models.py:123 models.py:134 models.py:205 models.py:213
+#: models.py:114 models.py:123 models.py:134 models.py:211 models.py:225
 #: templates/fisiocore/clinical_documents.html:48
 #: templates/fisiocore/clinical_images.html:48
 #: templates/fisiocore/patient.html:54
@@ -226,7 +226,36 @@ msgstr "Activado"
 msgid "Anything remarkable such as patient's progress"
 msgstr "Cualquier cosa mencionable como el progreso del paciente"
 
-#: models.py:215 templates/fisiocore/patient.html:41
+#: models.py:204
+msgid "English"
+msgstr "Inglés"
+
+#: models.py:205
+msgid "Spanish"
+msgstr "Español"
+
+#: models.py:206
+msgid "French"
+msgstr "Francés"
+
+#: models.py:207
+msgid "German"
+msgstr "Alemán"
+
+#: models.py:212 templates/fisiocore/view_consent_documents.html:32
+msgid "Title"
+msgstr "Título"
+
+#: models.py:213 templates/fisiocore/view_consent_document.html:41
+#: templates/fisiocore/view_consent_documents.html:33
+msgid "Language"
+msgstr "Idioma"
+
+#: models.py:214
+msgid "Body"
+msgstr "Cuerpo"
+
+#: models.py:227 templates/fisiocore/patient.html:41
 msgid "Informed consent"
 msgstr "Consentimiento informado"
 
@@ -237,6 +266,7 @@ msgstr "Añadir documento"
 #: templates/fisiocore/add_document.html:31
 #: templates/fisiocore/add_examination.html:32
 #: templates/fisiocore/add_images.html:32
+#: templates/fisiocore/add_informed_consent.html:32
 #: templates/fisiocore/add_patient.html:32
 #: templates/fisiocore/add_session.html:32
 #: templates/fisiocore/delete_document.html:44
@@ -261,6 +291,10 @@ msgstr "Añadir Reconocimiento"
 #: templates/fisiocore/examination.html:70
 msgid "Add images"
 msgstr "Añadir imágenes"
+
+#: templates/fisiocore/add_informed_consent.html:22
+msgid "Add Informed consent document"
+msgstr "Añadir Consentimiento informado"
 
 #: templates/fisiocore/add_patient.html:22
 msgid "Add patient"
@@ -319,7 +353,7 @@ msgid "Go to current month"
 msgstr "Ir al mes actual"
 
 #: templates/fisiocore/clinical_document_form.html:36
-#: templates/fisiocore/import.html:179 templates/fisiocore/import_form.html:34
+#: templates/fisiocore/import.html:179
 #: templates/fisiocore/medical_image_form.html:71
 msgid "Choose a file…"
 msgstr "Seleccione un archivo..."
@@ -484,7 +518,7 @@ msgstr "Aún no hay anamnesis. Puede crear una nueva."
 msgid "text formatting with markdown"
 msgstr "formateado de texto con markdown"
 
-#: templates/fisiocore/export.html:18 views.py:28
+#: templates/fisiocore/export.html:18
 msgid "Export"
 msgstr "Exportar"
 
@@ -549,6 +583,7 @@ msgid "Edit patient"
 msgstr "Editar paciente"
 
 #: templates/fisiocore/patient.html:29
+#: templates/fisiocore/view_consent_document.html:32
 msgid "Delete patient"
 msgstr "Borrar paciente"
 
@@ -608,6 +643,14 @@ msgstr "Fecha de alta"
 msgid "Last login"
 msgstr "Última fecha de entrada"
 
+#: templates/fisiocore/view_consent_document.html:22
+msgid "edit informed consent"
+msgstr "Editar Consentimiento informado"
+
+#: templates/fisiocore/view_consent_documents.html:22
+msgid "New informed consent"
+msgstr "Consentimiento informado Nuevo"
+
 #: templates/fisiocore/view_medical_document.html:19
 #: templates/fisiocore/view_medical_image.html:20
 msgid "Back"
@@ -642,8 +685,12 @@ msgid "Tools"
 msgstr "Herramientas"
 
 #: views.py:28
-msgid "Import"
-msgstr "Importar"
+msgid "Import patient data"
+msgstr "Importar datos del paciente"
+
+#: views.py:28
+msgid "Export patient data"
+msgstr "Exportar datos del paciente"
 
 #: views.py:28
 msgid "Anamnesis templates"
@@ -711,17 +758,24 @@ msgstr "Documentos clínicos de {0}"
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: views.py:661
+#: views.py:644
+msgid "Informed consent documents"
+msgstr "Plantillas de Consentimiento informado"
+
+#: views.py:717
 msgid "Import Patient Data"
 msgstr "Importar datos del paciente"
 
-#: views.py:675
+#: views.py:731
 msgid "This zip file does not seem to contain valid patient data."
 msgstr "Este fichero zip no parece contener datos de pacientes válidos."
 
-#: views.py:710
+#: views.py:772
 msgid "Export Patient Data"
 msgstr "Exportar datos del paciente"
+
+#~ msgid "Import"
+#~ msgstr "Importar"
 
 #~ msgid "Edit appointment"
 #~ msgstr "Editar cita"

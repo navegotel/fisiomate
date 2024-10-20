@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{# listing of all exploration templates #}
+
+{% block main %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% translate "Title" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exploration_template in exploration_template_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'fisiocore:add_examination' patient_id %}?tmpl={{exploration_template.id}}">{{ exploration_template.title }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

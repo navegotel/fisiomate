@@ -5,9 +5,9 @@
 {% block submenu %}
 <div class="tabs">
     <ul>
-        <li class="is-medium"><a href="{% url 'fisiocore:calendar' prev_year prev_month %}">{{ prev_month_name }} {{ prev_year }}</a></li>
+        <li class="is-medium"><a href="{% url 'fisiocore:calendar' prev_year prev_month %}{% if patient %}?patient={{patient.id}}{% endif %}">{{ prev_month_name }} {{ prev_year }}</a></li>
         <li class="is-active is-medium"><a>{{ month_name }} {{ year }}</a></li>
-        <li class="is-medium"><a href="{% url 'fisiocore:calendar' next_year next_month %}">{{next_month_name}} {{ next_year }}</a></li>
+        <li class="is-medium"><a href="{% url 'fisiocore:calendar' next_year next_month %}{% if patient %}?patient={{patient.id}}{% endif %}">{{next_month_name}} {{ next_year }}</a></li>
     </ul>
 </div>
 {% endblock %}
@@ -54,7 +54,7 @@
                         <td class="has-background-danger-light has-text-danger" style="width:14.2%;">
                             <b>{{day.0}}</b>
                         {% elif day.0 == current_day %}
-                        <td class="has-background-success-light has-text-success" style="width:14.2%; cursor:pointer;" onclick="location.href='{% url 'fisiocore:calendar_day' year month day.0 %}'">
+                        <td class="has-background-success-light has-text-success" style="width:14.2%; cursor:pointer;" onclick="location.href='{% url 'fisiocore:calendar_day' year month day.0 %}{% if patient %}?patient={{patient.id}}{% endif %}'">
                             <b>{{day.0}}</b>
                             <ul>
                                 {% for s in sessions %}
@@ -64,7 +64,7 @@
                                 {% endfor %}
                             </ul>
                         {% else %}
-                            <td style="width:14.2%; {% if day.0 > current_day %}cursor:pointer;{% else %}background-color:#ddd{% endif %}" {% if day.0 > current_day %}onclick="location.href='{% url 'fisiocore:calendar_day' year month day.0 %}'"{% endif %}>
+                            <td style="width:14.2%; {% if day.0 > current_day %}cursor:pointer;{% else %}background-color:#ddd{% endif %}" {% if day.0 > current_day %}onclick="location.href='{% url 'fisiocore:calendar_day' year month day.0 %}{% if patient %}?patient={{patient.id}}{% endif %}'"{% endif %}>
                             <b>{{day.0}}</b>
                             <ul>
                                 {% for s in sessions %}
@@ -81,7 +81,7 @@
     </tbody>
 </table>
 <div>
-    <a class="button is-info" href="{% url 'fisiocore:calendar' today.year today.month %}">{% translate "Go to current month" %}</a>
+    <a class="button is-info" href="{% url 'fisiocore:calendar' today.year today.month %}{% if patient %}?patient={{patient.id}}{% endif %}">{% translate "Go to current month" %}</a>
 </div>
 
 {% endblock%}

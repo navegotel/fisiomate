@@ -5,6 +5,8 @@ import datetime
 import zipfile
 import json
 from uuid import uuid4
+from django.db.models import Count
+from django.db.models.functions import TruncMonth, TruncYear
 from django.conf import settings as conf_settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -167,8 +169,27 @@ def examination(request, patient_id, examination_id=None):
         'documents': documents,
         'images': images
     }
-    return render(request, 'fisiocore/examination.html', context)
+    return render(request, 'fisiocore/view_examination.html', context)
 
+@login_required
+def view_sessions(request, patient_id, session_id=None):
+    patient = Patient.objects.get(pk=patient_id)
+    sessions = Session.objects.filter(patient=patient.id)
+    if session_id is None:
+        if len(sessions) > 0:
+            return redirect(reverse('fisiocore:view_sessions', args=[patient_id, sessions[0].id]))
+        else:
+            session = None
+    else:
+        session = Session.objects.get(pk=session_id)
+    context = {
+        'title': _('Treatment Sessions for {0}'.format(patient)),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+        'sessions':sessions,
+        'session': session,
+    }
+    return render(request, 'fisiocore/view_sessions.html', context)
 
 @login_required
 def add_examination(request, patient_id):
@@ -476,11 +497,20 @@ def document_list(request, patient_id, document_id=None):
 
 @login_required
 def stats(request):
+    p = {}
+    p['total'] = Patient.objects.count()
+    p['in_treatment'] = Patient.objects.filter(in_treatment=True).count()
+    s = {}
+    s['year'] = Session.objects.annotate(year = TruncYear("date")).values('year').annotate(count=Count("id"))
+    print(s['year'])
+    s['month'] = Session.objects.annotate(month = TruncMonth("date")).values('month').annotate(count=Count("id"))
     context = {
         'title': _("Statistics"),
         'main_menu_items': MAIN_MENU_ITEMS,
+        'patients' : p,
+        'sessions': s
     }
-    return render(request, 'fisiocore/stats.html', context)
+    return render(request, 'fisiocore/view_stats.html', context)
 
 
 @login_required
@@ -514,8 +544,17 @@ def session_list(request, patient_id, session_id=None):
 
 @login_required    
 def view_calendar(request, year=None, month=None):
+    patient_id = request.GET.get('patient')
     if year is None or month is None:
-        return redirect(reverse('fisiocore:calendar', args=[datetime.date.today().year, datetime.date.today().month]))
+        url = reverse('fisiocore:calendar', args=[datetime.date.today().year, datetime.date.today().month])
+        if patient_id is None:
+            return redirect(url)
+        else:
+            return redirect(url+"?patient="+patient_id)
+    if patient_id is not None:
+        patient = Patient.objects.get(pk=patient_id)
+    else:
+        patient = None
     c = calendar.Calendar()
     current_day = 31
     today = datetime.date.today()
@@ -539,8 +578,12 @@ def view_calendar(request, year=None, month=None):
         next_month = 1
         next_year = year + 1
     sessions = Session.objects.filter(user=request.user, date__year=year, date__month=month)
+    title = _(MONTH_NAMES[month]) + ' ' + str(year)
+    if patient is not None:
+        title = "{0} (patient {1})".format(title, patient)
+        
     context = {
-        'title': _(MONTH_NAMES[month]) + ' ' + str(year),
+        'title': title,
         'prev_month': prev_month,
         'prev_year': prev_year,
         'next_month': next_month,
@@ -555,12 +598,14 @@ def view_calendar(request, year=None, month=None):
         'current_day': current_day,
         'today': today,
         'sessions': sessions,
+        'patient': patient,
     }
     return render(request, 'fisiocore/calendar_month.html', context)
 
 
 @login_required
 def view_calendar_day(request, year, month, day):
+
     class FreeSlot(object):
         def __init__(self, start, end):
             self.free = True
@@ -585,8 +630,17 @@ def view_calendar_day(request, year, month, day):
                 slots.append(FreeSlot(sessions[i].end, sessions[i+1].start))
         except IndexError:
             pass
+
+    title = date
+    patient_id = request.GET.get("patient")
+    if patient_id is None:
+        patient = None
+    else:
+        patient = Patient.objects.get(pk=patient_id)
+        title = "{0}, ({1})".format(title, patient)
+
     context={
-        'title': date,
+        'title': title,
         'main_menu_items': MAIN_MENU_ITEMS,
         'sessions': sessions,
         'slots': slots,
@@ -594,18 +648,25 @@ def view_calendar_day(request, year, month, day):
         'month': month,
         'day': day,
         'date': date,
-        'monthname': _(MONTH_NAMES[month])
+        'monthname': _(MONTH_NAMES[month]),
+        'patient': patient,
     }
     return render(request, 'fisiocore/calendar_day.html', context)
 
 
 @login_required
 def add_session(request):
+    patient_id = request.GET.get('patient')
     if request.method == "GET":
         initial_data = {
             'date': request.GET.get('date'),
+            'patient': patient_id,
             'user': request.user.id
         }
+        if patient_id is not None:
+            patient = Patient.objects.get(pk=patient_id)
+            patient.in_treatment = True
+            patient.save()
         form = SessionForm(initial=initial_data)  
         rendered_form = form.render('fisiocore/session_form.html') 
         context = {
@@ -614,13 +675,13 @@ def add_session(request):
             'date': datetime.date.fromisoformat(request.GET.get('date')),
             'form': rendered_form,
         }
+            
     if request.method == 'POST':
         form = SessionForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(reverse('fisiocore:calendar_day', args=[form.cleaned_data['date'].year, form.cleaned_data['date'].month, form.cleaned_data['date'].day]))
         else:
-            print(form.cleaned_data['date'])
             rendered_form = form.render('fisiocore/session_form.html') 
             context = {
                 'date': form.cleaned_data['date'],

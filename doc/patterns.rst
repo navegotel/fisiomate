@@ -5,6 +5,7 @@ Development patterns for fisiomate
 The following views need to be implemented for each data
 
 - list view
+- view
 - create 
 - edit
 - delete

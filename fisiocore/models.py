@@ -143,6 +143,9 @@ class TreatmentPlan(models.Model):
     
     
 class Session(models.Model):
+    class Meta:
+        ordering = ['date', 'start']
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     patient = models.ForeignKey("Patient", on_delete=models.CASCADE)
     date = models.DateField()
