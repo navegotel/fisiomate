@@ -49,6 +49,7 @@ class Examination(models.Model):
         ordering = ['-last_update', '-creation_date']
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    therapist = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="examination_therapist")
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
@@ -147,6 +148,7 @@ class Session(models.Model):
         ordering = ['date', 'start']
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    therapist = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="session_therapist")
     patient = models.ForeignKey("Patient", on_delete=models.CASCADE)
     date = models.DateField()
     start = models.TimeField()

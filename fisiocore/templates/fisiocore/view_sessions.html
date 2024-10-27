@@ -38,6 +38,10 @@
                 <div class="panel-heading">
                     {% translate 'Sessions' %}
                 </div>
+                <p class="panel-tabs">
+                    <a class="is-active">Sessions</a>
+                    <a>Treatment Plans</a>
+                  </p>
                 {% for item in sessions %}
                     <a href="{% url 'fisiocore:view_sessions' patient.id item.id %}" class="panel-block {% if item.id == session.id %}is-active{% endif %}">
                         <span class="panel-icon">

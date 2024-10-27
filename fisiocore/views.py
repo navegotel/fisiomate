@@ -580,7 +580,7 @@ def view_calendar(request, year=None, month=None):
     sessions = Session.objects.filter(user=request.user, date__year=year, date__month=month)
     title = _(MONTH_NAMES[month]) + ' ' + str(year)
     if patient is not None:
-        title = "{0} (patient {1})".format(title, patient)
+        title = "{0} (Patient: {1})".format(title, patient)
         
     context = {
         'title': title,
@@ -637,7 +637,7 @@ def view_calendar_day(request, year, month, day):
         patient = None
     else:
         patient = Patient.objects.get(pk=patient_id)
-        title = "{0}, ({1})".format(title, patient)
+        title = "{0}, (Patient: {1})".format(title, patient)
 
     context={
         'title': title,

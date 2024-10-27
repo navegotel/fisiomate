@@ -1,5 +1,6 @@
 from django.forms import Form, ModelForm, CharField, FileField
 from django.forms.widgets import DateInput, TimeInput, NumberInput
+from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate
 
@@ -28,11 +29,17 @@ class ExaminationForm(ModelForm):
         model = Examination
         fields = [
             'user',
+            'therapist',
             'patient',
             'reason',
             'interview',
             'exploration',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['therapist'].queryset = User.objects.filter(groups__name='Therapist')
+        self.fields['therapist'].widget.attrs.update({'class':'select'})
 
 
 class MedicalImageForm(ModelForm):
@@ -80,7 +87,9 @@ class SessionForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['patient'].queryset = Patient.objects.filter(in_treatment=True)
+        self.fields['therapist'].queryset = User.objects.filter(groups__name='Therapist')
         self.fields['patient'].widget.attrs.update({'class':'select'})
+        self.fields['therapist'].widget.attrs.update({'class':'select'})
         self.fields['treatment_plan'].widget.attrs.update({'class':'select'})
         self.fields['remarks'].widget.attrs.update({'class':'textarea'})
         self.fields['price'].widget.attrs.update({'class':'input'})
