@@ -66,6 +66,7 @@ class SessionForm(ModelForm):
         model = Session
         fields = [
             'user',
+            'therapist',
             'patient',
             'date',
             'start',

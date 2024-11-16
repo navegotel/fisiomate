@@ -15,7 +15,7 @@ from django.urls import reverse, reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from .imex import import_patient_data, export_patient_data
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate, TreatmentPlan
 from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocumentForm, SessionForm, InformedConsentDocumentForm, ExplorationTemplateForm 
 
 # Each main menu item consist of 4 entries:
@@ -493,6 +493,30 @@ def document_list(request, patient_id, document_id=None):
         'document': document,
     }
     return render(request, 'fisiocore/clinical_documents.html', context)
+
+
+@login_required
+def view_treatmentplans(request, patient_id, treatmentplan_id=None):
+    patient = Patient.objects.get(pk=patient_id)
+    context= {
+        'title': _("Treatment plans for {0}").format(patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+    }
+    if treatmentplan_id is None:
+        queryset = TreatmentPlan.objects.filter(patient=patient_id)
+        print(queryset)
+        if queryset:
+            return redirect(reverse('fisiocore:view_treatmentplans', args=[patient_id, queryset.latest('creation_date').id]))
+        else:
+            return render(request, 'fisiocore/view_treatmentplans.html', context)
+    treatmentplans = TreatmentPlan.objects.filter(patient=patient.id)
+    treatmentplan = TreatmentPlan.objects.get(pk=treatmentplan_id)
+
+    context['treatmentplan'] = treatmentplan
+    context['treatmentplans'] = treatmentplans
+
+    return render(request, 'fisiocore/view_treatmentplans.html', context)
 
 
 @login_required

@@ -40,7 +40,7 @@
                 </div>
                 <p class="panel-tabs">
                     <a class="is-active">Sessions</a>
-                    <a>Treatment Plans</a>
+                    <a href="{% url 'fisiocore:view_treatmentplans' patient.id %}">Treatment Plans</a>
                   </p>
                 {% for item in sessions %}
                     <a href="{% url 'fisiocore:view_sessions' patient.id item.id %}" class="panel-block {% if item.id == session.id %}is-active{% endif %}">
@@ -65,6 +65,7 @@
                         <li>{% translate 'from' %}: {{session.start}}h</li>
                         <li>{% translate 'to' %}: {{session.end}}h</li>
                         <li>{% translate 'session number' %}: {{session.session_number}}</li>
+                        <li>{% translate 'therapist' %}: {{session.therapist|default_if_none:'---'}}</li>
                     </ul>
                     <div class="content">
                         {{session.remarks | markdownify }}

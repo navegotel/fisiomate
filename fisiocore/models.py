@@ -139,8 +139,11 @@ class TreatmentPlan(models.Model):
     description = models.TextField(help_text=_("Detailed description of the treatment plan. Supports Markdown"))
     number_of_sessions = models.SmallIntegerField()
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overal price of the whole treatment plan."))
-    invoice = models.OneToOneField("Invoice", on_delete=models.CASCADE)
+    invoice = models.OneToOneField("Invoice", on_delete=models.CASCADE, blank=True, null=True)
     active = models.BooleanField(_("Active"))
+
+    def __str__(self):
+        return self.name
     
     
 class Session(models.Model):
