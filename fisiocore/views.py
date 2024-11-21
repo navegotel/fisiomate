@@ -174,7 +174,7 @@ def examination(request, patient_id, examination_id=None):
 @login_required
 def view_sessions(request, patient_id, session_id=None):
     patient = Patient.objects.get(pk=patient_id)
-    sessions = Session.objects.filter(patient=patient.id)
+    sessions = Session.objects.filter(patient=patient.id).order_by('-date')
     if session_id is None:
         if len(sessions) > 0:
             return redirect(reverse('fisiocore:view_sessions', args=[patient_id, sessions[0].id]))
@@ -569,16 +569,24 @@ def session_list(request, patient_id, session_id=None):
 @login_required    
 def view_calendar(request, year=None, month=None):
     patient_id = request.GET.get('patient')
+    treatmentplan_id = request.GET.get('treatmentplan')
     if year is None or month is None:
         url = reverse('fisiocore:calendar', args=[datetime.date.today().year, datetime.date.today().month])
         if patient_id is None:
             return redirect(url)
         else:
-            return redirect(url+"?patient="+patient_id)
+            url += "?patient="+patient_id
+            if treatmentplan_id is not None:
+                url += "&treatmentplan="+treatmentplan_id
+            return redirect(url)
     if patient_id is not None:
         patient = Patient.objects.get(pk=patient_id)
     else:
         patient = None
+    if treatmentplan_id is not None:
+        treatmentplan = TreatmentPlan.objects.get(pk=treatmentplan_id)
+    else:
+        treatmentplan = None
     c = calendar.Calendar()
     current_day = 31
     today = datetime.date.today()
@@ -623,6 +631,7 @@ def view_calendar(request, year=None, month=None):
         'today': today,
         'sessions': sessions,
         'patient': patient,
+        'treatmentplan':treatmentplan
     }
     return render(request, 'fisiocore/calendar_month.html', context)
 
@@ -661,7 +670,12 @@ def view_calendar_day(request, year, month, day):
         patient = None
     else:
         patient = Patient.objects.get(pk=patient_id)
-        title = "{0}, (Patient: {1})".format(title, patient)
+        #title = "{0}, (Patient: {1})".format(title, patient)
+    treatmentplan_id = request.GET.get('treatmentplan')
+    if treatmentplan_id is None:
+        treatmentplan = None
+    else:
+        treatmentplan = TreatmentPlan.objects.get(pk=treatmentplan_id)
 
     context={
         'title': title,
@@ -674,6 +688,7 @@ def view_calendar_day(request, year, month, day):
         'date': date,
         'monthname': _(MONTH_NAMES[month]),
         'patient': patient,
+        'treatmentplan': treatmentplan
     }
     return render(request, 'fisiocore/calendar_day.html', context)
 
@@ -766,7 +781,7 @@ def view_consent_documents(request):
 def view_consent_document(request, document_id):
     consent_document = InformedConsentDocument.objects.get(pk=document_id)
     context = {
-        'title': consent_document.title,
+        'title': _("Informed Consent"),
         'main_menu_items': MAIN_MENU_ITEMS,
         'consent_document': consent_document
     }
@@ -835,11 +850,11 @@ def add_consent_document(request):
     return render(request, 'fisiocore/add_informed_consent.html', context)
 
 
-def consents(request, user_id):
+def view_consent(request, patient_id, consent_id=None):
     pass
     
     
-def add_consent(request, consent_template_id, user_id):
+def add_consent(request, patient_id, consent_template_id):
     pass
     
     

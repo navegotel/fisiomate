@@ -7,12 +7,21 @@
 {% block main %}
 <div class="level">
     <div class="level-left">
-        <div class="level-item">
+      
+        {% if patient %}
+        <div class="level-item tag is-primary is-medium">
+          {{patient}}
+          </div>
+        {% endif %}
+        {% if treatmentplan %}
+        <div class="level-item tag is-primary is-medium">
+         {{treatmentplan}}
         </div>
+        {% endif %}
     </div>
     <div class="level-right">
         <div class="level-item">
-            <a class="button is-info" href="{% url 'fisiocore:calendar' year month %}">
+            <a class="button is-info" href="{% url 'fisiocore:calendar' year month %}{% if patient %}?patient={{patient.id}}{% endif %}">
                 <span class="icon">
                     <i class="fas fa-calendar"></i>
                 </span>
@@ -22,7 +31,7 @@
             </a>
         </div>
         <div class="level-item">
-            <a class="button is-info" href="{% url 'fisiocore:add_session' %}?date={{date.isoformat}}{% if patient %}&patient={{patient.id}}{% endif %}">
+            <a class="button is-info" href="{% url 'fisiocore:add_session' %}?date={{date.isoformat}}{% if patient %}&patient={{patient.id}}{% endif %}{% if treatmentplan %}&treatmentplan={{treatmentplan.id}}{% endif %}">
                 <span class="icon">
                     <i class="fas fa-person-booth"></i>
                 </span>

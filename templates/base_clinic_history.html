@@ -26,7 +26,7 @@
         <li class="is-active is-medium"><a href="{% url 'fisiocore:examination' patient.id %}" >{% translate 'Medical history' %}</a></li>
         <li class="is-medium"><a href="{% url 'fisiocore:view_sessions' patient.id %}">{% translate 'Sessions' %}</a></li>
         <li><a>{% translate 'Invoicing' %}</a></li>
-        <li><a>{% translate 'Informed consent' %}</a></li>
+        <li class="is_medium"><a href="{% url 'fisiocore:view_consent' patient.id %}">{% translate 'Informed consent' %}</a></li>
     </ul>
 </div>
 {% endblock %}

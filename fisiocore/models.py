@@ -148,7 +148,7 @@ class TreatmentPlan(models.Model):
     
 class Session(models.Model):
     class Meta:
-        ordering = ['date', 'start']
+        ordering = ['-date', 'start']
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="session_therapist")

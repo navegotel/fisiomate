@@ -1,0 +1,31 @@
+@media print {
+
+    body {
+        margin: 0;
+        color: #000;
+        background-color: #fff;
+    }
+    h1, h2, h3, h4, h5 {
+        page-break-after: avoid;
+    }
+    table, figure {
+        page-break-inside: avoid;
+    }
+  
+  }
+
+@page {
+    size: A4 portrait;
+    margin: 2cm;
+}
+@page:right{
+    @bottom-right {
+        content: counter(page);
+    }
+}
+  
+@page:left{
+    @bottom-left {
+        content: counter(page);
+    }
+}
