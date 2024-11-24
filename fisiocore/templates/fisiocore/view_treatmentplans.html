@@ -39,7 +39,7 @@
                     {% translate 'Treatment plans' %}
                 </div>
                 <p class="panel-tabs">
-                    <a href="{% url 'fisiocore:view_sessions' patient.id %}">Sessions</a>
+                    <a href="{% url 'fisiocore:view_sessions' patient.id %}">{% translate 'Appointments' %}</a>
                     <a class="is-active">Treatment Plans</a>
                   </p>
                 {% for item in treatmentplans %}
@@ -124,7 +124,7 @@
                     <p>
                         {% translate "There aren't any sessions yet. You may want to create one." %} 
                     </p>
-                    <a class="button is-info mt-3" href=""> <!-- FIXME -->
+                    <a class="button is-info mt-3" href="{% url 'fisiocore:add_treatmentplan' patient.id%}"> <!-- FIXME -->
                         <span class="icon">
                             <i class="fas fa-diagnoses"></i>
                         </span>

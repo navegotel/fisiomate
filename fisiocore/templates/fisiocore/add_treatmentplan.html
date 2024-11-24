@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+    <form method="POST">
+        {% csrf_token %}
+    {{form}}
+        <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <button class="button is-info">
+                    <span class="icon">
+                        <i class="fas fa-plus-square"></i>
+                    </span>
+                    <span>
+                        {% translate "Add treatment plan" %}
+                    </span>
+                </button>
+            </div>
+            <div class="level-item">
+                <a class="button is-success" href="{% url 'fisiocore:view_treatmentplans' patient.id %}">
+                    <span class="icon is-small">
+                        <i class="fas fa-undo"></i>
+                    </span>
+                    <span>
+                        {% translate 'Cancel' %}            
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </form>
+{% endblock %}

@@ -87,7 +87,6 @@ class SessionForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['patient'].queryset = Patient.objects.filter(in_treatment=True)
         self.fields['therapist'].queryset = User.objects.filter(groups__name='Therapist')
         self.fields['patient'].widget.attrs.update({'class':'select'})
         self.fields['therapist'].widget.attrs.update({'class':'select'})

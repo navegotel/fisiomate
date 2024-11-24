@@ -3,65 +3,71 @@
 {% load i18n %}
 
 {% block main %}
-
-<div class="card">
-    <header class="card-header has-background-primary">
-        <p class="card-header-title">{% translate 'Patients' %}</p>
-    </header>
-    <div class="card-content">
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>{% translate 'Total number' %}:</td>
-                    <td>{{patients.total}}</td>
-                </tr>
-                <tr>
-                    <td>{% translate 'In treatment' %}:</td>
-                    <td>{{patients.in_treatment}}</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="columns">
+    <div class="column">
+        <div class="card">
+            <header class="card-header has-background-primary">
+                <p class="card-header-title">{% translate 'Patients' %}</p>
+            </header>
+            <div class="card-content">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>{% translate 'Total number' %}:</td>
+                            <td>{{patients.total}}</td>
+                        </tr>
+                        <tr>
+                            <td>{% translate 'In treatment' %}:</td>
+                            <td>{{patients.in_treatment}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <header class="card-header has-background-primary">
-        <p class="card-header-title">{% translate 'Sessions' %}</p>
-    </header>
-    <div class="card-content">
-        <table class="table">
-            <theader>
-                <tr>
-                    <th>{% translate 'Year' %}</th>
-                    <th>{% translate 'Sessions' %}</th>
-                </tr>
-            </theader>
-            <tbody>
-                {% for item in sessions.year %}
-                <tr>
-                    <td>{{item.year.year}}</td>
-                    <td>{{item.count}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <table class="table">
-            <theader>
-                <tr>
-                    <th>{% translate 'Year' %}</th>
-                    <th>{% translate 'Month' %}</th>
-                    <th>{% translate 'Sessions' %}</th>
-                </tr>
-            </theader>
-            <tbody>
-                {% for item in sessions.month %}
-                <tr>
-                    <td>{{item.month.year}}</td>
-                    <td>{{item.month.month}}</td>
-                    <td>{{item.count}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="column">
+        <header class="card-header has-background-primary">
+            <p class="card-header-title">{% translate 'Sessions' %}</p>
+        </header>
+        <div class="card-content">
+            <table class="table">
+                <theader>
+                    <tr>
+                        <th>{% translate 'Year' %}</th>
+                        <th>{% translate 'Sessions' %}</th>
+                    </tr>
+                </theader>
+                <tbody>
+                    {% for item in sessions.year %}
+                    <tr>
+                        <td>{{item.year.year}}</td>
+                        <td>{{item.count}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+            <table class="table">
+                <theader>
+                    <tr>
+                        <th>{% translate 'Year' %}</th>
+                        <th>{% translate 'Month' %}</th>
+                        <th>{% translate 'Sessions' %}</th>
+                    </tr>
+                </theader>
+                <tbody>
+                    {% for item in sessions.month %}
+                    <tr>
+                        <td>{{item.month.year}}</td>
+                        <td>{{item.month.month}}</td>
+                        <td>{{item.count}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+    
 {% endblock %}

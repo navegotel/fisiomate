@@ -15,7 +15,7 @@
                     <i class="fas fa-diagnoses"></i>
                 </span>
                 <span>
-                    {% translate "Add session" %}
+                    {% translate "Add appointment" %}
                 </span>
             </a>
         </div>
@@ -25,7 +25,7 @@
     <ul>
         <li class="is-medium"><a href="{% url 'fisiocore:view_patient' patient.id %}">{% translate 'Patient data' %}</a></li>
         <li class="is-medium"><a href="{% url 'fisiocore:examination' patient.id %}" >{% translate 'Medical history' %}</a></li>
-        <li class="is-active  is-medium"><a href="{% url 'fisiocore:view_sessions' patient.id %}">{% translate 'Sessions' %}</a></li>
+        <li class="is-active  is-medium"><a href="{% url 'fisiocore:view_sessions' patient.id %}">{% translate 'Appointments' %}</a></li>
         <li><a>{% translate 'Invoicing' %}</a></li>
         <li><a>{% translate 'Informed consent' %}</a></li>
     </ul>
@@ -36,10 +36,10 @@
         <div class="column is-one-third ">
             <div class="panel is-primary">
                 <div class="panel-heading">
-                    {% translate 'Sessions' %}
+                    {% translate 'Appointments' %}
                 </div>
                 <p class="panel-tabs">
-                    <a class="is-active">Sessions</a>
+                    <a class="is-active">{% translate 'Appointments' %}</a>
                     <a href="{% url 'fisiocore:view_treatmentplans' patient.id %}">Treatment Plans</a>
                   </p>
                 {% for item in sessions %}
@@ -54,6 +54,30 @@
         </div>
         <div class="column">
             {% if session %}
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-info" href="{% url 'fisiocore:edit_session' session.id %}">
+                            <span class="icon">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span>
+                                {% translate "Edit" %}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="level-item">
+                        <a class="button is-danger" href="{% url 'fisiocore:delete_session' session.id %}">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span>
+                                {% translate "Delete" %}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="card mb-2">
                 <div class="card-header has-background-primary">
                     <p class="card-header-title has-text-white">

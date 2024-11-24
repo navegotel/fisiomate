@@ -152,7 +152,7 @@ class Session(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="session_therapist")
-    patient = models.ForeignKey("Patient", on_delete=models.CASCADE)
+    patient = models.ForeignKey("Patient", on_delete=models.CASCADE, limit_choices_to={"in_treatment": True})
     date = models.DateField()
     start = models.TimeField()
     end = models.TimeField()

@@ -518,6 +518,16 @@ def view_treatmentplans(request, patient_id, treatmentplan_id=None):
 
     return render(request, 'fisiocore/view_treatmentplans.html', context)
 
+@login_required
+def add_treatmentplan(request, patient_id):
+    patient = Patient.objects.get(pk=patient_id)
+    context= {
+        'title': _("New treatment plan for {0}").format(patient),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'patient': patient,
+    }
+    return render(request, 'fisiocore/add_treatmentplan.html', context)
+
 
 @login_required
 def stats(request):
@@ -696,17 +706,21 @@ def view_calendar_day(request, year, month, day):
 @login_required
 def add_session(request):
     patient_id = request.GET.get('patient')
+    treatmentplan_id = request.GET.get('treatmentplan')
     if request.method == "GET":
         initial_data = {
             'date': request.GET.get('date'),
             'patient': patient_id,
+            'treatment_plan': treatmentplan_id,
             'user': request.user.id
         }
         if patient_id is not None:
             patient = Patient.objects.get(pk=patient_id)
             patient.in_treatment = True
             patient.save()
-        form = SessionForm(initial=initial_data)  
+        form = SessionForm(initial=initial_data)
+        if patient_id is not None:
+            form.fields['treatment_plan'].queryset = TreatmentPlan.objects.filter(patient = patient_id)
         rendered_form = form.render('fisiocore/session_form.html') 
         context = {
             'title': "Add appointment",
@@ -741,6 +755,7 @@ def edit_session(request, session_id):
             form.save()
             return redirect(reverse('fisiocore:calendar_day', args=[form.cleaned_data['date'].year, form.cleaned_data['date'].month, form.cleaned_data['date'].day]))
     form = SessionForm(instance=session)
+    form.fields['treatment_plan'].queryset = TreatmentPlan.objects.filter(patient = form['patient'].value())
     rendered_form = form.render('fisiocore/session_form.html') 
     context = {
         'title': 'Edit appointment',
