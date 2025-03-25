@@ -26,7 +26,10 @@ from .forms import PatientForm, ExaminationForm, MedicalImageForm, ClinicalDocum
 MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
-    (False, _("Invoicing"), "fisiocore:invoices", "fa-credit-card"),
+    (True, _("Invoicing"), [(_("Pricing table"), "fisiocore:pricing_table", "fa-table"),
+                            (_("Invoices"), "fisiocore:invoices", "fa-credit-card"),
+                            (_("Receipts"), "fisiocore:receipts", "fa-receipt")
+                            ], "fa-credit-card"),
     (True, _("Tools"), [(_("Import patient data"), "fisiocore:import", "fa-file-import"), 
                         (_("Export patient data"), "fisiocore:export", "fa-file-export"), 
                         (_("Exploration templates"), "fisiocore:list_exploration_templates", "fa-pen-alt"), 
@@ -1024,3 +1027,27 @@ def export_file(request):
             'patients': patients,
         }
         return render(request, 'fisiocore/export.html', context)
+    
+
+def show_invoice_template(request):
+    context = {
+        'title': _('Invoice'),
+        'document_type': _('Invoice'),
+        'logo': conf_settings.LOGO,
+        'brand_name': conf_settings.BRAND_NAME,
+        'legal_name': conf_settings.LEGAL_NAME,
+        'address_line_1': conf_settings.ADDRESS_LINE_1,
+        'address_line_2': conf_settings.ADDRESS_LINE_2,
+        'address_line_3': conf_settings.ADDRESS_LINE_3,
+        'address_line_4': conf_settings.ADDRESS_LINE_4,
+        'tax_number': conf_settings.TAX_NUMBER,
+        'phone': conf_settings.PHONE,
+        'email': conf_settings.EMAIL,
+        'website': conf_settings.WEBSITE,
+        'account_number': conf_settings.ACCOUNT_NUMBER,
+        'invoice_date': datetime.date.today(),
+        'invoice_number': "XXXXXX",
+
+
+    }
+    return render(request, "fisiocore/print/base.html", context)

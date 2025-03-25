@@ -161,3 +161,18 @@ MARKDOWNIFY = {
         'MARKDOWN_EXTENSIONS': ['markdown.extensions.fenced_code','markdown.extensions.extra']
     }
 }
+
+# Visual configuration
+
+LOGO = "fisiocore/img/ci/logo.png"
+BRAND_NAME = "InBalance Physiotherapy"
+LEGAL_NAME = "Markus Barth Classen"
+ADDRESS_LINE_1 = "Plaza de la Figuera 1 local 3-4"
+ADDRESS_LINE_2 = "Urbanización el Raso"
+ADDRESS_LINE_3 = "03140 Guardamar del Segura"
+ADDRESS_LINE_4 = "Alicante, España"
+TAX_NUMBER = "NIF 77042762-F"
+ACCOUNT_NUMBER = 'ES8530050017342821967920'
+PHONE = "+34 722 664 618"
+EMAIL = "fisiomax@proton.me"
+WEBSITE = "https://fisio.markusbarth.net"

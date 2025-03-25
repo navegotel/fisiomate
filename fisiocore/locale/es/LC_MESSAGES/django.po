@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-28 17:56+0200\n"
-"PO-Revision-Date: 2024-07-28 18:02+0200\n"
+"POT-Creation-Date: 2025-03-24 08:53+0100\n"
+"PO-Revision-Date: 2025-03-24 09:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -22,19 +22,20 @@ msgstr ""
 msgid "The login user"
 msgstr "El usuario para el login"
 
-#: models.py:11 models.py:28 models.py:52 models.py:75 models.py:102
-#: models.py:113 models.py:122 models.py:133 models.py:210 models.py:224
-#: templates/fisiocore/clinical_documents.html:44
+#: models.py:11 models.py:26 models.py:51 models.py:74 models.py:101
+#: models.py:112 models.py:121 models.py:132 models.py:216 models.py:230
+#: models.py:238 templates/fisiocore/clinical_documents.html:44
 #: templates/fisiocore/clinical_images.html:44
 #: templates/fisiocore/patient.html:50
 #: templates/fisiocore/view_medical_document.html:48
 #: templates/fisiocore/view_medical_image.html:49
+#: templates/fisiocore/view_treatmentplans.html:103
 msgid "Creation date"
 msgstr "Fecha de creación"
 
-#: models.py:12 models.py:29 models.py:53 models.py:76 models.py:103
-#: models.py:114 models.py:123 models.py:134 models.py:211 models.py:225
-#: templates/fisiocore/clinical_documents.html:48
+#: models.py:12 models.py:27 models.py:52 models.py:75 models.py:102
+#: models.py:113 models.py:122 models.py:133 models.py:217 models.py:231
+#: models.py:239 templates/fisiocore/clinical_documents.html:48
 #: templates/fisiocore/clinical_images.html:48
 #: templates/fisiocore/patient.html:54
 #: templates/fisiocore/view_medical_document.html:52
@@ -42,7 +43,7 @@ msgstr "Fecha de creación"
 msgid "Last update"
 msgstr "Última actualización"
 
-#: models.py:13 models.py:33 models.py:174 models.py:195
+#: models.py:13 models.py:31 models.py:180 models.py:201
 #: templates/fisiocore/export.html:16 templates/fisiocore/import.html:100
 #: templates/fisiocore/patient.html:74 templates/fisiocore/patients.html:33
 #: templates/fisiocore/userprofile.html:59
@@ -57,205 +58,206 @@ msgstr "Provincia"
 msgid "Postal code"
 msgstr "Código postal"
 
-#: models.py:16 models.py:35 models.py:176 models.py:197
+#: models.py:16 models.py:33 models.py:182 models.py:203
 #: templates/fisiocore/export.html:17 templates/fisiocore/import.html:108
 #: templates/fisiocore/patient.html:70 templates/fisiocore/patients.html:34
 #: templates/fisiocore/userprofile.html:67
 msgid "Street"
 msgstr "Calle"
 
-#: models.py:17 models.py:37 templates/fisiocore/import.html:116
+#: models.py:17 models.py:35 templates/fisiocore/import.html:116
 #: templates/fisiocore/patient.html:78 templates/fisiocore/patients.html:35
 #: templates/fisiocore/userprofile.html:71
 msgid "Phone"
 msgstr "Teléfono"
 
-#: models.py:18 templates/fisiocore/userprofile.html:75
-msgid "Tax number"
-msgstr "CIF"
-
-#: models.py:19
-msgid "Logo"
-msgstr "Logotipo"
-
-#: models.py:30 models.py:172 models.py:193 templates/fisiocore/export.html:11
+#: models.py:28 models.py:178 models.py:199 templates/fisiocore/export.html:11
 #: templates/fisiocore/patients.html:28 templates/fisiocore/userprofile.html:35
 msgid "First name"
 msgstr "Nombre"
 
-#: models.py:31 models.py:173 models.py:194 templates/fisiocore/export.html:12
+#: models.py:29 models.py:179 models.py:200 templates/fisiocore/export.html:12
 #: templates/fisiocore/patients.html:29 templates/fisiocore/userprofile.html:39
 msgid "Last name"
 msgstr "Apellidos"
 
-#: models.py:32 templates/fisiocore/export.html:13
+#: models.py:30 templates/fisiocore/export.html:13
 #: templates/fisiocore/patient.html:62 templates/fisiocore/patients.html:30
 msgid "Date of birth"
 msgstr "Fecha de nacimiento"
 
-#: models.py:34 models.py:175 models.py:196 templates/fisiocore/export.html:15
+#: models.py:32 models.py:181 models.py:202 templates/fisiocore/export.html:15
 #: templates/fisiocore/patients.html:32
 msgid "Post code"
 msgstr "Código postal"
 
-#: models.py:36 templates/fisiocore/import.html:42
+#: models.py:34 templates/fisiocore/import.html:42
 #: templates/fisiocore/import.html:112 templates/fisiocore/patient.html:82
 #: templates/fisiocore/patients.html:36 templates/fisiocore/userprofile.html:47
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: models.py:38 templates/fisiocore/export.html:14
+#: models.py:36 templates/fisiocore/export.html:14
 #: templates/fisiocore/patients.html:31
 msgid "Id card"
 msgstr "DNI"
 
-#: models.py:39 templates/fisiocore/patient.html:86
+#: models.py:37 templates/fisiocore/patient.html:86
+#: templates/fisiocore/view_stats.html:20
 msgid "In treatment"
 msgstr "En tratamiento"
 
-#: models.py:40 templates/fisiocore/delete_session.html:40
+#: models.py:38 templates/fisiocore/delete_session.html:40
 #: templates/fisiocore/patient.html:98
 msgid "Remarks"
 msgstr "Comentarios"
 
-#: models.py:55 templates/fisiocore/import.html:130
+#: models.py:54 templates/fisiocore/import.html:130
 msgid "Reason"
 msgstr "Motivo"
 
-#: models.py:56 templates/fisiocore/import.html:131
+#: models.py:55 models.py:241 templates/fisiocore/import.html:131
+#: templates/fisiocore/view_exploration_template.html:42
 msgid "Anamnesis"
 msgstr "Anamnesis"
 
-#: models.py:56
+#: models.py:55
 msgid "Any health related information given by the patient."
 msgstr "Cualquier información relativa a la salud del paciente."
 
-#: models.py:57 templates/fisiocore/examination.html:102
-#: templates/fisiocore/import.html:132
+#: models.py:56 models.py:242 templates/fisiocore/import.html:132
+#: templates/fisiocore/view_examination.html:106
+#: templates/fisiocore/view_exploration_template.html:53
 msgid "Exploration"
 msgstr "Exploración"
 
-#: models.py:77 templates/fisiocore/clinical_images.html:60
+#: models.py:76 templates/fisiocore/clinical_images.html:60
 #: templates/fisiocore/view_medical_image.html:65
+#: templates/fisiocore/view_treatmentplans.html:113
 msgid "Description"
 msgstr "Descripción"
 
-#: models.py:77
+#: models.py:76
 msgid "A brief description of the attached document"
 msgstr "Breve descripción del documento"
 
-#: models.py:78
+#: models.py:77
 msgid "URL"
 msgstr "URL"
 
-#: models.py:92
+#: models.py:91
 msgid "Photography"
 msgstr "Fotografía"
 
-#: models.py:93
+#: models.py:92
 msgid "Sketch"
 msgstr "Dibujo"
 
-#: models.py:94
+#: models.py:93
 msgid "X-Ray"
 msgstr "Radiografía"
 
-#: models.py:95
+#: models.py:94
 msgid "Ultrasound"
 msgstr "Ecografía"
 
-#: models.py:96
+#: models.py:95
 msgid "CT scan"
 msgstr "TAC"
 
-#: models.py:97
+#: models.py:96
 msgid "Nuclear magnetic resonance"
 msgstr "Resonancia magnética nuclear"
 
-#: models.py:98
+#: models.py:97
 msgid "Unknown/other"
 msgstr "Sin especificar"
 
-#: models.py:104 templates/fisiocore/clinical_images.html:52
+#: models.py:103 templates/fisiocore/clinical_images.html:52
 #: templates/fisiocore/view_medical_image.html:57
 msgid "Image type"
 msgstr "Tipo de imagen"
 
-#: models.py:105 templates/fisiocore/clinical_images.html:56
+#: models.py:104 templates/fisiocore/clinical_images.html:56
 #: templates/fisiocore/view_medical_image.html:61
 msgid "Projection"
 msgstr "Proyección"
 
-#: models.py:106
+#: models.py:105
 msgid "Image description"
 msgstr "Descripción de imagen"
 
-#: models.py:106
+#: models.py:105
 msgid "Findings or explanation of what is depicted in the image"
 msgstr "Hallazgos o una explicación de lo que se muestra en la imagen"
 
-#: models.py:116
+#: models.py:115
 msgid "Patient report"
 msgstr "Informe para el paciente"
 
-#: models.py:125 models.py:137 templates/fisiocore/patient.html:58
+#: models.py:124 models.py:136 templates/fisiocore/patient.html:58
 msgid "Name"
 msgstr "Nombre"
 
-#: models.py:125 models.py:137
+#: models.py:124 models.py:136
 msgid "Descriptive name for the treatment plan."
 msgstr "Nombre descriptivo para el plan de tratamiento."
 
-#: models.py:126
+#: models.py:125
 msgid "Overall price of the whole treatment plan."
 msgstr "Precio global del plan de tratamiento."
 
-#: models.py:138
+#: models.py:137
 msgid "Detailed description of the treatment plan. Supports Markdown"
 msgstr "Descripción detallada del plan de tratamiento. Se puede usar Markdown"
 
-#: models.py:140
+#: models.py:139
 msgid "Overal price of the whole treatment plan."
 msgstr "Precio global del plan de tratamiento."
 
-#: models.py:142 templates/fisiocore/patients.html:37
+#: models.py:141 templates/fisiocore/patients.html:37
 msgid "Active"
 msgstr "Activado"
 
-#: models.py:154
+#: models.py:160
 msgid "Anything remarkable such as patient's progress"
 msgstr "Cualquier cosa mencionable como el progreso del paciente"
 
-#: models.py:204
+#: models.py:210
 msgid "English"
 msgstr "Inglés"
 
-#: models.py:205
+#: models.py:211
 msgid "Spanish"
 msgstr "Español"
 
-#: models.py:206
+#: models.py:212
 msgid "French"
 msgstr "Francés"
 
-#: models.py:207
+#: models.py:213
 msgid "German"
 msgstr "Alemán"
 
-#: models.py:212 templates/fisiocore/view_consent_documents.html:32
+#: models.py:218 models.py:240
+#: templates/fisiocore/list_exploration_templates.html:32
+#: templates/fisiocore/select_exploration_template.html:13
+#: templates/fisiocore/view_consent_documents.html:32
 msgid "Title"
 msgstr "Título"
 
-#: models.py:213 templates/fisiocore/view_consent_document.html:41
+#: models.py:219 templates/fisiocore/view_consent_document.html:42
 #: templates/fisiocore/view_consent_documents.html:33
 msgid "Language"
 msgstr "Idioma"
 
-#: models.py:214
+#: models.py:220
 msgid "Body"
 msgstr "Cuerpo"
 
-#: models.py:227 templates/fisiocore/patient.html:41
+#: models.py:233 templates/fisiocore/patient.html:41
+#: templates/fisiocore/view_sessions.html:30
+#: templates/fisiocore/view_treatmentplans.html:30
 msgid "Informed consent"
 msgstr "Consentimiento informado"
 
@@ -264,18 +266,24 @@ msgid "Add document"
 msgstr "Añadir documento"
 
 #: templates/fisiocore/add_document.html:31
-#: templates/fisiocore/add_examination.html:32
+#: templates/fisiocore/add_examination.html:42
+#: templates/fisiocore/add_exploration_template.html:32
 #: templates/fisiocore/add_images.html:32
 #: templates/fisiocore/add_informed_consent.html:32
 #: templates/fisiocore/add_patient.html:32
 #: templates/fisiocore/add_session.html:32
+#: templates/fisiocore/add_treatmentplan.html:32
+#: templates/fisiocore/delete.html:44
+#: templates/fisiocore/delete_consent_document.html:44
 #: templates/fisiocore/delete_document.html:44
 #: templates/fisiocore/delete_examination.html:44
 #: templates/fisiocore/delete_image.html:44
 #: templates/fisiocore/delete_patient.html:44
 #: templates/fisiocore/delete_session.html:72
+#: templates/fisiocore/edit_consent_document.html:32
 #: templates/fisiocore/edit_document.html:32
 #: templates/fisiocore/edit_examination.html:32
+#: templates/fisiocore/edit_exploration_template.html:32
 #: templates/fisiocore/edit_image.html:32
 #: templates/fisiocore/edit_session.html:31 templates/fisiocore/export.html:65
 #: templates/fisiocore/import.html:212
@@ -283,12 +291,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: templates/fisiocore/add_examination.html:22
-#: templates/fisiocore/examination.html:152
-msgid "Add examination"
-msgstr "Añadir Reconocimiento"
+msgid "Save examination"
+msgstr "Guardar Reconocimiento"
+
+#: templates/fisiocore/add_examination.html:32
+msgid "Load template"
+msgstr "Cargar Plantilla"
+
+#: templates/fisiocore/add_exploration_template.html:22
+msgid "Add exploration template"
+msgstr ""
 
 #: templates/fisiocore/add_images.html:22
-#: templates/fisiocore/examination.html:70
+#: templates/fisiocore/view_examination.html:70
 msgid "Add images"
 msgstr "Añadir imágenes"
 
@@ -301,22 +316,33 @@ msgid "Add patient"
 msgstr "Añadir paciente"
 
 #: templates/fisiocore/add_session.html:22
-#: templates/fisiocore/calendar_day.html:30
+#: templates/fisiocore/calendar_day.html:39
+#: templates/fisiocore/view_sessions.html:18
 msgid "Add appointment"
 msgstr "Añadir cita"
 
-#: templates/fisiocore/calendar_day.html:56
-#: templates/fisiocore/examination.html:48
+#: templates/fisiocore/add_treatmentplan.html:22
+msgid "Add treatment plan"
+msgstr "Añadir Plan de tratamiento"
+
+#: templates/fisiocore/calendar_day.html:65
+#: templates/fisiocore/view_examination.html:48
+#: templates/fisiocore/view_sessions.html:65
+#: templates/fisiocore/view_treatmentplans.html:65
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/fisiocore/calendar_day.html:57
+#: templates/fisiocore/calendar_day.html:66 templates/fisiocore/delete.html:8
+#: templates/fisiocore/delete.html:34
+#: templates/fisiocore/delete_consent_document.html:34
 #: templates/fisiocore/delete_document.html:34
 #: templates/fisiocore/delete_examination.html:34
 #: templates/fisiocore/delete_image.html:34
 #: templates/fisiocore/delete_patient.html:34
 #: templates/fisiocore/delete_session.html:62
-#: templates/fisiocore/examination.html:58
+#: templates/fisiocore/view_examination.html:58
+#: templates/fisiocore/view_sessions.html:85
+#: templates/fisiocore/view_treatmentplans.html:75
 msgid "Delete"
 msgstr "Borrar"
 
@@ -360,7 +386,8 @@ msgstr "Seleccione un archivo..."
 
 #: templates/fisiocore/clinical_documents.html:14
 #: templates/fisiocore/clinical_images.html:14
-#: templates/fisiocore/examination.html:11
+#: templates/fisiocore/view_examination.html:11
+#: templates/fisiocore/view_treatmentplans.html:106
 msgid "Examination"
 msgstr "Examination"
 
@@ -382,20 +409,27 @@ msgstr "No hay documentos clínicos para el paciente"
 msgid "There are no images for patient"
 msgstr "No hay imágenes para el paciente"
 
-#: templates/fisiocore/delete_document.html:8
-msgid "Deleting document"
-msgstr "Eliminar documento"
-
-#: templates/fisiocore/delete_document.html:12
-msgid "Are you sure you want to delete this document:"
-msgstr "Seguro que quiere eliminar el documento:"
-
+#: templates/fisiocore/delete.html:23
+#: templates/fisiocore/delete_consent_document.html:23
 #: templates/fisiocore/delete_document.html:23
 #: templates/fisiocore/delete_examination.html:23
 #: templates/fisiocore/delete_image.html:23
 #: templates/fisiocore/delete_patient.html:23
 msgid "I understand the implications of this action and want to proceed"
 msgstr "Comprendo las implicaciones de esta acción y quiero continuar"
+
+#: templates/fisiocore/delete_consent_document.html:8
+#: templates/fisiocore/delete_document.html:8
+msgid "Deleting document"
+msgstr "Eliminar documento"
+
+#: templates/fisiocore/delete_consent_document.html:12
+msgid "Are you sure you want to delete this Informed consent document:"
+msgstr "Seguro que quiere eliminar el documento:"
+
+#: templates/fisiocore/delete_document.html:12
+msgid "Are you sure you want to delete this document:"
+msgstr "Seguro que quiere eliminar el documento:"
 
 #: templates/fisiocore/delete_examination.html:8
 msgid "Are you sure you want to delete the examination"
@@ -442,6 +476,7 @@ msgid "Patient"
 msgstr "Paciente"
 
 #: templates/fisiocore/delete_session.html:24
+#: templates/fisiocore/print/base.html:32
 msgid "Date"
 msgstr "Fecha"
 
@@ -461,6 +496,10 @@ msgstr "Número"
 msgid "Yes, I am sure!"
 msgstr "¡Sí, estoy seguro!"
 
+#: templates/fisiocore/edit_consent_document.html:22
+msgid "Save Informed consent document"
+msgstr "Guardar consentimiento informado"
+
 #: templates/fisiocore/edit_document.html:22
 msgid "Save document"
 msgstr "Guardar documento"
@@ -468,6 +507,10 @@ msgstr "Guardar documento"
 #: templates/fisiocore/edit_examination.html:22
 msgid "Save changes"
 msgstr "Guardar cambios"
+
+#: templates/fisiocore/edit_exploration_template.html:22
+msgid "Save exploration template"
+msgstr ""
 
 #: templates/fisiocore/edit_image.html:22
 msgid "Save image"
@@ -485,36 +528,10 @@ msgstr "cancelar"
 msgid "Save appointment"
 msgstr "Guardar cita"
 
-#: templates/fisiocore/examination.html:80
-msgid "Add documents"
-msgstr "Añadir documentos"
-
-#: templates/fisiocore/examination.html:86
-msgid "Date: "
-msgstr "Fecha: "
-
-#: templates/fisiocore/examination.html:86
-msgid "Reason: "
-msgstr "Motivo: "
-
-#: templates/fisiocore/examination.html:90
-msgid "Clinical Interview"
-msgstr "Entrevista clínica"
-
-#: templates/fisiocore/examination.html:114
-msgid "Clinical Images"
-msgstr "Imágenes clínicos"
-
-#: templates/fisiocore/examination.html:129
-msgid "Clinical Documents"
-msgstr "Documentos clínicos"
-
-#: templates/fisiocore/examination.html:145
-msgid "There is no anamnesis yet. You may want to create one."
-msgstr "Aún no hay anamnesis. Puede crear una nueva."
-
-#: templates/fisiocore/examination_form.html:34
-#: templates/fisiocore/examination_form.html:51
+#: templates/fisiocore/examination_form.html:49
+#: templates/fisiocore/examination_form.html:66
+#: templates/fisiocore/exploration_template_form.html:33
+#: templates/fisiocore/exploration_template_form.html:50
 msgid "text formatting with markdown"
 msgstr "formateado de texto con markdown"
 
@@ -547,6 +564,7 @@ msgid "Import data for patient"
 msgstr "Data de importación para el paciente"
 
 #: templates/fisiocore/import.html:84 templates/fisiocore/import.html:129
+#: templates/fisiocore/view_treatmentplans.html:104
 msgid "Last Update"
 msgstr "Última actualización"
 
@@ -578,28 +596,41 @@ msgstr "Importar datos seleccionados"
 msgid "View contents for import"
 msgstr "Ver contenido para la importación"
 
+#: templates/fisiocore/list_exploration_templates.html:22
+msgid "New exploration template"
+msgstr ""
+
 #: templates/fisiocore/patient.html:19
 msgid "Edit patient"
 msgstr "Editar paciente"
 
 #: templates/fisiocore/patient.html:29
-#: templates/fisiocore/view_consent_document.html:32
 msgid "Delete patient"
 msgstr "Borrar paciente"
 
 #: templates/fisiocore/patient.html:37
+#: templates/fisiocore/view_sessions.html:26
+#: templates/fisiocore/view_treatmentplans.html:26
 msgid "Patient data"
 msgstr "Datos del paciente"
 
 #: templates/fisiocore/patient.html:38
+#: templates/fisiocore/view_sessions.html:27
+#: templates/fisiocore/view_treatmentplans.html:27
 msgid "Medical history"
 msgstr "Historia clínica"
 
 #: templates/fisiocore/patient.html:39
-msgid "Sessions"
-msgstr "Sesiones"
+#: templates/fisiocore/view_sessions.html:28
+#: templates/fisiocore/view_sessions.html:39
+#: templates/fisiocore/view_sessions.html:42
+#: templates/fisiocore/view_treatmentplans.html:42
+msgid "Appointments"
+msgstr "Citas"
 
-#: templates/fisiocore/patient.html:40 views.py:27
+#: templates/fisiocore/patient.html:40
+#: templates/fisiocore/view_sessions.html:29
+#: templates/fisiocore/view_treatmentplans.html:29 views.py:29
 msgid "Invoicing"
 msgstr "Facturación"
 
@@ -619,11 +650,29 @@ msgstr "En tratamiento"
 msgid "New patient"
 msgstr "Paciente nuevo"
 
+#: templates/fisiocore/print/base.html:33
+msgid "Invoice Number"
+msgstr "Nº de factura"
+
+#: templates/fisiocore/print/base.html:58
+msgid "VAT"
+msgstr "IVA"
+
+#: templates/fisiocore/print/base.html:66
+msgid "Total"
+msgstr "Total"
+
+#: templates/fisiocore/session_form.html:13
+msgid "Only patients with status \"in treatment\" will appear in the dropdown."
+msgstr ""
+"Solo los pacientes con el estado \"en activo\" aparecereán en la lista de "
+"selección."
+
 #: templates/fisiocore/userprofile.html:20
 msgid "Edit user profile"
 msgstr "Editar perfil de usuario"
 
-#: templates/fisiocore/userprofile.html:28 views.py:461
+#: templates/fisiocore/userprofile.html:28 views.py:553
 msgid "User Profile"
 msgstr "Perfil de Usuario"
 
@@ -643,13 +692,65 @@ msgstr "Fecha de alta"
 msgid "Last login"
 msgstr "Última fecha de entrada"
 
+#: templates/fisiocore/userprofile.html:75
+msgid "Tax number"
+msgstr "CIF"
+
 #: templates/fisiocore/view_consent_document.html:22
 msgid "edit informed consent"
-msgstr "Editar Consentimiento informado"
+msgstr "editar Consentimiento informado"
+
+#: templates/fisiocore/view_consent_document.html:32
+msgid "Delete informed consent"
+msgstr "Eliminar Consentimiento informado"
 
 #: templates/fisiocore/view_consent_documents.html:22
 msgid "New informed consent"
 msgstr "Consentimiento informado Nuevo"
+
+#: templates/fisiocore/view_examination.html:80
+msgid "Add documents"
+msgstr "Añadir documentos"
+
+#: templates/fisiocore/view_examination.html:87
+msgid "Date: "
+msgstr "Fecha: "
+
+#: templates/fisiocore/view_examination.html:88
+msgid "Reason: "
+msgstr "Motivo: "
+
+#: templates/fisiocore/view_examination.html:89
+msgid "Therapist: "
+msgstr "Terapeuta:"
+
+#: templates/fisiocore/view_examination.html:94
+msgid "Clinical Interview"
+msgstr "Entrevista clínica"
+
+#: templates/fisiocore/view_examination.html:118
+msgid "Clinical Images"
+msgstr "Imágenes clínicos"
+
+#: templates/fisiocore/view_examination.html:133
+msgid "Clinical Documents"
+msgstr "Documentos clínicos"
+
+#: templates/fisiocore/view_examination.html:149
+msgid "There is no anamnesis yet. You may want to create one."
+msgstr "Aún no hay anamnesis. Puede crear una nueva."
+
+#: templates/fisiocore/view_examination.html:156
+msgid "Add examination"
+msgstr "Añadir Reconocimiento"
+
+#: templates/fisiocore/view_exploration_template.html:22
+msgid "edit exploration template"
+msgstr "editar plantilla de valoración"
+
+#: templates/fisiocore/view_exploration_template.html:32
+msgid "Delete exploration template"
+msgstr "Borrar plantilla de valoración"
 
 #: templates/fisiocore/view_medical_document.html:19
 #: templates/fisiocore/view_medical_image.html:20
@@ -672,107 +773,231 @@ msgstr "Editar imagen"
 msgid "Delete image"
 msgstr "Eliminar imagen"
 
-#: views.py:25 views.py:58
+#: templates/fisiocore/view_sessions.html:75
+msgid "Create Quote"
+msgstr "Crear Presupuesto"
+
+#: templates/fisiocore/view_sessions.html:99
+msgid "from"
+msgstr "desde"
+
+#: templates/fisiocore/view_sessions.html:100
+msgid "to"
+msgstr "hasta"
+
+#: templates/fisiocore/view_sessions.html:101
+msgid "session number"
+msgstr "nº de sesión"
+
+#: templates/fisiocore/view_sessions.html:102
+msgid "therapist"
+msgstr "terapeuta"
+
+#: templates/fisiocore/view_sessions.html:112
+#: templates/fisiocore/view_treatmentplans.html:125
+msgid "There aren't any sessions yet. You may want to create one."
+msgstr "Aún no hay sesiones. Puede crear una nueva."
+
+#: templates/fisiocore/view_sessions.html:119
+msgid "Agenda"
+msgstr "Agenda"
+
+#: templates/fisiocore/view_stats.html:10 views.py:27 views.py:64
 msgid "Patients"
 msgstr "Pacientes"
 
-#: views.py:26
+#: templates/fisiocore/view_stats.html:16
+msgid "Total number"
+msgstr "Número total"
+
+#: templates/fisiocore/view_stats.html:30
+#: templates/fisiocore/view_stats.html:37
+#: templates/fisiocore/view_stats.html:55
+#: templates/fisiocore/view_treatmentplans.html:28
+msgid "Sessions"
+msgstr "Sesiones"
+
+#: templates/fisiocore/view_stats.html:36
+#: templates/fisiocore/view_stats.html:53
+msgid "Year"
+msgstr "Año"
+
+#: templates/fisiocore/view_stats.html:54
+msgid "Month"
+msgstr "Mes"
+
+#: templates/fisiocore/view_treatmentplans.html:18
+#: templates/fisiocore/view_treatmentplans.html:132
+msgid "New treatment plan"
+msgstr "Nuevo plan de tratamiento"
+
+#: templates/fisiocore/view_treatmentplans.html:39
+msgid "Treatment plans"
+msgstr "Planos de tratamiento"
+
+#: templates/fisiocore/view_treatmentplans.html:87
+msgid "Add session"
+msgstr "Añadir Sesión"
+
+#: templates/fisiocore/view_treatmentplans.html:105
+msgid "Number of sessions"
+msgstr "Nº de sesiones"
+
+#: views.py:28
 msgid "Calendar"
 msgstr "Agenda"
 
-#: views.py:28
+#: views.py:30
 msgid "Tools"
 msgstr "Herramientas"
 
-#: views.py:28
+#: views.py:30
 msgid "Import patient data"
 msgstr "Importar datos del paciente"
 
-#: views.py:28
+#: views.py:31
 msgid "Export patient data"
 msgstr "Exportar datos del paciente"
 
-#: views.py:28
-msgid "Anamnesis templates"
-msgstr "Plantillas de Anamnesis"
+#: views.py:32
+msgid "Exploration templates"
+msgstr "Plantilla de valoración"
 
-#: views.py:28
+#: views.py:33
 msgid "Informed consent templates"
 msgstr "Plantillas de Consentimiento informado"
 
-#: views.py:70 views.py:113
+#: views.py:76 views.py:119
 #, python-brace-format
 msgid "There is no patient with Id {0}"
 msgstr "No hay ningún paciente con Id {0}"
 
-#: views.py:72 views.py:115 views.py:207
+#: views.py:78 views.py:121 views.py:245
 msgid "You are not allowed to see the data of this user"
 msgstr "No tiene autorización para ver los datos de este paciente"
 
-#: views.py:74
+#: views.py:80
 #, python-brace-format
 msgid "Patient \"{0}\""
 msgstr "Paciente \"{0}\""
 
-#: views.py:119
+#: views.py:125
 #, python-brace-format
 msgid "Edit Patient \"{0}\""
 msgstr "Editar paciente \"{0}\""
 
-#: views.py:136
+#: views.py:142
 #, python-brace-format
 msgid "Delete patient {0} {1}"
 msgstr "Borrar paciente  {0} {1}"
 
-#: views.py:158
+#: views.py:164
 #, python-brace-format
 msgid "Clinical history \"{0}\""
 msgstr "Historia clínica \"{0}\""
 
-#: views.py:205
+#: views.py:186
+#, python-brace-format
+msgid "Treatment Sessions for {0}"
+msgstr "Sesiones de tratamiento para {0}"
+
+#: views.py:243
 #, python-brace-format
 msgid "There is no Examination with Id {0}"
 msgstr "No hay ninguna examinación con Id {0}"
 
-#: views.py:211
+#: views.py:249
 #, python-brace-format
 msgid "Edit Examination \"{0}\""
 msgstr "Editar Reconocimiento clínico\"{0}\""
 
-#: views.py:228
+#: views.py:266
 #, python-brace-format
 msgid "Delete examination {0}"
 msgstr "Borrar reconocimiento clínico {0}"
 
-#: views.py:418
+#: views.py:276
+msgid "select examination template"
+msgstr "Seleccionar plantilla de valoración"
+
+#: views.py:467
 #, python-brace-format
 msgid "Clinical images of {0}"
 msgstr "Imágenes clínicos de {0}"
 
-#: views.py:440
+#: views.py:489
 #, python-brace-format
 msgid "Clinical documents of {0}"
 msgstr "Documentos clínicos de {0}"
 
-#: views.py:452
+#: views.py:502
+#, python-brace-format
+msgid "Treatment plans for {0}"
+msgstr "Plan de tratamiento para {0}"
+
+#: views.py:525
+#, python-brace-format
+msgid "New treatment plan for {0}"
+msgstr "Nuevo plan de tratamiento para {0}"
+
+#: views.py:542
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: views.py:644
+#: views.py:788
 msgid "Informed consent documents"
 msgstr "Plantillas de Consentimiento informado"
 
-#: views.py:717
+#: views.py:799
+msgid "Informed Consent"
+msgstr "Consentimiento informado"
+
+#: views.py:817
+#, python-brace-format
+msgid "There is no informe consent document with Id {0}"
+msgstr "No hay ningún consentimiento informado con Id {0}"
+
+#: views.py:837
+#, python-brace-format
+msgid "Delete Informed consent document {0}"
+msgstr "Borrar consentimiento informado {0}"
+
+#: views.py:888
+msgid "Exploration Templates"
+msgstr "Explorar plantillas"
+
+#: views.py:939
+#, python-brace-format
+msgid "There is no exploration template with Id {0}"
+msgstr "No hay ninguna plantilla de valoración con Id {0}"
+
+#: views.py:958
+msgid "delete exploration template"
+msgstr ""
+
+#: views.py:959
+#, python-brace-format
+msgid "Are you sure you want to delete the exploration template \"{0}\"?"
+msgstr "Seguro que quiere eliminar la plantilla de valoración \"{0}\"?"
+
+#: views.py:967
 msgid "Import Patient Data"
 msgstr "Importar datos del paciente"
 
-#: views.py:731
+#: views.py:981
 msgid "This zip file does not seem to contain valid patient data."
 msgstr "Este fichero zip no parece contener datos de pacientes válidos."
 
-#: views.py:772
+#: views.py:1022
 msgid "Export Patient Data"
 msgstr "Exportar datos del paciente"
+
+#: views.py:1031 views.py:1032
+msgid "Invoice"
+msgstr "Factura"
+
+#~ msgid "Logo"
+#~ msgstr "Logotipo"
 
 #~ msgid "Import"
 #~ msgstr "Importar"
@@ -786,12 +1011,6 @@ msgstr "Exportar datos del paciente"
 #~ "Th    #print(c.monthdays2calendar(year, month))ere is no Examination with "
 #~ "Id {0}"
 #~ msgstr "No hay ningún reconocimiento clínico con Id {0}"
-
-#~ msgid "Add session"
-#~ msgstr "Añadir Sesión"
-
-#~ msgid "Treatment plans"
-#~ msgstr "Planos de tratamiento"
 
 #~ msgid "Social security number"
 #~ msgstr "Número de Seguridad social"

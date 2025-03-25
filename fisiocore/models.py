@@ -2,7 +2,7 @@ import os
 from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _  
 
 
 class UserProfile(models.Model):
@@ -15,8 +15,6 @@ class UserProfile(models.Model):
     post_code = models.CharField(_("Postal code"), max_length=10, blank=True, null=True)
     street = models.CharField(_("Street"), max_length=50)
     phone = models.CharField(_("Phone"), max_length=20, blank=True, null=True)
-    tax_number = models.CharField(_("Tax number"), max_length=50, blank=True, null=True)
-    logo = models.ImageField(_("Logo"), upload_to="logos/", blank=True, null=True)
     
 
 class Patient(models.Model):

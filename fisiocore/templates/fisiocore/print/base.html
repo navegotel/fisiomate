@@ -1,0 +1,84 @@
+{% load static %}
+{% load i18n %}
+<html>
+    <head>
+        <title>{{title}}</title>
+        <link href="{% static 'fisiocore/css/print.css' %}" rel="stylesheet">
+        <link href="{% static 'fisiocore/css/fontawesome/css/all.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-left">
+                <p class="adress-line">{{legal_name}}</p>
+                <p class="adress-line">{{address_line_1}}</p>
+                <p class="adress-line">{{address_line_2}}</p>
+                {% if address_line_3 %}
+                <p class="adress-line">{{address_line_3}}</p>
+                {% endif %}
+                {% if address_line_4 %}
+                <p class="adress-line">{{address_line_4}}</p>
+                {% endif %}
+                <p class="spaced-adress-line"><span class="fas fa-phone-alt"></span> {{phone}}</p>
+                <p class="adress-line"><span class="fas fa-envelope"></span>  {{email}}</p>
+                <p class="spaced_adress-line"><span class="fas fa-credit-card"></span> {{account_number}}</p>
+                <p class="spaced-adress-line">{{tax_number}}</p>
+            </div>
+            <div class="header-right">
+                <img class="logo" src="{% static logo %}">
+                <div class="document-type">
+                    {{document_type}}
+                </div>
+                
+                <p class="spaced-adress-line">{% translate "Date" %}: {{invoice_date}}</p>
+                <p class="adress-line">{% translate "Invoice Number" %}: {{invoice_number}}</p>
+                <p></p>
+            </div>
+        </header>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th class="date-col">{% translate 'Date' %}</th>
+                    <th>{% translate 'Description' %}</th>
+                    <th class="price-col">{% translate 'Price' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="date-col">
+                        11/01/2025
+                    </td>
+                    <td>
+                        Valoración inicial hombro derecho.
+                        Diseño y revisión de plan terapéutico con el paciente.
+                        Terapia manual: movilización pasiva.
+                        Tiempo 60 minutos.
+                    </td>
+                    <td class="date-col">
+                        42,00€
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        {% translate 'VAT' %}: {{VAT}}% 
+                    </td>
+                    <td>
+                        {{amount_VAT}} {{currency}}
+                    </td>
+                </tr>
+                <tr><td>
+
+                </td>
+                    <td>
+                        {% translate 'Total' %}
+                    </td>
+                    <td>
+                        {{total}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

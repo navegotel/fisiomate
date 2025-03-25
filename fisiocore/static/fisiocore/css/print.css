@@ -4,6 +4,7 @@
         margin: 0;
         color: #000;
         background-color: #fff;
+        font: 12pt Tahoma, Verdana, sans-serif;
     }
     h1, h2, h3, h4, h5 {
         page-break-after: avoid;
@@ -11,21 +12,94 @@
     table, figure {
         page-break-inside: avoid;
     }
-  
+    table {
+        width: 100%;
+    }
   }
 
-@page {
-    size: A4 portrait;
-    margin: 2cm;
-}
-@page:right{
-    @bottom-right {
-        content: counter(page);
+    @page {
+        size: A4 portrait;
+        margin: 2cm;
     }
-}
-  
-@page:left{
-    @bottom-left {
-        content: counter(page);
+    @page:right{
+        @bottom-right {
+            content: counter(page);
+        }
     }
+    
+    @page:left{
+        @bottom-left {
+            content: counter(page);
+        }
 }
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+.header-left{
+    order: 1;
+}
+
+.header-right{
+    align-self: flex-start;
+    order: 2;
+}
+
+.document-type{
+    font: 24pt Tahoma, Verdana, sans-serif;
+    text-align: right;
+    margin-top: 2em;
+}
+
+.adress-line{
+    font: 12pt Tahoma, Verdana, sans-serif;
+    padding: 0;
+    margin: 0.2em 0 0 0;
+}
+
+.spaced-adress-line{
+    font: 12pt Tahoma, Verdana, sans-serif;
+    padding: 0;
+    margin: 1em 0 0 0;
+}
+
+.logo{
+    width: 6cm;
+}
+
+.invoice-table{
+    table-layout: fixed;
+    width: 100%;
+    border: 0.3mm solid;
+    border-collapse: collapse;
+}
+
+.invoice-table th{
+    font: 12pt Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    padding: 0.1em 0.2em;
+    background-color: aaa;
+}
+
+.invoice-table td{
+    border: 0.3mm solid;
+    padding: 1mm;
+    
+}
+
+.date-col{
+    width: 4cm;
+    vertical-align: top;
+}
+
+.price-col{
+    width: 4cm;
+    vertical-align: top;
+}
+
+
