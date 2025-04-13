@@ -3,9 +3,9 @@
 {% load i18n %}
 {% block main %}
 
-    <form method="POST" enctype="multipart/form-data" action="{% url 'fisiocore:add_images' examination.id %}" >
+    <form method="post">
         {% csrf_token %}
-    {{form}}
+        {{form}}
         <div class="level">
         <div class="level-left">
             <div class="level-item">
@@ -19,12 +19,16 @@
                         <i class="fas fa-plus-square"></i>
                     </span>
                     <span>
-                        {% translate "Add images" %}
+                        {% if buttonlabel %}
+                            {{ buttonlabel }}
+                        {% else %}
+                            {% translate "Add" %}
+                        {% endif %}
                     </span>
                 </button>
             </div>
             <div class="level-item">
-                <a class="button is-success" href="{% url 'fisiocore:examination' examination.patient.id %}">
+                <a class="button is-success" href="{% url 'fisiocore:patients' %}">
                     <span class="icon is-small">
                         <i class="fas fa-undo"></i>
                     </span>
@@ -36,4 +40,5 @@
         </div>
     </div>
     </form>
+    
 {% endblock %}
