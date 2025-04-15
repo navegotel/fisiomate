@@ -157,9 +157,9 @@ LOGOUT_REDIRECT_URL = '/login'
 
 MARKDOWNIFY = {
     'default': {
-        'WHITELIST_TAGS': ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'p', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'h4', 'img'],
-        'WHITELIST_ATTRS': ['href', 'src', 'alt'],
-        'MARKDOWN_EXTENSIONS': ['markdown.extensions.fenced_code','markdown.extensions.extra']
+        'WHITELIST_TAGS': ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'p', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'h4', 'img', 'dl', 'dt', 'dd', 'input' ],
+        'WHITELIST_ATTRS': ['href', 'src', 'alt', 'type', 'checked'],
+        'MARKDOWN_EXTENSIONS': ['markdown.extensions.fenced_code','markdown.extensions.extra', 'markdown_checklist.extension']
     }
 }
 

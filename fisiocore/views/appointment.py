@@ -33,6 +33,12 @@ def view_sessions(request, patient_id, session_id=None):
 def add_session(request):
     patient_id = request.GET.get('patient')
     treatmentplan_id = request.GET.get('treatmentplan')
+    context = {
+        'title': "Add appointment",
+        'buttonlabel': "Add appointment",
+        'cancelurl': reverse('fisiocore:calendar'),
+        'main_menu_items': MAIN_MENU_ITEMS,
+    }
     if request.method == "GET":
         initial_data = {
             'date': request.GET.get('date'),
@@ -48,13 +54,8 @@ def add_session(request):
         if patient_id is not None:
             form.fields['treatment_plan'].queryset = TreatmentPlan.objects.filter(patient = patient_id)
         rendered_form = form.render('fisiocore/appointment/appointment_form.html') 
-        context = {
-            'title': "Add appointment",
-            'main_menu_items': MAIN_MENU_ITEMS,
-            'date': datetime.date.fromisoformat(request.GET.get('date')),
-            'form': rendered_form,
-        }
-            
+        context['form'] = rendered_form
+        context['date'] = datetime.date.fromisoformat(request.GET.get('date'))
     if request.method == 'POST':
         form = SessionForm(request.POST)
         if form.is_valid():
@@ -62,14 +63,9 @@ def add_session(request):
             return redirect(reverse('fisiocore:calendar_day', args=[form.cleaned_data['date'].year, form.cleaned_data['date'].month, form.cleaned_data['date'].day]))
         else:
             rendered_form = form.render('fisiocore/appointment/appointment_form.html') 
-            context = {
-                'date': form.cleaned_data['date'],
-                'title': "Add appointment",
-                'main_menu_items': MAIN_MENU_ITEMS,
-                'form': rendered_form,
-            }
-
-    return render(request, 'fisiocore/appointment/add_appointment.html', context)
+            context['form'] = rendered_form
+            context['date'] = form.cleaned_data['date']
+    return render(request, 'fisiocore/add.html', context)
 
 
 @login_required

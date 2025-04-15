@@ -72,7 +72,9 @@ def delete_consent_document(request, document_id):
 def add_consent_document(request):
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
-        'title': "Add Informed consent document"
+        'title': "Add Informed consent document",
+        'buttonlabel': 'Add document',
+        'cancelurl': reverse('fisiocore:view_consent_documents')
     }
     if request.method == "POST":
         form = InformedConsentDocumentForm(request.POST)
@@ -84,12 +86,12 @@ def add_consent_document(request):
 
             rendered_form = form.render('fisiocore/informed_consent/informed_consent_form.html')
             context['form'] = rendered_form
-            return render(request, 'fisiocore/informed/consent/add_informed_consent.html', context)
+            return render(request, 'fisiocore/informed/add.html', context)
     
     form = InformedConsentDocumentForm(initial={'user': request.user.id})
     rendered_form = form.render('fisiocore/informed_consent/informed_consent_form.html')
     context['form'] = rendered_form
-    return render(request, 'fisiocore/informed_consent/add_informed_consent.html', context)
+    return render(request, 'fisiocore/add.html', context)
 
 
 def view_consent(request, patient_id, consent_id=None):

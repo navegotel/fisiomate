@@ -61,6 +61,8 @@ def add_document(request, examination_id):
         'main_menu_items': MAIN_MENU_ITEMS,
         'examination': examination,
         'buttonlabel': _('Add document'),
+        'cancelurl': reverse('fisiocore:examination', args=[examination.patient.id, examination.id]),
+        'is_upload': True,
     }
     if request.method == 'POST':
         form = ClinicalDocumentForm(request.POST, request.FILES)

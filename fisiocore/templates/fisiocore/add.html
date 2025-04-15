@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block main %}
 
-    <form method="post">
+    <form method="post" {% if is_upload %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
         {{form}}
         <div class="level">
@@ -28,7 +28,7 @@
                 </button>
             </div>
             <div class="level-item">
-                <a class="button is-success" href="{% url 'fisiocore:patients' %}">
+                <a class="button is-success" href="{% if cancelurl %}{{ cancelurl }}{% else %}{% url 'fisiocore:patients' %}{% endif %}">
                     <span class="icon is-small">
                         <i class="fas fa-undo"></i>
                     </span>

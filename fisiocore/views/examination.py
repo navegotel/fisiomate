@@ -50,7 +50,7 @@ def add_examination(request, patient_id):
             rendered_form = form.render('fisiocore/examination/examination_form.html')
             context['form'] = rendered_form
             context['patient_id'] = patient_id
-            return render(request, 'fisiocore/examination/examination/add_examination.html', context)
+            return render(request, 'fisiocore/add.html', context)
     try:
         exploration_template = ExplorationTemplate.objects.get(pk=request.GET["tmpl"])
         exploration = exploration_template.exploration
@@ -149,7 +149,9 @@ def view_exploration_template(request, tmpl_id):
 def add_exploration_template(request):
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
-        'title': "New exploration template"
+        'title': 'New exploration template',
+        'buttonlabel': 'Add template',
+        'cancelurl': reverse('fisiocore:list_exploration_templates')
     }
     if request.method == "POST":
         form = ExplorationTemplateForm(request.POST)
@@ -163,7 +165,7 @@ def add_exploration_template(request):
     form = ExplorationTemplateForm(initial={'user':request.user.id})
     rendered_form = form.render('fisiocore/examination_template/examination_template_form.html')
     context['form'] = rendered_form
-    return render(request, 'fisiocore/examination_template/add_examination_template.html', context)
+    return render(request, 'fisiocore/add.html', context)
 
 
 @login_required
