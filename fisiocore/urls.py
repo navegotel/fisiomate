@@ -58,14 +58,10 @@ urlpatterns = [
     path('calendar/addsession', views.add_session, name='add_session'),
     path('calendar/editsession/<int:session_id>', views.edit_session, name='edit_session'),
     path('calendar/deletesession/<int:session_id>', views.delete_session, name='delete_session'),
-    path('invoicing/receipts', views.invoices, name='receipts'),
-    path('invoicing/invoices', views.invoices, name='invoices'),
-    path('invoicing/pricingtable', views.invoices, name='pricing_table'),
     path('tools/import', views.import_file, name="import"),
     path('tools/export', views.export_file, name="export"),
     path('login', LoginView.as_view(template_name = "fisiocore/login.html"), name='login'),
     path('logout', logout_then_login, name='logout'),
-    path('templates/invoice', views.show_invoice_template),
     re_path('^media/medical_images/\w+', views.medical_image, name='medical_image'),
     re_path('^media/clinical_documents/\w+', views.document, name='clinical_document')
 ]

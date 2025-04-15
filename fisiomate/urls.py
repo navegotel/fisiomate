@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('fisiocore.urls')),
     path('help/', include('fisiohelp.urls')),
+    path('invoicing/', include('fisiocash.urls')),
     path('admin/', admin.site.urls),
 ]
