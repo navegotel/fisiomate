@@ -69,6 +69,12 @@ def view_calendar(request, year=None, month=None):
     else:
         next_month = 1
         next_year = year + 1
+    if month < 11:
+        nextnext_month = month + 2
+        nextnext_year = year
+    else:
+        nextnext_month = month - 10
+        nextnext_year = year + 1
     sessions = Session.objects.filter(user=request.user, date__year=year, date__month=month)
     title = _(MONTH_NAMES[month]) + ' ' + str(year)
     if patient is not None:
@@ -80,11 +86,14 @@ def view_calendar(request, year=None, month=None):
         'prev_year': prev_year,
         'next_month': next_month,
         'next_year': next_year,
+        'nextnext_month': nextnext_month,
+        'nextnext_year': nextnext_year,
         'month': month,
         'year': year,
         'month_name': _(MONTH_NAMES[month]),
         'prev_month_name': _(MONTH_NAMES[prev_month]),
         'next_month_name': _(MONTH_NAMES[next_month]),
+        'nextnext_month_name': _(MONTH_NAMES[nextnext_month]),
         'main_menu_items': MAIN_MENU_ITEMS,
         'weeks': c.monthdays2calendar(year, month),
         'current_day': current_day,

@@ -79,8 +79,8 @@ class SessionForm(ModelForm):
         ]
         widgets = {
             'date': DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'input'}),
-            # 'start': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
-            # 'end': TimeInput(attrs={'tupe': 'time', 'class': 'input'}),
+            'start': TimeInput(attrs={'type': 'time', 'class': 'input'}),
+            'end': TimeInput(attrs={'type': 'time', 'class': 'input'}),
             'session_number': NumberInput(attrs={'type': 'number', 'class': 'input'})
         }
 

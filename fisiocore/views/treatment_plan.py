@@ -14,6 +14,7 @@ def view_treatmentplans(request, patient_id, treatmentplan_id=None):
         'title': _("Treatment plans for {0}").format(patient),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
+        'buttonlabel': 'Add Treatment plan',
     }
     if treatmentplan_id is None:
         queryset = TreatmentPlan.objects.filter(patient=patient_id)
@@ -26,7 +27,7 @@ def view_treatmentplans(request, patient_id, treatmentplan_id=None):
     treatmentplan = TreatmentPlan.objects.get(pk=treatmentplan_id)
     context['treatmentplan'] = treatmentplan
     context['treatmentplans'] = treatmentplans
-    return render(request, 'fisiocore/treatment_plant/view_treatmentplans.html', context)
+    return render(request, 'fisiocore/treatment_plan/view_treatmentplans.html', context)
 
 
 @login_required
@@ -37,4 +38,4 @@ def add_treatmentplan(request, patient_id):
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
     }
-    return render(request, 'fisiocore/treatment_plan/add_treatmentplan.html', context)
+    return render(request, 'fisiocore/add.html', context)

@@ -8,6 +8,7 @@
         <li class="is-medium"><a href="{% url 'fisiocore:calendar' prev_year prev_month %}{% if patient %}?patient={{patient.id}}{% endif %}">{{ prev_month_name }} {{ prev_year }}</a></li>
         <li class="is-active is-medium"><a>{{ month_name }} {{ year }}</a></li>
         <li class="is-medium"><a href="{% url 'fisiocore:calendar' next_year next_month %}{% if patient %}?patient={{patient.id}}{% endif %}">{{next_month_name}} {{ next_year }}</a></li>
+        <li class="is-medium"><a href="{% url 'fisiocore:calendar' nextnext_year nextnext_month %}{% if patient %}?patient={{patient.id}}{% endif %}">{{nextnext_month_name}} {{ nextnext_year }}</a></li>
     </ul>
 </div>
 {% endblock %}
