@@ -29,6 +29,8 @@ def import_patient_data(data, zf, user):
             email=data['email'],
             phone=data['phone'],
             id_card_number=data['idCardNumber'],
+            habits=data['habits'],
+            medical_conditions = data['medical_conditions'],
             remarks=data['remarks'],
             in_treatment=data['inTreatment'],
             )
@@ -112,6 +114,8 @@ def export_patient_data(patient_ids, user, include_examination_data=True):
                 'email': p.email,
                 'phone': p.phone,
                 'idCardNumber': p.id_card_number,
+                'habits': p.habits,
+                'medical_conditions': p.medical_conditions,
                 'remarks': p.remarks,
                 'inTreatment': p.in_treatment,
             }

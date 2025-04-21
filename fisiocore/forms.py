@@ -20,6 +20,8 @@ class PatientForm(ModelForm):
             'phone', 
             'id_card_number',
             'in_treatment',
+            'habits',
+            'medical_conditions',
             'remarks'
         ]
 

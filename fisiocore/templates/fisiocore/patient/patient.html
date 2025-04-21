@@ -95,6 +95,22 @@
                 </td>
         </tr>
         <tr>
+            <td><b>{% translate 'Habits' %}:</b></td>
+            <td>
+                <div class="content">
+                    {{patient.habits|default_if_none:''|markdownify}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b>{% translate 'Medical conditions' %}:</b></td>
+            <td>
+                <div class="content">
+                    {{patient.medical_conditions|default_if_none:''|markdownify}}
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td><b>{% translate 'Remarks' %}:</b></td>
             <td>
                 <div class="content">

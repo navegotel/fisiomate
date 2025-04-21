@@ -1,11 +1,15 @@
 {% load i18n %}
 <input type="hidden" name="user" value="{{form.user.value}}" >
+
 <div class="field is-horizontal">
-  <div class="control">
-    <label class="checkbox">
+  <div class="field-label is-normal">
+    <label class="label checkbox">
       <input type="checkbox" name="in_treatment" {%if form.in_treatment.value %}checked{% endif %}>
       {% translate "Currently in treatment" %}
     </label>
+  </div>
+  <div class="field-body">
+    
   </div>
 </div>
 
@@ -158,6 +162,38 @@
                 </span>
             </p>
             {% for error in form.id_card_number.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.habits.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="habits" placeholder="{{form.habits.label}}">{{form.habits.value|default_if_none:''}}</textarea>
+            </p>
+            {% for error in form.habits.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.medical_conditions.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="medical_conditions" placeholder="{{form.medical_conditions.label}}">{{form.medical_conditions.value|default_if_none:''}}</textarea>
+            </p>
+            {% for error in form.medical_conditions.errors %}
                 <p class="help is-danger">{{error}}</p>
             {% endfor %}
         </div>

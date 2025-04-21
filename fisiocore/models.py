@@ -35,6 +35,8 @@ class Patient(models.Model):
     phone = models.CharField(_("Phone"), max_length=20, blank=True, null=True)
     id_card_number = models.CharField(_("Id card"), max_length=20, blank=True, null=True)
     in_treatment = models.BooleanField(_("In treatment"))
+    habits = models.TextField(_("Habits"), blank="True", null="True")
+    medical_conditions = models.TextField(_("Medical conditions"), blank="True", null="True")
     remarks = models.TextField(_("Remarks"), blank="True", null="True")
     
     def __str__(self):
