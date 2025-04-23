@@ -18,6 +18,7 @@ source env/bin/activate
 pip install django
 pip install Pillow
 pip install markdown
+pip install markdown_checklist
 pip install django-markdownify
 git clone git@github.com:navegotel/fisiomate.git
 cd fisiomate
