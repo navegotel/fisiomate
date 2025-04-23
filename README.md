@@ -3,22 +3,28 @@
 Fisiomate is a django-based web application for physiotherapists and other health professionals
 that need to manage patient data.
 
-**The app is still in active development and not yet ready for production!**
+**The app is still under heavy development and not yet ready for production!**
 
 ## Setup
 
-Setup looks something like this, depending on distro. you may set this up in your home dir:
+The setup looks something like this, depending on your distro. 
+On Debian or Ubunto you may set up a development environment as follows:
 ```
-	mkdir fisiomate
-	cd fisiomate
-	python3 -m venv env
-	source env/bin/activate
-	pip install django
-	git clone https://github.com/navegotel/fisiomate.git
-	cd fisiomate
-	./manage.py makemigrations
-	./manage.py migrate
-	./manage.py createsuperuser
+mkdir devel
+cd devel
+sudo apt install python3.11-venv
+python3 -m venv env
+source env/bin/activate
+pip install django
+pip install Pillow
+pip install markdown
+pip install django-markdownify
+git clone git@github.com:navegotel/fisiomate.git
+cd fisiomate
+./manage.py createsuperuser
+./manage.py makemigrations tfgcore
+./manage.py makemigrations tfgcash
+./manage.py migrate
 	
 ```
 
