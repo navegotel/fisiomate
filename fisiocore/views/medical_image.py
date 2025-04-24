@@ -12,6 +12,7 @@ from ..menu import MAIN_MENU_ITEMS
 
 FILE_FORMAT = {
     b"\xff\xd8\xff\xe0": "image/jpeg",
+    b"\xff\xd8\xff\xe2": "image/jpeg",
     b"\x89\x50\x4e\x47": "image/png",
     b"\x25\x50\x44\x46\x2D": "application/pdf",
 }
@@ -25,6 +26,7 @@ def add_images(request, examination_id):
         'main_menu_items': MAIN_MENU_ITEMS,
         'examination': examination,
         'buttonlabel': _('Add image'),
+        'is_upload': True,
     }
     if request.method == 'POST':
         form = MedicalImageForm(request.POST, request.FILES)
@@ -100,6 +102,7 @@ def medical_image(request):
     with open(image_path, "rb") as image_file:
         image_data = image_file.read()
         content_type = FILE_FORMAT.get(image_data[:4])
+        print(image_data[:4])
         if content_type is not None:
             return HttpResponse(image_data, content_type=content_type)
         else:

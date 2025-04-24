@@ -2,7 +2,7 @@ from django.forms import Form, ModelForm, CharField, FileField
 from django.forms.widgets import DateInput, TimeInput, NumberInput
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate, TreatmentPlan
 
 
 class PatientForm(ModelForm):
@@ -138,3 +138,12 @@ class ExplorationTemplateForm(ModelForm):
             'anamnesis',
             'exploration'
         ]
+        
+class TreatmentPlanForm(ModelForm):
+	class Meta:
+		model = TreatmentPlan
+		fields = [
+			'user',
+			'patient',
+			'name',
+		]

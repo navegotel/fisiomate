@@ -70,7 +70,7 @@
                             <ul>
                                 {% for s in sessions %}
                                     {% if s.date.day == day.0 %}
-                                    <li>{{ s.start}} - {{s.end}}</li>
+                                    <li><div class="tag is-info">{{ s.start}} - {{s.end}}</div></li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>

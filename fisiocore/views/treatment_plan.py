@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from ..models import Patient, TreatmentPlan
+from ..forms import TreatmentPlanForm
 from ..menu import MAIN_MENU_ITEMS
 
   
@@ -38,4 +39,10 @@ def add_treatmentplan(request, patient_id):
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
     }
+    initial_data = {
+            'patient': patient_id,
+        }
+    form = TreatmentPlanForm(initial=initial_data)
+    rendered_form = form.render('fisiocore/treatment_plan/treatmentplan_form.html') 
+    context['form'] = rendered_form
     return render(request, 'fisiocore/add.html', context)
