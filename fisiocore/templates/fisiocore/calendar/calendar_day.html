@@ -58,6 +58,11 @@
         </header>
         <div class="card-content">
           <div class="content">
+			{%if s.treatment_plan %}
+			<p>
+			<b>Treatment plan:</b> <a href="{% url 'fisiocore:view_treatmentplans' s.patient.id s.treatment_plan.id  %}">{{s.treatment_plan.name}}</a>
+			</p>
+			{% endif %}
             {{s.remarks|markdownify}}
           </div>
         </div>

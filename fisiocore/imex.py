@@ -37,6 +37,20 @@ def import_patient_data(data, zf, user):
     except KeyError:
         raise ImportError
     patient.save()
+    for session_data in data['sessions']:
+        try:
+            session = Session(
+                patient=patient,
+                user = user,
+                date = datetime.date.fromisoformat(session_data['date']),
+                start = datetime.time.fromisoformat(session_data['start']),
+                end = datetime.time.fromisoformat(session_data['end']),
+                completed = session_data['completed'],
+                remarks = session_data['remarks'],
+            )
+        except KeyError:
+            raise ImportError
+        session.save()
     for examination_data in data['examinations']:
         try:
             examination = Examination(
@@ -67,7 +81,6 @@ def import_patient_data(data, zf, user):
             clinical_doc.save()
 
         for image_data in examination_data['medicalImages']:
-            print("______________HI_____________")
             b = zf.read(image_data['image'])
             fn = os.path.basename(image_data['image'])
             img = ImageFile(io.BytesIO(b), name=fn)
@@ -84,10 +97,6 @@ def import_patient_data(data, zf, user):
             except KeyError:
                 raise ImportError
             medical_image.save()
-
-    # TODO iterate over examinations
-    # TODO introduce images and docs
-    print(patient)
 
 def get_manifest(user):
     manifest = {
@@ -160,7 +169,7 @@ def export_patient_data(patient_ids, user, include_examination_data=True):
                 'date': session.date.isoformat(),
                 'start': session.start.isoformat(),
                 'end': session.end.isoformat(),
-                'session_number': session.session_number,
+                'completed': session.completed,
                 'remarks': session.remarks
             }
             sessions.append(session_dict)

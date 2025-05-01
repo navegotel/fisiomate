@@ -124,7 +124,7 @@ class TreatmentPlanTemplate(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     name = models.CharField(_("Name"), max_length=50, help_text=_("Descriptive name for the treatment plan."))
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overall price of the whole treatment plan."))    
+    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overall price of the whole treatment plan."))
     session_count = models.PositiveSmallIntegerField(default=1)
 
 
@@ -137,10 +137,8 @@ class TreatmentPlan(models.Model):
     examination = models.ForeignKey('Examination', on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(_("Name"), max_length=50, help_text=_("Descriptive name for the treatment plan."))
     description = models.TextField(help_text=_("Detailed description of the treatment plan. Supports Markdown"))
-    number_of_sessions = models.SmallIntegerField()
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_("Overal price of the whole treatment plan."))
-    invoice = models.OneToOneField("Invoice", on_delete=models.CASCADE, blank=True, null=True)
-    active = models.BooleanField(_("Active"))
+    number_of_sessions = models.SmallIntegerField(_("Number of sessions"))
+ 
 
     def __str__(self):
         return self.name
@@ -149,6 +147,13 @@ class TreatmentPlan(models.Model):
 class Session(models.Model):
     class Meta:
         ordering = ['-date', 'start']
+        
+    COMPLETED_CHOICES=[
+        (0, _('Booked')),
+        (1, _('Completed')),
+        (2, _('Cancelled')),
+        (3, _('No Show')),
+    ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="session_therapist")
@@ -156,54 +161,15 @@ class Session(models.Model):
     date = models.DateField()
     start = models.TimeField()
     end = models.TimeField()
-    session_number = models.PositiveSmallIntegerField(default=1)
     treatment_plan = models.ForeignKey('TreatmentPlan', on_delete=models.CASCADE, blank=True, null=True)
-    completed = models.BooleanField()
+    completed = models.IntegerField(_("Completed"), choices=COMPLETED_CHOICES, default=0)
     remarks = models.TextField(help_text=_("Anything remarkable such as patient's progress"), blank=True, null=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
-    invoice = models.OneToOneField('Invoice', on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return "{0}, {1} - {2}: {3}".format(self.date, self.start, self.end, self.patient)
         
     class Meta:
         ordering = ["date", "start"]
-    
-    
-class Payment(models.Model):
-    amount = models.DecimalField(max_digits=8, decimal_places=2)
-    invoice = models.ForeignKey('Invoice', on_delete=models.CASCADE)
-    
-    
-class Invoice(models.Model):
-    # Invoicing address may be different from patients address
-    first_name = models.CharField(_("First name"), max_length=50)
-    second_name = models.CharField(_("Last name"), max_length=50)
-    city = models.CharField(_("City"), max_length=50)
-    post_code = models.CharField(_("Post code"), max_length=10)
-    street = models.CharField(_("Street"), max_length=10)
-    date = models.DateField()
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    date = models.DateField()
-    amount = models.DecimalField(max_digits=8, decimal_places=2)
-    
-    def save(self, *args, **kwargs):
-        if len(self.first_name) == 0:
-            self.first_name = self.patient.first_name
-        if len(self.second_name) == 0:
-            self.second_name = self.patient.second_name
-            
-        super().save(*args, **kwargs)
-    
-
-class Receipt(models.Model):
-    """Payment receipt."""
-    first_name = models.CharField(_("First name"), max_length=50)
-    second_name = models.CharField(_("Last name"), max_length=50)
-    city = models.CharField(_("City"), max_length=50)
-    post_code = models.CharField(_("Post code"), max_length=10)
-    street = models.CharField(_("Street"), max_length=10)
-    date = models.DateField()
 
 
 class InformedConsentDocument(models.Model):

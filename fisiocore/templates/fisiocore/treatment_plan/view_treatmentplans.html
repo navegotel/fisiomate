@@ -102,8 +102,6 @@
                     <ul class="mb-2">
                         <li>{% translate 'Creation date' %}: {{treatmentplan.creation_date}}h</li>
                         <li>{% translate 'Last Update' %}: {{treatmentplan.last_update}}h</li>
-                        <li>{% translate 'Number of sessions' %}: {{treatmentplan.number_of_sessions}}</li>
-                        <li>{% translate 'Examination' %}: <a href="{% url 'fisiocore:examination' patient.id treatmentplan.examination.id %}">{{treatmentplan.examination.creation_date}}, {{treatmentplan.examination.reason}} </a>
                     </ul>
                 </div>
             </div>

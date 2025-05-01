@@ -44,7 +44,7 @@ def add_session(request):
             'date': request.GET.get('date'),
             'patient': patient_id,
             'treatment_plan': treatmentplan_id,
-            'user': request.user.id
+            'user': request.user.id,
         }
         if patient_id is not None:
             patient = Patient.objects.get(pk=patient_id)

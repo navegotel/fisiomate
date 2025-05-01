@@ -21,3 +21,39 @@
         </div>
     </div>
 </div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.description.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <textarea class="textarea" name="description" placeholder="{{form.description.label}}">{{form.description.value|default_if_none:''}}</textarea>
+            </p>
+            <p class="help is-info">{% translate 'text formatting with markdown' %}</p>
+            {% for error in form.description.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.number_of_sessions.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control has-icons-left">
+                {{form.number_of_sessions}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clone"></i>
+                </span>
+            </p>
+            {% for error in form.number_of_sessions.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

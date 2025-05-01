@@ -73,17 +73,14 @@ class SessionForm(ModelForm):
             'date',
             'start',
             'end',
-            'session_number',
             'treatment_plan',
             'completed',
             'remarks',
-            'price',
         ]
         widgets = {
             'date': DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'input'}),
             'start': TimeInput(attrs={'type': 'time', 'class': 'input'}),
             'end': TimeInput(attrs={'type': 'time', 'class': 'input'}),
-            'session_number': NumberInput(attrs={'type': 'number', 'class': 'input'})
         }
 
 
@@ -93,8 +90,8 @@ class SessionForm(ModelForm):
         self.fields['patient'].widget.attrs.update({'class':'select'})
         self.fields['therapist'].widget.attrs.update({'class':'select'})
         self.fields['treatment_plan'].widget.attrs.update({'class':'select'})
+        self.fields['completed'].widget.attrs.update({'class':'select'})
         self.fields['remarks'].widget.attrs.update({'class':'textarea'})
-        self.fields['price'].widget.attrs.update({'class':'input'})
         self.fields['start'].widget.attrs.update({'class': 'input'})
         self.fields['end'].widget.attrs.update({'class': 'input'})
 
@@ -140,10 +137,16 @@ class ExplorationTemplateForm(ModelForm):
         ]
         
 class TreatmentPlanForm(ModelForm):
-	class Meta:
-		model = TreatmentPlan
-		fields = [
-			'user',
-			'patient',
-			'name',
-		]
+    class Meta:
+        model = TreatmentPlan
+        fields = [
+        'user',
+            'patient',
+            'name',
+            'description',
+            'number_of_sessions',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['number_of_sessions'].widget.attrs.update({'class': 'input', 'min':'1', 'max':'20'})
