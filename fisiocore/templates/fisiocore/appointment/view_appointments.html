@@ -96,9 +96,10 @@
                 </div>
                 <div class="card-content">
                     <ul class="mb-2">
-                        <li>{% translate 'from' %}: {{session.start}}h</li>
-                        <li>{% translate 'to' %}: {{session.end}}h</li>
-                        <li>{% translate 'therapist' %}: {{session.therapist|default_if_none:'---'}}</li>
+                        <li><b>{% translate 'From' %}</b>: {{session.start}}h</li>
+                        <li><b>{% translate 'To' %}</b>: {{session.end}}h</li>
+                        <li><b>{% translate 'Therapist' %}</b>: {{session.therapist|default_if_none:'---'}}</li>
+                        <li><b>{% translate 'Status' %}</b>: {{session.get_completed_display}}
                     </ul>
                     <div class="content">
                         {{session.remarks | markdownify }}

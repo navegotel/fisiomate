@@ -117,10 +117,23 @@
                     </div>
                 </div>
             </div>
+            <div class="panel is-primary">
+                <div class="panel-heading">
+                    {% translate 'Appointments' %}
+                </div>
+                {% for session in treatmentplan.session_set.all %}
+                <a class="panel-block" href="{% url 'fisiocore:view_sessions' patient.id session.id %}">
+                    <span class="panel-icon">
+                      <i class="fas fa-calendar" aria-hidden="true"></i>
+                    </span>
+                    {{session.date}}, {{session.start}} - {{session.end}} ({{session.get_completed_display}})
+                </a>
+                {% endfor %}
+            </div>
             {% else %}
                 <div class="notification is-warning">
                     <p>
-                        {% translate "There aren't any sessions yet. You may want to create one." %} 
+                        {% translate "There aren't any treatment plans yet. You may want to create one." %} 
                     </p>
                     <a class="button is-info mt-3" href="{% url 'fisiocore:add_treatmentplan' patient.id%}"> <!-- FIXME -->
                         <span class="icon">
