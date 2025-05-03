@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-24 08:53+0100\n"
-"PO-Revision-Date: 2025-03-24 09:05+0100\n"
+"PO-Revision-Date: 2025-05-03 16:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: models.py:10
 msgid "The login user"
@@ -300,7 +300,7 @@ msgstr "Cargar Plantilla"
 
 #: templates/fisiocore/add_exploration_template.html:22
 msgid "Add exploration template"
-msgstr ""
+msgstr "Añadir plantilla de exploración"
 
 #: templates/fisiocore/add_images.html:22
 #: templates/fisiocore/view_examination.html:70
@@ -510,7 +510,7 @@ msgstr "Guardar cambios"
 
 #: templates/fisiocore/edit_exploration_template.html:22
 msgid "Save exploration template"
-msgstr ""
+msgstr "Guardar plantilla de exploración"
 
 #: templates/fisiocore/edit_image.html:22
 msgid "Save image"
@@ -598,7 +598,7 @@ msgstr "Ver contenido para la importación"
 
 #: templates/fisiocore/list_exploration_templates.html:22
 msgid "New exploration template"
-msgstr ""
+msgstr "Nueva plantilla de exploración"
 
 #: templates/fisiocore/patient.html:19
 msgid "Edit patient"
@@ -973,7 +973,7 @@ msgstr "No hay ninguna plantilla de valoración con Id {0}"
 
 #: views.py:958
 msgid "delete exploration template"
-msgstr ""
+msgstr "borrar plantilla de exploración"
 
 #: views.py:959
 #, python-brace-format
