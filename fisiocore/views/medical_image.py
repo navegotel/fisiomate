@@ -12,6 +12,7 @@ from ..menu import MAIN_MENU_ITEMS
 
 FILE_FORMAT = {
     b"\xff\xd8\xff\xe0": "image/jpeg",
+    b"\xff\xd8\xff\xe1": "image/jpeg",
     b"\xff\xd8\xff\xe2": "image/jpeg",
     b"\x89\x50\x4e\x47": "image/png",
     b"\x25\x50\x44\x46\x2D": "application/pdf",
@@ -63,9 +64,10 @@ def edit_medical_image(request, image_id):
         'title': "Edit Image for {0}".format(image.patient),
         'main_menu_items': MAIN_MENU_ITEMS,
         'image': image,
-        'form': rendered_form
+        'form': rendered_form,
+        'buttonlabel': _('Save image'),
     }
-    return render(request, 'fisiocore/medical_image/edit_medical_image.html', context)
+    return render(request, 'fisiocore/add.html', context)
 
 
 @login_required
@@ -79,8 +81,10 @@ def delete_medical_image(request, image_id):
         'title': "Delete image from {0}".format(image.patient),
         'main_menu_items': MAIN_MENU_ITEMS,
         'image': image,
+        'are_you_sure_msg': "Are you sure you want to delete this image from patient {0} {1}".format(image.patient.first_name, image.patient.last_name),
+        'cancel_url': reverse('fisiocore:view_medical_image', args=[image_id])
     }
-    return render(request, 'fisiocore/medical_image/delete_image.html', context)
+    return render(request, 'fisiocore/delete.html', context)
 
 @login_required
 def view_medical_image(request, image_id):

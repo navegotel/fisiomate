@@ -77,9 +77,10 @@ def edit_patient(request, patient_id):
         'title': _('Edit Patient "{0}"'.format(patient)),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
-        'form': rendered_form
+        'form': rendered_form,
+        'buttonlabel': _('Save changes')
     }
-    return render(request, 'fisiocore/patient/edit_patient.html', context)
+    return render(request, 'fisiocore/add.html', context)
     
 
 @login_required
