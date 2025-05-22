@@ -190,7 +190,10 @@ class InformedConsentDocument(models.Model):
     def __str__(self):
         return self.title
     
-    
+def informed_consent_upload_name(instance, filename):
+    ext = filename.split('.')[-1]
+    return "igned_consent/{0}/{1}.{2}".format(instance.patient.id, instance.consent_type.id, ext)
+
 class InformedConsent(models.Model):
     """Upload of signed pdf. This can be a paper scan or an 
     electronically signed pdf"""
@@ -198,7 +201,11 @@ class InformedConsent(models.Model):
     creation_date = models.DateField(_("Creation date"), auto_now_add=True)
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    signed_consent = models.FileField(_("Informed consent"), upload_to="signed_consent/")
+    consent_type = models.ForeignKey('InformedConsentDocument', on_delete=models.CASCADE)
+    signed_consent = models.FileField(_("Informed consent"), upload_to=informed_consent_upload_name)
+    
+    def __str__(self):
+        return "{0}, {1}".format(self.patient, self.consent_type.title)
     
 
 class ExplorationTemplate(models.Model):

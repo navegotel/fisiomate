@@ -1,0 +1,41 @@
+{% extends "base_print.html" %}
+{% load markdownify %}
+{% load i18n %}
+
+{% block header_right %}
+<div class="right-aligned">
+    <p class="spaced address-line"><b>{% translate "Patient" %}</b></p>
+    <p class="spaced address-line">{{patient.first_name}} {{patient.last_name}}</p>
+    <p class="address-line">{{patient.street}}</p>
+    <p class="address-line">{{patient.post_code}} {{patient.city}}</p>
+    <p class="spaced address-line">DNI: {{patient.id_card_number}}</p>
+</div>
+<div class="document-type">
+    {% translate 'Informed consent'%}
+</div>
+<p class="address-line right-aligned"><b>{{ doc.title}}</b></p>
+<p class="spaced address-line right-aligned">{% translate "Date" %}: {{date}}</p>
+{% endblock %}
+
+{% block body %}
+
+{{doc.body|markdownify}}
+
+<p>
+{% blocktrans %}
+I have read and understood the content of this Informed Consent 
+and I give my consent for the treatments described in this document to be applied to me. 
+I understand that I may withdraw this informed consent at any time.
+{% endblocktrans %}
+</p>
+<p>
+    {% translate 'Place' %}: {{place}}
+</p>
+<p>
+    {% translate 'Date' %}: {{date}}
+</p>
+<p class="signature-space">
+ {% translate 'Patient' %}: {{patient.first_name}}, {{patient.last_name}} 
+</p>
+{% endblock %}
+

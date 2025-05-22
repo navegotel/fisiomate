@@ -26,8 +26,25 @@ cd fisiomate
 ./manage.py makemigrations tfgcore
 ./manage.py makemigrations tfgcash
 ./manage.py migrate
-	
 ```
+
+### settings.py
+
+The following attributes at the end of the settings file must be adjusted according to the clinic:
+
+LOGO = "fisiocore/img/ci/logo.png"
+BRAND_NAME = "Brand name of the clinic"
+LEGAL_NAME = "The legal company name"
+PLACE = "where the clinic is located and documents are signed"
+ADDRESS_LINE_1 = "..."
+ADDRESS_LINE_2 = "..."
+ADDRESS_LINE_3 = "..."
+ADDRESS_LINE_4 = "..."
+TAX_NUMBER = "..."
+ACCOUNT_NUMBER = 'Put your account number here'
+PHONE = "..."
+EMAIL = "..."
+WEBSITE = "..."
 
 With this you have set up a basic instance. For a production employment you must:
 

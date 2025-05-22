@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Patient, UserProfile, TreatmentPlan, Session, Examination, MedicalImage, ClinicalDocument, InformedConsentDocument, ExplorationTemplate
+from .models import Patient, UserProfile, TreatmentPlan, Session, Examination, MedicalImage, ClinicalDocument, InformedConsentDocument, InformedConsent, ExplorationTemplate
 
 class PatientAdmin(admin.ModelAdmin):
     pass
@@ -55,6 +55,10 @@ class InformedConsentDocumentAdmin(admin.ModelAdmin):
     pass
 
 
+class InformedConsentAdmin(admin.ModelAdmin):
+    pass
+
+
 class ExplorationTemplateAdmin(admin.ModelAdmin):
     pass
 
@@ -65,4 +69,5 @@ admin.site.register(TreatmentPlan, TreatmentPlanAdmin)
 admin.site.register(Session, SessionAdmin)
 admin.site.register(Examination, AnamnesisAdmin)
 admin.site.register(InformedConsentDocument, InformedConsentDocumentAdmin)
+admin.site.register(InformedConsent, InformedConsentAdmin)
 admin.site.register(ExplorationTemplate, ExplorationTemplateAdmin)

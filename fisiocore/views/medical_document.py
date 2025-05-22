@@ -22,6 +22,7 @@ def document(request):
 
 @login_required
 def view_document(request, document_id):
+    print("hi")
     document = ClinicalDocument.objects.get(pk=document_id)
     context = {
         'title': "View document for {0}".format(document.patient),
