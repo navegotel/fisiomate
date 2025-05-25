@@ -112,13 +112,26 @@
                 </div>
             </section>
             {% endif %}
-        {% endblock %}
+            {% endblock %}
             <section class="section">
                 {% block mainheader %}
-                    <h1 class="title">{{title}}</h1>
+                <h1 class="title">{{title}}</h1>
                 {% endblock %}
-
+                
                 {% block submenu %}
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                        {% if patient %}
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <p class="card-header-title">{{patient.first_name}} {{patient.last_name}}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
                 {% endblock %}
 
                 {% block main %}

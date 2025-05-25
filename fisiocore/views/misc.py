@@ -1,13 +1,38 @@
+import pathlib
 import datetime
 from django.db.models import Count
 from django.db.models.functions import TruncMonth, TruncYear
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from ..models import Patient, Session
 from ..menu import MAIN_MENU_ITEMS
 
+FILE_FORMAT = {
+    b"\xff\xd8\xff": "image/jpeg",
+    b"\x89\x50\x4e\x47": "image/png",
+    b"\x25\x50\x44\x46\x2D": "application/pdf",
+}
+
+
+def get_file_format(f):
+    for fmt in FILE_FORMAT:
+        if f.startswith(fmt):
+            return FILE_FORMAT[fmt]
+    return None
+    
+    
+@login_required
+def protected_download(request):
+    """read document from file on server and return over http"""
+    document_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
+    document_path = settings.MEDIA_ROOT / document_path
+    with open(document_path, "rb") as doc_file:
+        document = doc_file.read()
+    return HttpResponse(document, content_type=get_file_format(document))
+    
 
 def add_ci_to_context(context):
     context['logo'] = getattr(settings, "LOGO")
@@ -24,25 +49,3 @@ def add_ci_to_context(context):
     context['account_number'] = getattr(settings, "ACCOUNT_NUMBER")
     context['place'] = getattr(settings, 'PLACE')
 
-# def show_invoice_template(request):
-    # context = {
-        # 'title': _('Invoice'),
-        # 'document_type': _('Invoice'),
-        # 'logo': conf_settings.LOGO,
-        # 'brand_name': conf_settings.BRAND_NAME,
-        # 'legal_name': conf_settings.LEGAL_NAME,
-        # 'address_line_1': conf_settings.ADDRESS_LINE_1,
-        # 'address_line_2': conf_settings.ADDRESS_LINE_2,
-        # 'address_line_3': conf_settings.ADDRESS_LINE_3,
-        # 'address_line_4': conf_settings.ADDRESS_LINE_4,
-        # 'tax_number': conf_settings.TAX_NUMBER,
-        # 'phone': conf_settings.PHONE,
-        # 'email': conf_settings.EMAIL,
-        # 'website': conf_settings.WEBSITE,
-        # 'account_number': conf_settings.ACCOUNT_NUMBER,
-        # 'invoice_date': datetime.date.today(),
-        # 'invoice_number': "XXXXXX",
-
-
-    # }
-    # return render(request, "fisiocore/print/base.html", context)

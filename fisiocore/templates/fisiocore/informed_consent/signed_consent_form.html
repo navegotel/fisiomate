@@ -1,0 +1,79 @@
+{% load i18n %}
+<input type="hidden" name="user" value="{{form.user.value}}" >
+<input type="hidden" name="patient" value="{{form.patient.value}}">
+<input type="hidden" name="consent_type" value="{{form.consent_type.value}}">
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.consent_type.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <div class="select is-fullwidth">
+                {{form.consent_type}}
+                </div>
+            </p>
+            {% for error in form.consent_type.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.revoked.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.revoked}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+            {% for error in form.revoked.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label" for="id_image">{{form.signed_consent.label}}</label>
+    </div>
+    <div class="field-body">
+        <div id="consent_file" class="file has-name is-fullwidth">
+            <label class="file-label">
+                <input class="file-input" type="file" name="signed_consent">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        {% translate 'Choose a file…' %}
+                    </span>
+                </span>
+                <span class="file-name">
+                    ...
+                </span>
+            </label>
+        </div>
+    </div>
+    {% for error in form.signed_consent.errors %}
+        <p class="help is-danger">{{error}}</p>
+    {% endfor %}
+</div>
+
+<script>
+    const fileInput = document.querySelector('#consent_file input[type=file]');
+    fileInput.onchange = () => {
+      if (fileInput.files.length > 0) {
+        const fileName = document.querySelector('#consent_file .file-name');
+        fileName.textContent = fileInput.files[0].name;
+      }
+    }
+</script>
+

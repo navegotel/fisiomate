@@ -19,16 +19,14 @@ def patients(request):
     return render(request, 'fisiocore/patient/patients.html', context)
 
 
-@login_required
+# @login_required
 def view_patient(request, patient_id):
     try:
         patient = Patient.objects.get(pk=patient_id)
     except Patient.DoesNotExist:
         raise Http404(_("There is no patient with Id {0}").format(patient_id))
-    if patient.user != request.user:
-        raise PermissionDenied
     context = {
-        'title': _('Patient "{0}"'.format(patient)),
+        'title': _('Patient'),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient
     }
@@ -74,7 +72,7 @@ def edit_patient(request, patient_id):
     form = PatientForm(instance=patient)
     rendered_form = form.render('fisiocore/patient/patient_form.html')
     context = {
-        'title': _('Edit Patient "{0}"'.format(patient)),
+        'title': _('Edit Patient'),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'form': rendered_form,
@@ -91,7 +89,7 @@ def delete_patient(request, patient_id):
             patient.delete()
             return redirect(reverse('fisiocore:patients'))
     context = {
-        'title': _('Delete patient {0} {1}'.format(patient.first_name, patient.last_name)),
+        'title': _('Delete patient'),
         'patient': patient
     }
     return render(request, 'fisiocore/patient/delete_patient.html', context)

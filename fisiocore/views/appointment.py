@@ -20,7 +20,7 @@ def view_sessions(request, patient_id, session_id=None):
     else:
         session = Session.objects.get(pk=session_id)
     context = {
-        'title': _('Treatment Sessions for {0}'.format(patient)),
+        'title': _('Treatment Sessions'),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'sessions':sessions,

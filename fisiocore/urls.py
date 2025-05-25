@@ -11,9 +11,8 @@ urlpatterns = [
     path('patient/edit/<int:patient_id>', views.edit_patient, name='edit_patient'),
     path('patient/delete/<int:patient_id>', views.delete_patient, name='delete_patient'),
     path('patient/viewconsents/<int:patient_id>', views.view_consents, name='view_consents'),
-    path('patient/viewconsent/<int:consent_id>', views.view_consent, name='view_consent'),
-    path('patient/addconsent/<int:patient_id>', views.add_consent, name='add_consent'),
-    path('patient/revokeconsent/<int:consent_id>', views.revoke_consent, name='revoke_consent'),
+    path('patient/addconsent/<int:patient_id>/<int:consent_type>', views.add_consent, name='add_consent'),
+    path('patient/editconsent/<int:consent_id>', views.edit_consent, name='edit_consent'),
     path('patient/examination/<int:patient_id>', views.examination, name='examination'),
     path('patient/examination/<int:patient_id>/<int:examination_id>', views.examination, name='examination'),
     path('patient/listimages/<int:patient_id>', views.imagelist, name='imagelist'),
@@ -63,6 +62,7 @@ urlpatterns = [
     path('tools/export', views.export_file, name="export"),
     path('login', LoginView.as_view(template_name = "fisiocore/login.html"), name='login'),
     path('logout', logout_then_login, name='logout'),
-    re_path('^media/medical_images/\w+', views.medical_image, name='medical_image'),
-    re_path('^media/clinical_documents/\w+', views.document, name='clinical_document')
+    re_path('^media/medical_images/\w+', views.protected_download, name='medical_image'),
+    re_path('^media/clinical_documents/\w+', views.protected_download, name='clinical_document'),
+    re_path('^media/signed_consent/\w+', views.protected_download, name='signed_consent'),
 ]

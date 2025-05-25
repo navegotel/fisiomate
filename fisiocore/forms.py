@@ -2,7 +2,7 @@ from django.forms import Form, ModelForm, CharField, FileField
 from django.forms.widgets import DateInput, TimeInput, NumberInput
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, ExplorationTemplate, TreatmentPlan
+from .models import Patient, Examination, MedicalImage, ClinicalDocument, Session, InformedConsentDocument, InformedConsent, ExplorationTemplate, TreatmentPlan
 
 
 class PatientForm(ModelForm):
@@ -41,7 +41,6 @@ class ExaminationForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['therapist'].queryset = User.objects.filter(groups__name='Therapist')
-        self.fields['therapist'].widget.attrs.update({'class':'select'})
 
 
 class MedicalImageForm(ModelForm):
@@ -60,8 +59,6 @@ class MedicalImageForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['description'].widget.attrs.update({'class': 'input'})
         self.fields['projection'].widget.attrs.update({'class': 'input'})
-        self.fields['image_type'].widget.attrs.update({'class': 'select'})
-
 
 class SessionForm(ModelForm):
     class Meta:
@@ -110,7 +107,6 @@ class ClinicalDocumentForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['label'].widget.attrs.update({'class': 'input'})
 
-
 class InformedConsentDocumentForm(ModelForm):
     class Meta:
         model = InformedConsentDocument
@@ -124,6 +120,27 @@ class InformedConsentDocumentForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['language'].widget.attrs.update({'class': 'select'})
+        
+
+class InformedConsentForm(ModelForm):
+    class Meta:
+        model = InformedConsent
+        fields = [
+            'user',
+            'patient',
+            'consent_type',
+            'revoked',
+            'signed_consent'
+        ]
+        
+        widgets = {
+            'revoked': DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'input'}),
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['signed_consent'].widget.attrs.update({'class': 'input'})
+        self.fields['consent_type'].widget.attrs.update({'disabled': 'true'})
 
 
 class ExplorationTemplateForm(ModelForm):

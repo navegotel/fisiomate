@@ -2,36 +2,45 @@
 {% load static %}
 {% load i18n %}
 {% load markdownify %}
-{% block main %}
 
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-            </div>
-        </div>
-        <div class="level-right">
-            <div class="level-item">
-                <a class="button is-info" href="{% url 'fisiocore:edit_patient' patient.id %}">
-                    <span class="icon">
-                        <i class="fas fa-user-edit"></i>
-                    </span>
-                    <span>
-                        {% translate "Edit patient" %}
-                    </span>
-                </a>
-            </div>
-            <div class="level-item">
-                <a class="button is-danger" href="{% url 'fisiocore:delete_patient' patient.id %}">
-                    <span class="icon">
-                        <i class="fas fa-user-slash"></i>
-                    </span>
-                    <span>
-                        {% translate "Delete patient" %}
-                    </span>
-                </a>
+{% block submenu %}
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+        <div class="card mb-2">
+            <div class="card-header">
+                <p class="card-header-title">{{patient.first_name}} {{patient.last_name}}</p>
             </div>
         </div>
     </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocore:edit_patient' patient.id %}">
+                <span class="icon">
+                    <i class="fas fa-user-edit"></i>
+                </span>
+                <span>
+                    {% translate "Edit patient" %}
+                </span>
+            </a>
+        </div>
+        <div class="level-item">
+            <a class="button is-danger" href="{% url 'fisiocore:delete_patient' patient.id %}">
+                <span class="icon">
+                    <i class="fas fa-user-slash"></i>
+                </span>
+                <span>
+                    {% translate "Delete patient" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+    
     <div class="tabs">
         <ul>
             <li class="is-active is-medium"><a>{% translate 'Patient data' %}</a></li>

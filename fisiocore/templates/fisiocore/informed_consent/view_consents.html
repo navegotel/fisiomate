@@ -6,12 +6,20 @@
 {% block submenu %}
 <div class="level">
     <div class="level-left">
-        <div class="level-item">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <p class="card-header-title">{{patient.first_name}} {{patient.last_name}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="level-right">
+        {% comment %}
         <div class="level-item">
-            <a href="" class="button is-info">
+            <a  href="{% url 'fisiocore:add_consent' patient.id %}" class="button is-info">
                 <span class="icon">
                     <i class="fas fa-file"></i>
                 </span>
@@ -20,6 +28,7 @@
                 </span>
             </a>
         </div>
+        {% endcomment %}
     </div>
 </div>
 <div class="tabs">
@@ -35,33 +44,45 @@
 
 {% block main %}
 
-<div class="card mb-2">
-    <header class="card-header">
-        <p class="card-header-title"><a href="{% url 'fisiocore:view_patient' patient.id %}" >{{patient.first_name}} {{patient.last_name}}</a></p>
-    </header>
-    <div class="card-content">
-        <ul>
-            <li>{{patient.street}}</li>
-            <li>{{patient.post_code}} {{patient.city}}</li>
-        </ul>
+<div class="panel is-primary">
+    <div class="panel-heading">
+        {% translate 'Unsigned' %}
     </div>
+    {% for doc in unsigned.items %}
+    <div class="panel-block">
+            <span class="panel-icon">
+                <i class="fas fa-file" aria-hidden="true"></i>
+            </span>
+            <a class="has-text-dark" href="{% url 'fisiocore:print_consent_document' patient.id doc.1.id %}" target="_blank">
+                {{doc.1.title}}
+            </a>
+            <a class="button ml-2" href="{% url 'fisiocore:add_consent' patient.id doc.1.id %}">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+            </a>
+        </div>
+    {% endfor %}
 </div>
 
 <div class="panel is-primary">
     <div class="panel-heading">
-        {% translate 'Consentimiento informado' %}
+        {% translate 'Signed' %}
     </div>
-    {% for doc in docs.items %}
-     <a class="panel-block {% if doc.1.0 %}is-active{% endif %}" href="{{doc.1.2}}" target="_blank">
-    <span class="panel-icon">
-        {% if doc.1.0 %}
-            <i class="fas fa-check" aria-hidden="true"></i>
-        {% else %}
-            <i class="fas fa-file" aria-hidden="true"></i>
-        {% endif %}
-    </span>
-    {{doc.1.1}}
-  </a>
+    {% for doc in signed %}
+    <div class="panel-block">
+            <span class="panel-icon">
+                <i class="fas fa-file" aria-hidden="true"></i>
+            </span>
+            <a class="has-text-dark" href="{{doc.signed_consent.url}}" target="_blank">
+                {{doc.consent_type.title}} ({% if doc.revoked %}revoked: {{doc.revoked}}{% else %}signed: {{doc.creation_date}}{% endif %})
+            </a>
+            <a class="button ml-2" href="{% url 'fisiocore:edit_consent' doc.id %}">
+                <span class="icon">
+                    <i class="fas fa-pen"></i>
+                </span>
+            </a>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}

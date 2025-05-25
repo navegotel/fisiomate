@@ -192,7 +192,7 @@ class InformedConsentDocument(models.Model):
     
 def informed_consent_upload_name(instance, filename):
     ext = filename.split('.')[-1]
-    return "igned_consent/{0}/{1}.{2}".format(instance.patient.id, instance.consent_type.id, ext)
+    return "signed_consent/{0}/{1}.{2}".format(instance.patient.id, instance.consent_type.id, ext)
 
 class InformedConsent(models.Model):
     """Upload of signed pdf. This can be a paper scan or an 
@@ -202,6 +202,7 @@ class InformedConsent(models.Model):
     last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     consent_type = models.ForeignKey('InformedConsentDocument', on_delete=models.CASCADE)
+    revoked = models.DateField(_("Revoked"), blank=True, null=True, default=None)
     signed_consent = models.FileField(_("Informed consent"), upload_to=informed_consent_upload_name)
     
     def __str__(self):

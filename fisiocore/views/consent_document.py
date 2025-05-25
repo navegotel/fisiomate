@@ -1,12 +1,14 @@
+import pathlib
 import datetime
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from ..models import InformedConsentDocument, InformedConsent, Patient
 from .misc import add_ci_to_context
-from ..forms import InformedConsentDocumentForm
+from ..forms import InformedConsentDocumentForm, InformedConsentForm
 from ..menu import MAIN_MENU_ITEMS
 
 
@@ -22,8 +24,8 @@ def view_consent_documents(request):
 
 
 @login_required
-def view_consent_document(request, document_id):
-    consent_document = InformedConsentDocument.objects.get(pk=document_id)
+def view_consent_document(request, consent_id):
+    consent_document = InformedConsentDocument.objects.get(pk=consent_id)
     context = {
         'title': _("Informed Consent"),
         'main_menu_items': MAIN_MENU_ITEMS,
@@ -118,28 +120,51 @@ def view_consents(request, patient_id):
         'patient': patient,
     }
     consent_documents = InformedConsentDocument.objects.all()
-    docs = {}
+    unsigned = {}
     for doc in consent_documents:
-        url = reverse('fisiocore:print_consent_document', args=[patient_id, doc.id])
-        docs[doc.id] = (False, doc.title, url)
+        unsigned[doc.id] = doc
     consents = InformedConsent.objects.filter(patient = patient_id)
     for consent in consents:
-        print(consent.consent_type.id)
-        url = reverse('fisiocore:view_consent', args=[consent.id])
-        docs[consent.consent_type.id] = (True, consent.consent_type.title, url)
-    context['docs'] = docs
+        try:
+            unsigned.pop(consent.consent_type.id)
+        except KeyError:
+            pass
+    context['unsigned'] = unsigned
+    context['signed'] = consents
+    print(consents)
         
     return render(request, "fisiocore/informed_consent/view_consents.html", context)
     
-def view_consent(consent_id):
-    pass
 
-def add_consent(request, patient_id):
-    pass
+def add_consent(request, patient_id, consent_type):
+    if request.method == 'POST':
+        form = InformedConsentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:view_consents', args=[patient_id,]))
+
+    if request.method == 'GET': 
+        initial_data = {
+            'user': request.user.id, 
+            'patient': patient_id,
+            'consent_type': consent_type,
+        }
+        form = InformedConsentForm(initial=initial_data)
+    rendered_form = form.render('fisiocore/informed_consent/signed_consent_form.html')
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': _("Add informed consent"),
+        'form': rendered_form,
+        'buttonlabel': _("Add informed consent"),
+        'cancelurl': reverse('fisiocore:view_consents', args=[patient_id,]),
+        'is_upload': True,
+    }
+    return render(request, "fisiocore/add.html", context)
     
+        
     
-def revoke_consent(request, consent_id):
-    pass
+def edit_consent(request, consent_id):
+    return render(request, "fisiocore/add.html", context)
     
     
 

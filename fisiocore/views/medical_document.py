@@ -1,4 +1,3 @@
-import pathlib
 from django.conf import settings as conf_settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -8,24 +7,14 @@ from django.utils.translation import gettext as _
 from ..models import Patient, Examination, ClinicalDocument
 from ..forms import ClinicalDocumentForm
 from ..menu import MAIN_MENU_ITEMS
-
-
-@login_required
-def document(request):
-    """read documente from file on server and return over http"""
-    document_path = pathlib.Path(*pathlib.Path(request.path).parts[2:])
-    document_path = conf_settings.MEDIA_ROOT / document_path
-    with open(document_path, "rb") as doc_file:
-        document = doc_file.read()
-    return HttpResponse(document, content_type="application/pdf")
+from .misc import get_file_format
 
 
 @login_required
 def view_document(request, document_id):
-    print("hi")
     document = ClinicalDocument.objects.get(pk=document_id)
     context = {
-        'title': "View document for {0}".format(document.patient),
+        'title': "View document",
         'main_menu_items': MAIN_MENU_ITEMS,
         'document': document,
     }
@@ -58,7 +47,7 @@ def edit_document(request, document_id):
 def add_document(request, examination_id):
     examination = Examination.objects.get(pk=examination_id)
     context = {
-        'title': "Add Document for {0}".format(examination.patient),
+        'title': "Add Document",
         'main_menu_items': MAIN_MENU_ITEMS,
         'examination': examination,
         'buttonlabel': _('Add document'),
@@ -111,7 +100,7 @@ def document_list(request, patient_id, document_id=None):
         document = None
     documents = ClinicalDocument.objects.filter(patient=patient_id)
     context = {
-        'title': _("Clinical documents of {0}").format(patient),
+        'title': _("Clinical documents"),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'documents': documents,

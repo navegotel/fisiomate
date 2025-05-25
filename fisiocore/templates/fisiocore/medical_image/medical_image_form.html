@@ -46,7 +46,9 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded">
-                {{form.image_type}}
+                <div class="select is-fullwidth">
+                    {{form.image_type}}
+                </div>
             </p>
             {% for error in form.image_type.errors %}
             <p class="help is-danger">{{error}}</p>
@@ -86,4 +88,4 @@
         fileName.textContent = fileInput.files[0].name;
       }
     }
-  </script>
+</script>

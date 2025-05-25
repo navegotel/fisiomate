@@ -23,7 +23,7 @@ def examination(request, patient_id, examination_id=None):
     images = MedicalImage.objects.filter(examination = examination_id)
     documents = ClinicalDocument.objects.filter(examination = examination_id)
     context = {
-        'title': _('Clinical history "{0}"'.format(patient)),
+        'title': _('Clinical history'),
         'main_menu_items': MAIN_MENU_ITEMS,
         'patient': patient,
         'examination_list': examination_list,
@@ -39,7 +39,7 @@ def add_examination(request, patient_id):
     patient = Patient.objects.get(pk=patient_id)
     context = {
         'main_menu_items': MAIN_MENU_ITEMS,
-        'title': "Add Examination for {0}".format(patient)
+        'title': "Add Examination"
     }
     if request.method == "POST":
         form = ExaminationForm(request.POST)
@@ -88,7 +88,7 @@ def edit_examination(request, examination_id):
     form = ExaminationForm(instance=examination)
     rendered_form = form.render('fisiocore/examination/examination_form.html')
     context = {
-        'title': _('Edit Examination "{0}"'.format(examination)),
+        'title': _('Edit Examination'),
         'main_menu_items': MAIN_MENU_ITEMS,
         'examination': examination,
         'form': rendered_form
