@@ -125,13 +125,13 @@ def view_consents(request, patient_id):
         unsigned[doc.id] = doc
     consents = InformedConsent.objects.filter(patient = patient_id)
     for consent in consents:
-        try:
-            unsigned.pop(consent.consent_type.id)
-        except KeyError:
-            pass
+        if consent.revoked is None:
+            try:
+                unsigned.pop(consent.consent_type.id)
+            except KeyError:
+                pass
     context['unsigned'] = unsigned
     context['signed'] = consents
-    print(consents)
         
     return render(request, "fisiocore/informed_consent/view_consents.html", context)
     
@@ -164,6 +164,24 @@ def add_consent(request, patient_id, consent_type):
         
     
 def edit_consent(request, consent_id):
+    consent = InformedConsent.objects.get(pk=consent_id)
+    if request.method == 'POST':
+        form = InformedConsentForm(request.POST, request.FILES, instance=consent)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('fisiocore:view_consents', args=[consent.patient.id,]))
+    if request.method == 'GET': 
+        form = InformedConsentForm(instance=consent)
+        rendered_form = form.render('fisiocore/informed_consent/signed_consent_form.html')
+        
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': _("Edit informed consent"),
+        'form': rendered_form,
+        'buttonlabel': _("Edit informed consent"),
+        'cancelurl': reverse('fisiocore:view_consents', args=[consent.patient.id,]),
+        'is_upload': True,
+    }
     return render(request, "fisiocore/add.html", context)
     
     

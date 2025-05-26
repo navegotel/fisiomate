@@ -7,8 +7,10 @@
     </div>
     <div class="field-body">
         <div class="field">
-            <p class="control is-expanded">
+            <p class="control">
+                <div class="select is-fullwidth">
                 {{form.patient}}
+                </div>
             </p>
             <p class="help is-info">{% translate 'Only patients with status "in treatment" will appear in the dropdown.' %}</p>
             {% for error in form.patient.errors %}
@@ -25,7 +27,9 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded">
+                <div class="select is-fullwidth">
                 {{form.treatment_plan}}
+                </div>
             </p>
             {% for error in form.treatment_plan.errors %}
                 <p class="help is-danger">{{error}}</p>
@@ -43,7 +47,9 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded">
+                <div class="select is-fullwidth">
                 {{form.therapist}}
+                </div>
             </p>
             {% for error in form.therapist.errors %}
                 <p class="help is-danger">{{error}}</p>
@@ -59,7 +65,9 @@
     <div class="field-body">
         <div class="field">
             <p class="control is-expanded">
+                <div class="select is-fullwidth">
                 {{form.completed}}
+                </div>
             </p>
             {% for error in form.date.errors %}
                 <p class="help is-danger">{{error}}</p>
