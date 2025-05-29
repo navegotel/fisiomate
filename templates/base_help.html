@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>
+            {% translate 'Documentation' %}
+        </title>
+        <link href="{% static 'fisiocore/css/fontawesome/css/all.css' %}" rel="stylesheet">
+        <link href="{% static 'fisiocore/css/bulma/css/bulma.min.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="block has-background-dark has-text-light p-3">
+            <span class="is-size-3">FisioMate documentation</span>
+        </div>
+        <div class=columns>
+            <div class="column is-one-quarter">
+                <nav class="panel">
+                    <p class="panel-heading">{% translate 'TOC' %}</p>
+                    <a class="panel-block" href="{% url 'fisiohelp:main' %}">
+                        <span class="panel-icon">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                        {% translate 'Overview' %}
+                    </a>
+                    {% block toc %}
+                    {% for doc in docs %}
+                    <a class="panel-block" href="{% url 'fisiohelp:main' lang doc.slug %}">
+                        <span class="panel-icon">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                        {{ doc.subject }}
+                    </a>
+                    {% endfor %}
+                    {% endblock %}
+                </nav>
+            </div>
+            <div class="column">
+                <div class="content">
+                {% block content %}
+                    
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

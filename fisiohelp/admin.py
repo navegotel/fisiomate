@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import HelpDoc
 
-# Register your models here.
+class HelpDocAdmin(admin.ModelAdmin):
+    pass
+    
+
+admin.site.register(HelpDoc, HelpDocAdmin)

@@ -1,0 +1,34 @@
+{% extends "base_help.html" %}
+{% load static %}
+{% load i18n %}
+{% load markdownify %}
+
+{% block content %}
+    {% if content %}
+    {{ content | markdownify }}
+    {% else %}
+        {% if lang == 'es' %}
+            <h1>Sobre FisioMate</h1>
+            <p>
+            Este es el sitio de documentación de <b>FisioMate</b>. 
+            Se puede acceder a toda la información actualmente disponible haciendo clic sobre
+            cualquier punto en la lista de la izquierda.
+            </p>
+            <p>
+            FisioMate es una aplicación de código abierto para clínicas de fisioterapia que integra
+            la historia clínica con tareas administrativas y facturación. Su uso intenta ser lo
+            más intuitivo posible.
+            </p>
+        {% else %}
+            <h1>About FisioMate</h1>
+            <p>
+            This is the documentation site for <b>FisioMate</b>. 
+            All currently available documentation can be accessed by clicking on the items in the left panel.
+            </p>
+            <p>
+            FisioMate is an open source software for physiotherapy clinics that integrates clinical history with 
+            organizational tasks and invoicing. It tries to be as intuitive as possible.
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

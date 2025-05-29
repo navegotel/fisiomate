@@ -5,4 +5,6 @@ app_name = 'fisiohelp'
 
 urlpatterns = [
     path('', views.main, name='main'),
+    path('<str:lang>', views.main, name='main'),
+    path('<str:lang>/<slug:page>', views.main, name='main'),
 ]
