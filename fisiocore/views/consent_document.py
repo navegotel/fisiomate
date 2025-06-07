@@ -90,12 +90,12 @@ def add_consent_document(request):
 
             rendered_form = form.render('fisiocore/informed_consent/informed_consent_form.html')
             context['form'] = rendered_form
-            return render(request, 'fisiocore/informed/add.html', context)
+            return render(request, 'add.html', context)
     
     form = InformedConsentDocumentForm(initial={'user': request.user.id})
     rendered_form = form.render('fisiocore/informed_consent/informed_consent_form.html')
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
     
 
 def print_consent_document(request, patient_id, document_id):
@@ -159,7 +159,7 @@ def add_consent(request, patient_id, consent_type):
         'cancelurl': reverse('fisiocore:view_consents', args=[patient_id,]),
         'is_upload': True,
     }
-    return render(request, "fisiocore/add.html", context)
+    return render(request, "add.html", context)
     
         
     
@@ -182,7 +182,7 @@ def edit_consent(request, consent_id):
         'cancelurl': reverse('fisiocore:view_consents', args=[consent.patient.id,]),
         'is_upload': True,
     }
-    return render(request, "fisiocore/add.html", context)
+    return render(request, "add.html", context)
     
     
 

@@ -7,8 +7,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
-from ..models import Patient, Session
-from ..menu import MAIN_MENU_ITEMS
 
 FILE_FORMAT = {
     b"\xff\xd8\xff": "image/jpeg",

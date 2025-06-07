@@ -50,7 +50,7 @@ def add_examination(request, patient_id):
             rendered_form = form.render('fisiocore/examination/examination_form.html')
             context['form'] = rendered_form
             context['patient_id'] = patient_id
-            return render(request, 'fisiocore/add.html', context)
+            return render(request, 'add.html', context)
     try:
         exploration_template = ExplorationTemplate.objects.get(pk=request.GET["tmpl"])
         exploration = exploration_template.exploration
@@ -165,7 +165,7 @@ def add_exploration_template(request):
     form = ExplorationTemplateForm(initial={'user':request.user.id})
     rendered_form = form.render('fisiocore/examination_template/examination_template_form.html')
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required
@@ -202,7 +202,7 @@ def delete_exploration_template(request, tmpl_id):
         'are_you_sure_msg': _('Are you sure you want to delete the exploration template "{0}"?').format(exploration_template.title),
         'cancel_url': reverse('fisiocore:view_exploration_template', args=[tmpl_id])
     }
-    return render(request, 'fisiocore/delete.html', context)
+    return render(request, 'delete.html', context)
 
     
 

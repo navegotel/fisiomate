@@ -1,0 +1,47 @@
+{% extends "base_help.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Creating Help articles</h2>
+<p>
+    There are two ways to extend the documentation site: 
+    writing a markdown file or a django template file.
+    In bothe cases the file needs to be registered through
+    the admin interface.
+</p>
+<h3>Adding markdown files</h3>
+<p>
+    In almost all cases writing documentation in markdown 
+    is the preferred way. If you are unfamiliar with markdown
+    have a look at the 
+    <a href="https://www.markdownguide.org/basic-syntax/" targe="_blank">
+        Mardown Guid
+    </a>.
+    It is an easy and portable way to create rich text without
+    having to worry about layout issues. 
+</p>
+<p>
+    Markdown files are placed in a subdirectory of the doc directory
+    which is configured in <code>settings.py</code>. The subdirectory
+    name is the two-letter language code. Language codes are lowercase.
+    Naming of the file is important, they should be lowercase with
+    underscores (c-style) and en with an <code>.md</code> extension.
+</p>
+<h3>Adding template files</h3>
+<p>
+    Think twice before you create a django template for documentation
+    purpose. You will have all the freedom of using html and all the
+    power of the django template engine.
+    But with great power comes great responsibility. You must be familiar
+    with the django template syntax and bulma. The file should
+    extend <code>base_help.html</code> and load the <code>static</code>
+    extension. Your content should go in the <code>content</code> block.
+    The page you are reading right now is a template document. This is
+    meant as a sample, you would not write this type of documentation
+    as a template but rather simply use markdown. Naming is the same
+    as for markdown files but must end with <code>.html</code>. These files
+    are placed in the template directory.
+</p>
+
+
+{% endblock %}

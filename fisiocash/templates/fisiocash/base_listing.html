@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+
+
+{% block main %}
+<div class="columns">
+    <div class="column is-one-quarter">
+        {% block item_nav %}
+        {% endblock %}
+    </div>
+    <div class="column">
+        {% block item_list %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

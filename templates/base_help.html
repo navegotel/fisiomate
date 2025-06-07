@@ -12,6 +12,25 @@
         <link href="{% static 'fisiocore/css/bulma/css/bulma.min.css' %}" rel="stylesheet">
     </head>
     <body>
+        <nav aria-label="main navigation" class="navbar is-dark " role="navigation">
+            <div class="navbar-brand">
+                <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button" data-target="navbar">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu" id="navbar">
+                <div class="navbar-start">
+                    <a class="navbar-item {% if lang == 'es' %}is-selected{% endif %}" href="{% url 'fisiohelp:main' 'es' %}">
+                        Español
+                    </a>
+                    <a class="navbar-item {% if lang == 'en' %}is-selected{% endif %}" href="{% url 'fisiohelp:main' 'en' %}">
+                        English
+                    </a>
+                </div>
+            </div>
+        </nav>
         <div class="block has-background-dark has-text-light p-3">
             <span class="is-size-3">FisioMate documentation</span>
         </div>
@@ -21,9 +40,9 @@
                     <p class="panel-heading">{% translate 'TOC' %}</p>
                     <a class="panel-block" href="{% url 'fisiohelp:main' %}">
                         <span class="panel-icon">
-                            <i class="fas fa-book" aria-hidden="true"></i>
+                            <i class="fas fa-home" aria-hidden="true"></i>
                         </span>
-                        {% translate 'Overview' %}
+                        {% translate 'Home' %}
                     </a>
                     {% block toc %}
                     {% for doc in docs %}
@@ -45,5 +64,20 @@
                 </div>
             </div>
         </div>
+    <script>   
+    document.addEventListener('DOMContentLoaded', () => {
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if ($navbarBurgers.length > 0) {
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+    </script>
     </body>
 </html>

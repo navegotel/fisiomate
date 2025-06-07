@@ -48,11 +48,11 @@ def add_patient(request):
         else:
             rendered_form = form.render('fisiocore/patient/patient_form.html')
             context['form'] = rendered_form
-            return render(request, 'fisiocore/add.html', context)
+            return render(request, 'add.html', context)
     form = PatientForm(initial={'user':request.user.id})
     rendered_form = form.render('fisiocore/patient/patient_form.html')
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
     
 
 @login_required
@@ -78,7 +78,7 @@ def edit_patient(request, patient_id):
         'form': rendered_form,
         'buttonlabel': _('Save changes')
     }
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
     
 
 @login_required

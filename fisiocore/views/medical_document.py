@@ -69,7 +69,7 @@ def add_document(request, examination_id):
         form = ClinicalDocumentForm(initial=initial_data)   
         rendered_form = form.render('fisiocore/document/clinical_document_form.html') 
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required

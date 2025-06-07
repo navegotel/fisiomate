@@ -5,7 +5,7 @@ Each main menu item consist of 4 entries:
  - Url reverse
  - Icon
 """
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 invoicing = [
@@ -26,6 +26,6 @@ tools = [
 MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
-    (True, _("Invoicing"), invoicing, "fa-credit-card"),
+    (False, _("Invoicing"), "fisiocash:dashboard", "fa-credit-card"),
     (True, _("Tools"), tools, "fa-gear"),
 ]

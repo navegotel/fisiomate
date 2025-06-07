@@ -26,5 +26,8 @@ def main(request, lang=None, page=None):
                 content = f.read()
             context['content'] = content
             return render(request, 'fisiohelp/main.html', context)
+        elif helpdoc.source_type == 'TMPL':
+            return render(request, 'fisiohelp/{0}.html'.format(helpdoc.slug), context)
+            
     return render(request, 'fisiohelp/main.html', context)
     

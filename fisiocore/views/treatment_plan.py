@@ -55,4 +55,4 @@ def add_treatmentplan(request, patient_id):
     form = TreatmentPlanForm(initial=initial_data)
     rendered_form = form.render('fisiocore/treatment_plan/treatmentplan_form.html') 
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)

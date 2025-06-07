@@ -1,0 +1,63 @@
+{% extends "fisiocash/base_listing.html" %}
+{% load i18n %}
+{% load number_fmt %}
+
+
+{% block item_nav %}
+<nav class="panel is-primary">
+    <p class="panel-heading">Month<p>
+    {% for month in months %}
+    <a class="panel-block {% if month.month == active_month and month.year == active_year %}is-active{% endif %}" href={% url 'fisiocash:quotes_by_month' month.year month.month%}>
+        <span class="panel-icon">
+          <i class="fas fa-calendar" aria-hidden="true"></i>
+        </span>
+        {{month.month}} / {{month.year}}
+    </a>
+    {% endfor %}
+</nav>
+{% endblock %}
+
+{% block item_list %}
+    {% for quote in quotes %}
+    <div card="card">
+        <header class="card-header  has-background-primary">
+            <p class="card-header-title">{% translate 'Number' %} {{quote.id|invoice_nbr}}</p>
+        </header>
+        <div class="card-content">
+            <ul>
+                <li>
+                    <b>{% translate 'Name'%}:</b> <a href="{% url 'fisiocore:view_patient' quote.patient.id %}">{{quote.patient.first_name}} {{quote.patient.last_name}}</a>
+                </li>
+                <li>
+                    <b>{% translate 'Street'%}:</b> {{quote.patient.street}}
+                </li>
+                <li>
+                    <b>{% translate 'City'%}:</b> {{quote.patient.post_code}} {{quote.patient.city}}
+                </li>
+            </ul>
+            <table class="table mt-2 is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>{% translate 'Nbr' %}</th>
+                        <th>{% translate 'Descrition' %}</th>
+                        <th>{% translate 'Net price' %}</th>
+                        <th>{% translate 'VAT' %}</th>
+                        <th>{% translate 'Price' %}</th>
+                    </tr>
+                <thead>
+                    <tbody>
+                        {%for item in quote.items.all %}
+                        <tr>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.netprice}}</td>
+                            <td>{{item.vat}}</td>
+                            <td>{{item.price}}</td>
+                        </tr>
+                        {% endfor %}
+                    <tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

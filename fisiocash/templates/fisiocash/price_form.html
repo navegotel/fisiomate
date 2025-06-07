@@ -1,0 +1,92 @@
+<input type="hidden" name="user" value="{{form.user.value}}" >
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.description.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                    {{form.description}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-comment"></i>
+                </span>
+            </p>
+            {% for error in form.description.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.conditions.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.conditions}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-comment"></i>
+                </span>
+            </p>
+            {% for error in form.conditions.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.duration.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.duration}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-clock"></i>
+                </span>
+            </p>
+            {% for error in form.duration.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.netprice.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.netprice}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-tag"></i>
+                </span>
+            </p>
+            {% for error in form.netprice.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div><div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.vat.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.vat}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-percent"></i>
+                </span>
+            </p>
+            {% for error in form.vat.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

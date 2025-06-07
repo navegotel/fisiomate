@@ -74,6 +74,7 @@ class SessionForm(ModelForm):
             'completed',
             'remarks',
         ]
+        
         widgets = {
             'date': DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'input'}),
             'start': TimeInput(attrs={'type': 'time', 'class': 'input'}),

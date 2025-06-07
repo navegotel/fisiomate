@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block submenu %}
+<div class="level">
+    <div class="level-left">
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocash:edit_price' listprice.id %}">
+                <span class="icon">
+                    <i class="fas fa-user-edit"></i>
+                </span>
+                <span>
+                    {% translate "Edit price" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<table class="table">
+    <tbody>
+        <tr>
+            <td>{% translate 'User'%}</td>
+            <td>{{listprice.user}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Creation date'%}</td>
+            <td>{{listprice.creation_date}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Last update'%}</td>
+            <td>{{listprice.last_update}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Description'%}</td>
+            <td>{{listprice.description}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Conditions'%}</td>
+            <td>{{listprice.conditions}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Duration'%}</td>
+            <td>{{listprice.duration}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Net price'%}</td>
+            <td>{{listprice.netprice}}{{currency}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'VAT'%}</td>
+            <td>{{listprice.vat}}</td>
+        </tr>
+        <tr>
+            <td>{% translate 'Price'%}</td>
+            <td>{{listprice.price}}{{currency}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

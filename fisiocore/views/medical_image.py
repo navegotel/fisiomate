@@ -35,7 +35,7 @@ def add_images(request, examination_id):
         form = MedicalImageForm(initial=initial_data)   
         rendered_form = form.render('fisiocore/medical_image/medical_image_form.html') 
     context['form'] = rendered_form
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required
@@ -58,7 +58,7 @@ def edit_medical_image(request, image_id):
         'form': rendered_form,
         'buttonlabel': _('Save image'),
     }
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required
@@ -75,7 +75,7 @@ def delete_medical_image(request, image_id):
         'are_you_sure_msg': "Are you sure you want to delete this image from patient {0} {1}".format(image.patient.first_name, image.patient.last_name),
         'cancel_url': reverse('fisiocore:view_medical_image', args=[image_id])
     }
-    return render(request, 'fisiocore/delete.html', context)
+    return render(request, 'delete.html', context)
 
 @login_required
 def view_medical_image(request, image_id):

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+<div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <a class="button is-info" href="{% url 'fisiocash:add_price' %}">
+                <span class="icon">
+                    <i class="fas fa-plus-square"></i>
+                </span>
+                <span>
+                    {% translate "Add price" %}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>{% translate 'Description' %}</th>
+            <th>{% translate 'Conditions' %}</th>
+            <th>{% translate 'Net price' %}</th>
+            <th>{% translate 'VAT' %}</th>
+            <th>{% translate 'Price' %}</th>
+            <th>{% translate 'Last Update' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for price in prices %}
+        <tr>
+            <td>
+                
+                <a href="{% url 'fisiocash:view_price' price.id %}">{{price.description}}</a>
+            </td>
+            <td>
+                {{price.conditions}}
+            </td>
+            <td>
+                {{price.netprice}}{{currency}}
+            </td>
+            <td>
+                {{price.vat}}%
+            </td>
+            <td>
+                {{price.price}}{{currency}}
+            </td>
+            <td>
+                {{price.last_update}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -65,7 +65,7 @@ def add_session(request):
             rendered_form = form.render('fisiocore/appointment/appointment_form.html') 
             context['form'] = rendered_form
             context['date'] = form.cleaned_data['date']
-    return render(request, 'fisiocore/add.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required
