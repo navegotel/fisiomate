@@ -5,7 +5,8 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from .menu import MAIN_MENU_ITEMS
 from .models import ListPrice, Quote
-from .forms import ListPriceForm
+from .forms import ListPriceForm, QuoteForm
+from fisiocore.models import Patient
 
 
 def invoices(request):
@@ -34,6 +35,27 @@ def session_create_or_show_quote(request, session_id):
     return render(request, 'fisiocash/quotes_by_month.html', context)
 
 
+def add_quote(request, patient_id=None):
+    if request.method == "POST":
+        print(request.POST)
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            quote = form.save()
+            return redirect(reverse('fisiocash:edit_quote', args=[quote.id]))
+    form = QuoteForm(initial={'user':request.user.id})
+    #TODO
+    # print(formset.render('fisiocash/quote_item_form.html'))
+    context = {
+        'title': _("Quote"),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'form': form
+    }
+    return render(request, 'add.html', context)
+    
+
+def edit_quote(request, quote_id):
+    pass
+
 def quotes_by_month(request, year, month):
     months = Quote.objects.dates('date', 'month')
     quotes = Quote.objects.filter(date__year=year).filter(date__month=month)
@@ -44,12 +66,27 @@ def quotes_by_month(request, year, month):
         'quotes': quotes,
         'active_month': month,
         'active_year': year,
+        'currency': getattr(settings, "CURRENCY")
     }
     return render(request, 'fisiocash/quotes_by_month.html', context)
-    
+   
+def quotes_by_patient_without_patient_id(request):
+    patient = Patient.objects.first()
+    return redirect(reverse('fisiocash:quotes_by_patient', args=[patient.id]))
     
 def quotes_by_patient(request, patient_id):
-    pass
+    patients = Patient.objects.filter(quote__isnull=False).distinct()
+    patient = Patient.objects.get(pk=patient_id)
+    quotes = patient.quote_set.all()
+    context = {
+        'title': _("Quotes for {0} / {1}".format(patient.first_name, patient.last_name)),
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'currency': getattr(settings, "CURRENCY"),
+        'patient': patient,
+        'patients': patients,
+        'quotes': quotes,
+    }
+    return render(request, 'fisiocash/quotes_by_patient.html', context)
     
 
 def invoices_by_month(request, year=None, month=None):
@@ -83,34 +120,30 @@ def add_price(request):
             patient = form.save()
             return redirect(reverse('fisiocash:pricelist'))
         else:
-            rendered_form = form.render('fisiocash/price_form.html')
-            context['form'] = rendered_form
+            context['form'] = form
             return render(request, 'add.html', context)
-    form = ListPriceForm(initial={'user':request.user.id})
-    rendered_form = form.render('fisiocash/price_form.html')
-    context['form'] = rendered_form
+    context['form'] = ListPriceForm(initial={'user':request.user.id})
     return render(request, 'add.html', context)
     
 
 def edit_price(request, price_id):
     price = ListPrice.objects.get(pk=price_id)
+    context = {
+        'main_menu_items': MAIN_MENU_ITEMS,
+        'title': _('Edit price'),
+        'currency': getattr(settings, "CURRENCY"),
+        'buttonlabel': _('Save price'),
+    }
     if request.method == "POST":
         form = ListPriceForm(request.POST, instance=price)
         if form.is_valid():
             form.save()
             return redirect(reverse('fisiocash:view_price', args=[price_id]))
-    try:
-        rendered_form = form.render('fisiocash/price_form.html')
-    except NameError:
-        form = ListPriceForm(instance=price)
-        rendered_form = form.render('fisiocash/price_form.html')
-    context = {
-        'main_menu_items': MAIN_MENU_ITEMS,
-        'title': _('Edit price'),
-        'form': rendered_form,
-        'currency': getattr(settings, "CURRENCY"),
-        'buttonlabel': _('Save price'),
-    }
+        else:
+            context['form'] = form
+            return render(request, 'add.html', context)
+
+    context['form'] = ListPriceForm(instance=price)
     return render(request, 'add.html', context)
 
     

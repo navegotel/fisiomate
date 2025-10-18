@@ -1,0 +1,56 @@
+<input type="hidden" name="user" value="{{form.user.value}}" >
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label" for="id_image_type">{{form.patient.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <div class="select is-fullwidth">
+                    {{form.patient}}
+                </div>
+            </p>
+            {% for error in form.patient.errors %}
+            <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">{{form.date.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded has-icons-left">
+                {{form.date}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+            {% for error in form.date.errors %}
+                <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label" for="id_image_type">{{form.status.label}}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control is-expanded">
+                <div class="select is-fullwidth">
+                    {{form.status}}
+                </div>
+            </p>
+            {% for error in form.status.errors %}
+            <p class="help is-danger">{{error}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

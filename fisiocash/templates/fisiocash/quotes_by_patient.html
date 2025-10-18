@@ -27,15 +27,15 @@
 <nav class="panel is-primary">
     <p class="panel-heading">{% translate 'Month' %}<p>
     <p class="panel-tabs">
-        <a class="is-active">{% translate 'Month' %}</a>
-        <a href="{% url 'fisiocash:quotes_by_patient' %}">{% translate 'Patient' %}</a>
+        <a href="{% url 'fisiocash:quotes' %}">{% translate 'Month' %}</a>
+        <a class = "is-active">{% translate 'Patient' %}</a>
     </p>
-    {% for month in months %}
-    <a class="panel-block {% if month.month == active_month and month.year == active_year %}is-active{% endif %}" href={% url 'fisiocash:quotes_by_month' month.year month.month%}>
+    {% for patient in patients %}
+    <a class="panel-block" href={% url 'fisiocash:quotes_by_patient' patient.id %}>
         <span class="panel-icon">
           <i class="fas fa-calendar" aria-hidden="true"></i>
         </span>
-        {{month.month}} / {{month.year}}
+        {{patient.first_name}} {{patient.last_name}}
     </a>
     {% endfor %}
 </nav>

@@ -28,23 +28,52 @@ class ListPrice(models.Model):
 
 
 class Quote(models.Model):
+    
+    class Meta:
+        ordering = ['-date',]
+    
+    STATUS_TYPE_CHOICES = [
+        ('NEW', _('New')),
+        ('SENT', _('Sent')),
+        ('ACCEPTED', _('Accepted')),
+        ('REFUSED', _('Refused')),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateField(_("Creation date"), auto_now_add=True)
+    last_update = models.DateField(_("Last update"), auto_now=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     date = models.DateField()
+    status = models.CharField(_("Status"), max_length=10, choices=STATUS_TYPE_CHOICES, default='NEW')
+    
+    @property
+    def total(self):
+        return self.items.aggregate(models.Sum("price"))['price__sum']
     
     def __str__(self):
         return _("Quote nbr {0} for patient {1}").format(self.id, self.patient)
+        
+    def save(self, *args, **kwargs):
+        if self.date is None:
+            self.date = datetime.date.today()
+        super().save(*args, **kwargs)
     
     
 class QuoteItem(models.Model):
     quote = models.ForeignKey('Quote', on_delete=models.CASCADE, related_name='items')
     quantity = models.SmallIntegerField(_("Quantity"))
     description = models.CharField(_("Description"), max_length=200)
-    netprice = models.DecimalField(_("Price"), max_digits=6, decimal_places=2)
+    net_unit_price = models.DecimalField(_("Net unit price"), max_digits=6, decimal_places=2)
+    net_price = models.GeneratedField(
+        db_persist = False,
+        output_field = models.DecimalField(max_digits=6, decimal_places=2),
+        expression = models.F("net_unit_price") * models.F("quantity")
+    )
     vat = models.PositiveSmallIntegerField(_("Value Added Tax"))
     price = models.GeneratedField(
         db_persist = False,
         output_field = models.DecimalField(max_digits=6, decimal_places=2),
-        expression = models.F("netprice") + (models.F("netprice") * (models.F('vat') / 100.0))
+        expression = models.F("net_price") + (models.F("net_price") * (models.F('vat') / 100.0))
     )
     
     
