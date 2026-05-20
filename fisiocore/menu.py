@@ -26,6 +26,5 @@ tools = [
 MAIN_MENU_ITEMS = [
     (False, _("Patients"), "fisiocore:patients", "fa-home"),
     (False, _("Calendar"), "fisiocore:calendar", "fa-calendar"),
-    (False, _("Invoicing"), "fisiocash:dashboard", "fa-credit-card"),
     (True, _("Tools"), tools, "fa-gear"),
 ]
