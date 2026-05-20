@@ -18,7 +18,7 @@ class ListPrice(models.Model):
     netprice = models.DecimalField(_("Net Price"), max_digits=6, decimal_places=2)
     vat = models.DecimalField(_("Value Added Tax"), max_digits=2, decimal_places=0)
     price = models.GeneratedField(
-        db_persist = False,
+        db_persist = True,
         output_field = models.DecimalField(max_digits=6, decimal_places=2),
         expression = models.F("netprice") + (models.F("netprice") * (models.F('vat') / 100.0))
     )
@@ -65,13 +65,13 @@ class QuoteItem(models.Model):
     description = models.CharField(_("Description"), max_length=200)
     net_unit_price = models.DecimalField(_("Net unit price"), max_digits=6, decimal_places=2)
     net_price = models.GeneratedField(
-        db_persist = False,
+        db_persist = True,
         output_field = models.DecimalField(max_digits=6, decimal_places=2),
         expression = models.F("net_unit_price") * models.F("quantity")
     )
     vat = models.PositiveSmallIntegerField(_("Value Added Tax"))
     price = models.GeneratedField(
-        db_persist = False,
+        db_persist = True,
         output_field = models.DecimalField(max_digits=6, decimal_places=2),
         expression = models.F("net_price") + (models.F("net_price") * (models.F('vat') / 100.0))
     )
@@ -105,7 +105,7 @@ class InvoiceItem(models.Model):
     netprice = models.DecimalField(_("Price"), max_digits=6, decimal_places=2)
     vat = models.PositiveSmallIntegerField(_("Value Added Tax"))
     price = models.GeneratedField(
-        db_persist = False,
+        db_persist = True,
         output_field = models.DecimalField(max_digits=6, decimal_places=2),
         expression = models.F("netprice") + (models.F("netprice") * (models.F('vat') / 100.0))
     )
